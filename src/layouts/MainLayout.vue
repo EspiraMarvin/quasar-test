@@ -1,107 +1,117 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="leftDrawerOpen = !leftDrawerOpen"
-        />
-
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
-      </q-toolbar>
-    </q-header>
+  <q-layout view="lHh lpR fFf">
 
     <q-drawer
-      v-model="leftDrawerOpen"
+      :width="283"
       show-if-above
+      v-model="left"
+      side="left"
       bordered
-      content-class="bg-grey-1"
     >
+      <span
+        class="text-h5 q-ma-xl"
+      >
+        SaaS Kit
+      </span>
+
+      <q-separator />
+
       <q-list>
-        <q-item-label
-          header
-          class="text-grey-8"
+        <q-item
+          to="/"
+          clickable
+          v-ripple
         >
-          Essential Links
-        </q-item-label>
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
+          <q-item-section avatar>
+            <q-icon name="dashboard" size="sm" />
+          </q-item-section>
+
+          <q-item-section class="text-h6 text-weight-bold">Dashboard</q-item-section>
+        </q-item>
+
+        <q-item
+          to="/about"
+          clickable
+          v-ripple
+        >
+          <q-item-section avatar>
+            <q-icon name="splitscreen" size="sm" />
+          </q-item-section>
+
+          <q-item-section>Tasks</q-item-section>
+        </q-item>
+
+        <q-item
+          to="/about"
+          clickable
+          v-ripple
+        >
+          <q-item-section avatar>
+            <q-icon name="mail_outline" size="sm" />
+          </q-item-section>
+
+          <q-item-section>Email</q-item-section>
+        </q-item>
+
+        <q-item
+          to="/about"
+          clickable
+          v-ripple
+        >
+          <q-item-section avatar>
+            <q-icon name="perm_identity" size="sm" />
+          </q-item-section>
+
+          <q-item-section>Contacts</q-item-section>
+        </q-item>
+
+        <q-item
+          to="/about"
+          clickable
+          v-ripple
+        >
+          <q-item-section avatar>
+            <q-icon name="chat_bubble_outline" size="sm" />
+          </q-item-section>
+
+          <q-item-section>Chat</q-item-section>
+        </q-item>
+
+        <q-item
+          to="/about"
+          clickable
+          v-ripple
+        >
+          <q-item-section avatar>
+            <q-icon name="view_week" size="sm" />
+          </q-item-section>
+
+          <q-item-section>Deals</q-item-section>
+        </q-item>
       </q-list>
     </q-drawer>
 
     <q-page-container>
       <router-view />
     </q-page-container>
+
   </q-layout>
 </template>
 
 <script>
-import EssentialLink from 'components/EssentialLink.vue'
-
-const linksData = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-]
-
 export default {
-  name: 'MainLayout',
-  components: { EssentialLink },
   data () {
     return {
-      leftDrawerOpen: false,
-      essentialLinks: linksData
+      left: false
     }
   }
 }
 </script>
+
+<style lang="sass">
+  .header-icon
+    position: absolute
+    bottom: 0
+    left: 50%
+    transform: translateX(-50%)
+</style>
