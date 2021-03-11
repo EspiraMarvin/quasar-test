@@ -60,12 +60,12 @@
                     <q-item style="margin-top: -10px">
                       <q-item-section avatar>
                         <q-avatar
-                          size="24px"
+                          size="26px"
                         >
                           <img src="https://cdn.quasar.dev/img/boy-avatar.png">
                         </q-avatar>
                       </q-item-section>
-                      <span class="text-caption card-text-caption">George Fields</span>
+                      <span class="text-weight-regular text-grey-14 card-text-caption">George Fields</span>
                     </q-item>
 
                   </div>
@@ -89,12 +89,12 @@
                     <q-item style="margin-top: -10px">
                       <q-item-section avatar>
                         <q-avatar
-                          size="24px"
+                          size="26px"
                         >
                           <img src="https://cdn.quasar.dev/img/boy-avatar.png">
                         </q-avatar>
                       </q-item-section>
-                      <span class="text-caption card-text-caption">Rebbeca Moore</span>
+                      <span class="text-weight-regular text-grey-14 card-text-caption">Rebbeca Moore</span>
                     </q-item>
 
                   </div>
@@ -120,12 +120,12 @@
                     <q-item style="margin-top: -10px">
                       <q-item-section avatar>
                         <q-avatar
-                          size="24px"
+                          size="26px"
                         >
                           <img src="https://cdn.quasar.dev/img/boy-avatar.png">
                         </q-avatar>
                       </q-item-section>
-                      <span class="text-caption card-text-caption">Lindsey Stroud</span>
+                      <span class="text-weight-regular text-grey-14 card-text-caption">Lindsey Stroud</span>
                     </q-item>
 
                   </div>
