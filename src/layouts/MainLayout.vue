@@ -1,10 +1,10 @@
 <template>
   <q-layout view="lHh lpR fFf">
 
-    <q-header bordered class="bg-white text-black">
+    <q-header bordered class="bg-white">
       <q-toolbar>
 
-        <q-btn dense flat round icon="menu" @click="drawer = !drawer" />
+        <q-btn dense flat round icon="menu" color="black" @click="drawer = !drawer" />
 
         <q-toolbar-title>
           <div class="row">
@@ -18,9 +18,10 @@
                   <q-icon name="search" />
                 </template>
               </q-input>
+
             <q-space />
 
-            <q-icon name="notifications" class="q-ma-sm" size="md" />
+            <q-icon name="eva-bell-outline" class="q-pa-sm " size="md" color="black" />
           </div>
 
         </q-toolbar-title>
@@ -41,11 +42,7 @@
       side="left"
       bordered
     >
-      <p
-        class="text-h5 text-primary text-center q-mt-sm"
-      >
-        SaaS Kit
-      </p>
+      <p class="text-h6 text-center text-primary q-mt-sm sidebar-heading">SaaS Kit</p>
 
       <q-separator />
 
@@ -59,7 +56,7 @@
             <q-icon name="dashboard" size="sm" />
           </q-item-section>
 
-          <q-item-section class="text-h6 text-weight-bold">Dashboard</q-item-section>
+          <q-item-section class="text-subtitle1">Dashboard</q-item-section>
         </q-item>
 
         <q-item
@@ -71,7 +68,7 @@
             <q-icon name="splitscreen" size="sm" />
           </q-item-section>
 
-          <q-item-section>Tasks</q-item-section>
+          <q-item-section class="text-subtitle1">Tasks</q-item-section>
         </q-item>
 
         <q-item
@@ -83,7 +80,7 @@
             <q-icon name="mail_outline" size="sm" />
           </q-item-section>
 
-          <q-item-section>Email</q-item-section>
+          <q-item-section class="text-subtitle1">Email</q-item-section>
         </q-item>
 
         <q-item
@@ -95,7 +92,7 @@
             <q-icon name="perm_identity" size="sm" />
           </q-item-section>
 
-          <q-item-section>Contacts</q-item-section>
+          <q-item-section class="text-subtitle1">Contacts</q-item-section>
         </q-item>
 
         <q-item
@@ -107,7 +104,7 @@
             <q-icon name="chat_bubble_outline" size="sm" />
           </q-item-section>
 
-          <q-item-section>Chat</q-item-section>
+          <q-item-section class="text-subtitle1">Chat</q-item-section>
         </q-item>
 
         <q-item
@@ -119,7 +116,7 @@
             <q-icon name="view_week" size="sm" />
           </q-item-section>
 
-          <q-item-section>Deals</q-item-section>
+          <q-item-section class="text-subtitle1">Deals</q-item-section>
         </q-item>
 
         <q-separator />
@@ -134,7 +131,7 @@
             <q-icon name="more_horiz" size="sm" />
           </q-item-section>
 
-          <q-item-section>Settings</q-item-section>
+          <q-item-section class="text-subtitle1">Settings</q-item-section>
         </q-item>
 
       </q-list>
@@ -150,10 +147,10 @@
             v-ripple
           >
             <q-item-section avatar>
-              <q-icon name="view_sidebar" size="sm" />
+              <q-icon name="eva-npm" size="sm" />
             </q-item-section>
 
-            <q-item-section>Toggle sidebar</q-item-section>
+            <q-item-section class="text-subtitle1">Toggle sidebar</q-item-section>
           </q-item>
         </q-list>
 
@@ -167,10 +164,10 @@
             v-ripple
           >
             <q-item-section avatar>
-              <q-icon name="view_sidebar" size="sm" />
+              <q-icon name="eva-npm" size="sm" />
             </q-item-section>
 
-            <q-item-section>Toggle sidebar</q-item-section>
+            <q-item-section class="text-subtitle1">Toggle sidebar</q-item-section>
           </q-item>
         </q-list>
 
@@ -196,6 +193,10 @@ export default {
 }
 </script>
 
-<style lang="sass">
-
+<style scoped>
+  .sidebar-heading{
+    max-height: 26px;
+    font-size: 18px;
+    overflow: hidden
+  }
 </style>
