@@ -1,10 +1,10 @@
 <template>
-  <q-page class="q-pa-md">
+  <q-page class="q-pa-md dashboard">
     <div class="row col-xs-12">
-      <div class="col-md-6 col-sm-8 col-xs-12q-pa-md">
+      <div class="col-md-6 col-sm-7 col-xs-12 q-pa-sm q-ma-md">
         Dashboard 1
         <q-card class="my-card">
-          <q-card-section class="col-12">
+          <q-card-section class="col-12 q-pa-md">
               <div class="row">
                 <div class="col-sm-8 col-xs-12">8 tasks completed out of 10</div>
                 <div class="col-sm-4 col-xs-12">
@@ -49,26 +49,168 @@
           <q-separator />
 
           <q-card-section>
-            <q-card-section class="q-pt-xs">
-              dssd
+            <q-card-section class="q-pa-sm">
+              <q-card class="my-card">
+                <q-card-section class="text-black">
+                  <div class="text-subtitle1 text-weight-medium">Send benefit review by Sunday</div>
+                  <div class="text-subtitle2 text-weight-light text-grey">Due date: <span class="text-weight-light text-black">December 23, 2018</span></div>
+                </q-card-section>
+                <q-card-section class="q-mb-sm">
+                  <div class="float-left">
+                    <q-item style="margin-top: -10px">
+                      <q-item-section avatar>
+                        <q-avatar
+                          size="24px"
+                        >
+                          <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+                        </q-avatar>
+                      </q-item-section>
+                      <span class="text-caption card-text-caption">George Fields</span>
+                    </q-item>
+
+                  </div>
+                  <div class="float-right">
+                    <q-btn size="md" class="bg-secondary text-white text-capitalize" flat>Completed</q-btn>
+                  </div>
+                </q-card-section>
+
+                <q-card-actions align=""></q-card-actions>
+              </q-card>
+
+<!--              Second  card --->
+
+              <q-card class="my-card q-mt-lg">
+                <q-card-section class="text-black">
+                  <div class="text-subtitle1 text-weight-medium">Invite to office meet-up</div>
+                  <div class="text-subtitle2 text-weight-light text-grey">Due date: <span class="text-weight-light text-black">December 23, 2018</span></div>
+                </q-card-section>
+                <q-card-section class="q-mb-sm">
+                  <div class="float-left">
+                    <q-item style="margin-top: -10px">
+                      <q-item-section avatar>
+                        <q-avatar
+                          size="24px"
+                        >
+                          <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+                        </q-avatar>
+                      </q-item-section>
+                      <span class="text-caption card-text-caption">Rebbeca Moore</span>
+                    </q-item>
+
+                  </div>
+                  <div class="float-right">
+                    <q-icon name="edit" class="q-mr-md" color="accent" size="sm" />
+                    <q-icon name="delete" class="q-mr-md" color="accent" size="sm" />
+                    <q-btn size="md" class="bg-negative text-white text-capitalize" flat>Ended</q-btn>
+                  </div>
+                </q-card-section>
+
+                <q-card-actions align=""></q-card-actions>
+              </q-card>
+
+<!--              third card-->
+
+              <q-card class="my-card q-mt-lg">
+                <q-card-section class="text-black">
+                  <div class="text-subtitle1 text-weight-medium">Invite to office meet-up</div>
+                  <div class="text-subtitle2 text-weight-light text-grey">Due date: <span class="text-weight-light text-black">December 23, 2018</span></div>
+                </q-card-section>
+                <q-card-section class="q-mb-sm">
+                  <div class="float-left">
+                    <q-item style="margin-top: -10px">
+                      <q-item-section avatar>
+                        <q-avatar
+                          size="24px"
+                        >
+                          <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+                        </q-avatar>
+                      </q-item-section>
+                      <span class="text-caption card-text-caption">Lindsey Stroud</span>
+                    </q-item>
+
+                  </div>
+                  <div class="float-right">
+                    <q-btn size="md" class="bg-secondary text-white text-capitalize" flat>Completed</q-btn>
+                  </div>
+                </q-card-section>
+
+                <q-card-actions align=""></q-card-actions>
+              </q-card>
+
+
             </q-card-section>
           </q-card-section>
 
           <q-card-actions>
-            <q-btn flat round icon="event" />
-            <q-btn flat>
-              7:30PM
-            </q-btn>
-            <q-btn flat color="primary">
-              Reserve
-            </q-btn>
           </q-card-actions>
         </q-card>
       </div>
 
-      <div class="col-sm-4 col-xs-12 q-pa-md">
+<!--      right panel with deals and tasks-->
+
+      <div class="col-sm-4 col-xs-12 q-pa-sm q-ma-md">
         Dashboard 2
+<!--        deals-->
+        <q-card class="my-card q-mb-xl">
+          <q-card-section class="col-12 q-pa-md">
+            <div class="row">
+              <div class="col-sm-8 col-xs-12">Deals</div>
+              <div class="col-sm-4 col-xs-12">
+                Show: <span style="color: #109CF1">Monthly</span>
+                <q-expansion-item dense dense-toggle label="" style="margin-top: -28px">
+                  <q-item dense exact clickable><span class="text-caption">This Month</span></q-item>
+                  <q-item dense exact clickable><span class="text-caption">This Year</span></q-item>
+                </q-expansion-item>
+              </div>
+            </div>
+          </q-card-section>
+          <q-separator />
+
+
+          <q-list>
+            <q-item clickable>
+              <q-item-section avatar>
+                <q-icon color="primary" name="local_bar" />
+              </q-item-section>
+
+              <q-item-section>
+                <q-item-label>Bar XYZ</q-item-label>
+                <q-item-label caption>Have a drink.</q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-item clickable>
+              <q-item-section avatar>
+                <q-icon color="red" name="local_gas_station" />
+              </q-item-section>
+
+              <q-item-section>
+                <q-item-label>Gas Station</q-item-label>
+                <q-item-label caption>Fill your gas tank.</q-item-label>
+              </q-item-section>
+            </q-item>
+
+          </q-list>
+        </q-card>
+
+
+<!--       Tasks pie chart -->
+
         <q-card class="my-card">
+          <q-card-section class="col-12 q-pa-md">
+            <div class="row">
+              <div class="col-sm-8 col-xs-12">Tasks</div>
+              <div class="col-sm-4 col-xs-12">
+                Show: <span style="color: #109CF1">Monthly</span>
+                <q-expansion-item dense dense-toggle label="" style="margin-top: -28px">
+                  <q-item dense exact clickable><span class="text-caption">This Month</span></q-item>
+                  <q-item dense exact clickable><span class="text-caption">This Year</span></q-item>
+                </q-expansion-item>
+              </div>
+            </div>
+          </q-card-section>
+          <q-separator />
+
 
           <q-list>
             <q-item clickable>
@@ -113,6 +255,9 @@ export default {
 </script>
 
 <style scoped>
+  .dashboard{
+    background-color: #f5f6f8;
+  }
   .flex-container-week-days {
     padding: 0;
     margin: 0;
@@ -133,6 +278,10 @@ export default {
   }
   .space-between {
     justify-content: space-between;
+  }
+  .card-text-caption{
+    margin-left: -20px;
+    margin-top: 5px
   }
 
 </style>

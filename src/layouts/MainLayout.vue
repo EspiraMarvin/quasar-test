@@ -113,7 +113,7 @@
           v-ripple
         >
           <q-item-section avatar>
-            <q-icon name="view_week" size="sm" />
+            <q-icon name="view_week" color="accent" size="sm" />
           </q-item-section>
 
           <q-item-section class="text-subtitle1">Deals</q-item-section>
@@ -128,7 +128,7 @@
           class="q-mt-md"
         >
           <q-item-section avatar>
-            <q-icon name="more_horiz" size="sm" />
+            <q-icon name="more_horiz" color="accent" size="sm" />
           </q-item-section>
 
           <q-item-section class="text-subtitle1">Settings</q-item-section>
@@ -139,7 +139,7 @@
       <div>
         <q-list
           class="large-screen-only"
-          style="height:10px; margin-bottom: 0; margin-top: 200px; position: relative; min-height: 200px"
+          style="height:10px; margin-bottom: 0; margin-top: 180px; position: relative; min-height: 200px"
         >
           <q-item
             @click="drawer = !drawer"
@@ -147,7 +147,7 @@
             v-ripple
           >
             <q-item-section avatar>
-              <q-icon name="eva-npm" size="sm" />
+              <q-icon name="eva-npm" color="accent" size="sm" />
             </q-item-section>
 
             <q-item-section class="text-subtitle1">Toggle sidebar</q-item-section>
@@ -164,7 +164,7 @@
             v-ripple
           >
             <q-item-section avatar>
-              <q-icon name="eva-npm" size="sm" />
+              <q-icon name="eva-npm" color="accent" size="sm" />
             </q-item-section>
 
             <q-item-section class="text-subtitle1">Toggle sidebar</q-item-section>
