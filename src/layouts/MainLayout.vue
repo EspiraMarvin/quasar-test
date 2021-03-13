@@ -51,6 +51,7 @@
           to="/"
           clickable
           v-ripple
+          exact
         >
           <q-item-section avatar>
             <q-icon name="dashboard" size="sm" />
@@ -72,7 +73,7 @@
         </q-item>
 
         <q-item
-          to="/emails"
+          to="/email"
           clickable
           v-ripple
         >
@@ -113,7 +114,7 @@
           v-ripple
         >
           <q-item-section avatar>
-            <q-icon name="view_week" color="accent" size="sm" />
+            <q-icon name="view_week" style="color: grey" size="sm" />
           </q-item-section>
 
           <q-item-section class="text-subtitle1">Deals</q-item-section>
