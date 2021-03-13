@@ -4,26 +4,10 @@
     <q-header bordered class="bg-white">
       <q-toolbar>
 
-        <q-btn dense flat round icon="menu" color="black" @click="drawer = !drawer" />
+        <q-btn class="small-screen-only" dense flat round icon="menu" color="black" @click="drawer = !drawer" />
 
         <q-toolbar-title>
-          <div class="row">
-              <q-input
-                placeholder="Global Search"
-                class="q-ma-xs q-ml-xs-xs bg-white col-xs-9 col-sm-10 col-md-11"
-                filled
-                dense
-              >
-                <template v-slot:prepend>
-                  <q-icon name="search" />
-                </template>
-              </q-input>
-
-            <q-space />
-
-            <q-icon name="eva-bell-outline" class="q-pa-sm " size="md" color="black" />
-          </div>
-
+         <Search :search="search" />
         </q-toolbar-title>
 
       </q-toolbar>
@@ -184,11 +168,14 @@
 </template>
 
 <script>
+import Search from '../components/Search'
 export default {
+  components: { Search },
   data () {
     return {
       drawer: false,
-      miniState: true
+      miniState: true,
+      search: 'Global Search'
     }
   }
 }
