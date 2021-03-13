@@ -8,15 +8,31 @@
           :columns="columns"
           row-key="name"
           selection="multiple"
+          binary-state-sort
           :selected.sync="selected"
           :hide-bottom="hideBottom"
           :hide-selected-banner="hideSelectedBanner"
           :hide-pagination="hidePagination"
         >
+
           <template v-slot:header="props">
-            <q-th :props="props">
+            <q-tr :props="props">
               <q-th>
-                <q-checkbox size="xs" v-model="props.selected"/>
+<!--                <input type="checkbox" id="c1" name="cc" />-->
+<!--                <label for="c1"><span>4</span></label>-->
+<!--                <q-checkbox class="float-left" size="xs" v-model="props.selected"/>-->
+                <template v-if="selected.length">
+<!--                  <q-checkbox class="float-left" size="xs" v-model="props.selected">-->
+<!--                    <label style="margin-left: -20px; background-color: #1D1D1D; color: black"><span class="">{{selected.length}}</span></label>-->
+<!--                    <span>{{selected.length}}</span>-->
+<!--                  </q-checkbox>-->
+                  <q-badge class="float-left q-ml-xs" size="xs" v-model="props.selected" :label="selected.length"  />
+                </template>
+                <template v-else>
+<!--                  <q-badge rounded class="float-left q-ml-xs" size="xs" v-model="props.selected"  />-->
+                  <q-checkbox class="float-left" size="xs" color="grey-8" :value="props.selected"/>
+<!--                  <q-badge class="float-left q-ml-xs" text-color="black" label="" />-->
+                </template>
               </q-th>
               <q-th
                 v-for="col in props.cols"
@@ -25,7 +41,7 @@
               >
                 {{ col.label }}
               </q-th>
-            </q-th>
+            </q-tr>
           </template>
 
           <template v-slot:body="props">
@@ -35,32 +51,16 @@
               </q-td>
               <q-td key="name" :props="props">
                 {{ props.row.name }}
-                <q-popup-edit v-model="props.row.name">
-                  <q-input v-model="props.row.name" dense autofocus counter ></q-input>
-                </q-popup-edit>
               </q-td>
               <q-td key="calories" :props="props">
                 {{ props.row.calories }}
-                <q-popup-edit v-model="props.row.calories" title="Update calories" buttons>
-                  <q-input type="number" v-model="props.row.calories" dense autofocus ></q-input>
-                </q-popup-edit>
               </q-td>
               <q-td key="fat" :props="props">
                 <div class="text-pre-wrap">{{ props.row.fat }}</div>
-                <q-popup-edit v-model="props.row.fat">
-                  <q-input type="textarea" v-model="props.row.fat" dense autofocus ></q-input>
-                </q-popup-edit>
               </q-td>
               <q-td key="carbs" :props="props">
                 {{ props.row.carbs }}
-                <q-popup-edit v-model="props.row.carbs" title="Update carbs" buttons persistent>
-                  <q-input type="number" v-model="props.row.carbs" dense autofocus hint="Use buttons to close" ></q-input>
-                </q-popup-edit>
               </q-td>
-              <q-td key="protein" :props="props">{{ props.row.protein }}</q-td>
-              <q-td key="sodium" :props="props">{{ props.row.sodium }}</q-td>
-              <q-td key="calcium" :props="props">{{ props.row.calcium }}</q-td>
-              <q-td key="iron" :props="props">{{ props.row.iron }}</q-td>
             </q-tr>
           </template>
         </q-table>
@@ -138,7 +138,7 @@ export default {
     return {
       hasData: true,
       hideBottom: false,
-      hideSelectedBanner: true,
+      hideSelectedBanner: false,
       hideNoData: false,
       hidePagination: true,
 
@@ -148,7 +148,7 @@ export default {
           name: 'name',
           required: true,
           label: 'Dessert (100g serving)',
-          align: 'center',
+          align: 'left',
           field: row => row.name,
           format: val => `${val}`,
           sortable: true
