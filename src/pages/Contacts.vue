@@ -31,6 +31,7 @@
           :selected.sync="selected"
           hide-selected-banner
           :loading="loading"
+          :pagination.sync="pagination"
         >
 <!--          table loading data-->
           <template v-slot:loading>
@@ -200,8 +201,6 @@ import { cloneDeep } from 'lodash'
 export default {
   data () {
     return {
-      hasData: true,
-      hideNoData: false,
       openDialog: false,
       loading: false,
       // form data
@@ -218,6 +217,14 @@ export default {
       moment: moment,
       contacts: [],
       selected: [],
+      selectedRecords: [],
+      pagination: {
+        sortBy: 'desc',
+        descending: false,
+        page: 1,
+        rowsPerPage: 20
+        // rowsNumber: xx if getting data from a server
+      },
       columns: [
         {
           name: 'name',
@@ -345,17 +352,12 @@ export default {
     //     ? records
     //     : []
     // },
-    contactsKey: {
-      handler: {
-      },
-      deep: true
-    }
   },
   watch: {
     selected: {
       handler () {
         if (this.selected.length) {
-
+          this.editting = true
         }
       },
       deep: true
@@ -379,43 +381,68 @@ export default {
       this.openDialog = false
     },
     btnSave () {
+      // add contact
       if (!this.editting) {
         console.log('form length', this.form)
         if (!this.form.name || !this.form.email || !this.form.companyName || !this.form.role || !this.form.forecast) {
-          return this.notify('All Fields are required !')
+          return this.notify('All Fields are required !', 'red')
         }
         // this.contacts = [...this.contacts, this.form]
+        // this.records = [...this.records, this.form]
         this.records.unshift(this.form)
         this.form = '' // clear form
         this.closeDialog() // close dialog
+        return this.notify('Contact Added Success !', 'secondary')
       } else {
-        // edit user here
-
+        // edit contact here
+        // get the object with data to edit
+        const formItem = this.form
+        // find the index of this ID's object
+        const objIndex = this.records.findIndex(obj => obj.id === formItem.id)
+        this.records[objIndex].id = formItem.id
+        this.records[objIndex].name = formItem.name
+        this.records[objIndex].avatar = formItem.avatar
+        this.records[objIndex].email = formItem.email
+        this.records[objIndex].companyName = formItem.companyName
+        this.records[objIndex].role = formItem.role
+        this.records[objIndex].forecast = formItem.forecast
+        this.records[objIndex].recentAct = formItem.recentAct
         // after edit clear form
         this.form = ''
+        this.closeDialog()
+        return this.notify('Contact Updated Success !', 'secondary')
       }
     },
     deleteContact () {
-      console.log('user deleted')
-      console.log(this.selected[0].id)
       if (this.selected.length === 1) {
         const id = this.selected[0].id
         this.records = this.records.filter(contact => contact.id !== id)
         this.selected.length = ''
-      } else {
-        console.log('count', this.selected.length)
+        return this.notify('Contact Deleted Success !', 'secondary')
+      } else if (this.selected.length > 1) {
+        const selectedCount = this.selected.length
+        this.selectedRecords = this.selected
+        if (this.selected.length) {
+          this.selectedRecords.filter(el => this.records.includes(el))
+          // this.records = this.records.filter(contact => {
+          //   return this.records.findIndex(selectedRecords => contact.id !== selectedRecords.id)
+          // })
+          this.selected.length = ''
+          console.log('final records', this.records)
+        }
+        return this.notify(`${selectedCount} Contacts Deleted Success !`, 'secondary')
       }
     },
     // function generates random date between two dates
     randomDate (start, end) {
       return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
     },
-    // notify plugin for error messages
-    notify (message) {
+    // notification plugin for messages
+    notify (message, type) {
       this.$q.notify({
         message: message,
         position: 'top',
-        color: 'red',
+        color: type,
         icon: 'announcement'
       })
     }

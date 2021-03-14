@@ -99,7 +99,7 @@
           v-ripple
         >
           <q-item-section avatar>
-            <q-icon name="view_week" style="color: grey" size="sm" />
+            <q-icon name="view_week" size="sm" />
           </q-item-section>
 
           <q-item-section class="text-subtitle1">Deals</q-item-section>
@@ -114,7 +114,7 @@
           class="q-mt-md"
         >
           <q-item-section avatar>
-            <q-icon name="more_horiz" color="accent" size="sm" />
+            <q-icon name="more_horiz" size="sm" />
           </q-item-section>
 
           <q-item-section class="text-subtitle1">Settings</q-item-section>
