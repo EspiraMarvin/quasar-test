@@ -419,17 +419,14 @@ export default {
         this.records = this.records.filter(contact => contact.id !== id)
         this.selected.length = ''
         return this.notify('Contact Deleted Success !', 'secondary')
-      } else if (this.selected.length > 1) {
+      } else if (this.selected.length > 1 && this.selected.length) {
         const selectedCount = this.selected.length
         this.selectedRecords = this.selected
-        if (this.selected.length) {
-          this.selectedRecords.filter(el => this.records.includes(el))
-          // this.records = this.records.filter(contact => {
-          //   return this.records.findIndex(selectedRecords => contact.id !== selectedRecords.id)
-          // })
-          this.selected.length = ''
-          console.log('final records', this.records)
-        }
+        // return this.records.filter(el => this.selectedRecords.includes(el))
+        this.records = this.records.filter(contact => {
+          return this.records.findIndex(selectedRecords => contact.id !== selectedRecords.id)
+        })
+        this.selected.length = ''
         return this.notify(`${selectedCount} Contacts Deleted Success !`, 'secondary')
       }
     },

@@ -21,7 +21,7 @@
       :mini="miniState"
       @mouseover="miniState = false"
       @mouseout="miniState = true"
-      :width="220"
+      :width="283"
       :breakpoint="500"
       side="left"
     >
@@ -30,8 +30,18 @@
       </template>
 
       <q-separator />
+      <div class="row justify-center q-ma-md">
+        <q-avatar color="primary" text-color="white">
+          <img :src="user.avatar">
+        </q-avatar>
+        <div class="profile-details">
+          <p>{{user.name}}</p>
+          <p>{{user.email}}</p>
+        </div>
+      </div>
 
       <q-list>
+
         <q-item
           to="/"
           clickable
@@ -176,7 +186,13 @@ export default {
     return {
       drawer: false,
       miniState: true,
-      search: 'Global Search'
+      search: 'Global Search',
+      user: {
+        id: 1,
+        name: 'Sierra Ferguson',
+        avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
+        email: 's.ferguson@gmail.com'
+      }
     }
   }
 }
@@ -193,6 +209,9 @@ export default {
   }
   .tool-bar-separator{
     margin-left: -12px
+  }
+  .profile-details{
+    overflow: hidden;
   }
 
 </style>
