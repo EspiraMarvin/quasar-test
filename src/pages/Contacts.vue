@@ -30,7 +30,13 @@
           binary-state-sort
           :selected.sync="selected"
           hide-selected-banner
+          :loading="loading"
         >
+<!--          table loading data-->
+          <template v-slot:loading>
+            <q-inner-loading showing color="primary" />
+          </template>
+
 <!--          table top slot-->
           <template v-slot:top="props">
 
@@ -73,6 +79,15 @@
                 <q-checkbox size="xs" v-model="props.selected"/>
               </q-td>
               <q-td key="name" :props="props">
+                  <q-avatar size="sm" class="q-mr-xs" v-if="!props.row.avatar">
+                    <q-icon
+                      size="sm"
+                      name="face"
+                    />
+                  </q-avatar>
+                  <q-avatar size="sm" class="q-mr-xs" v-else>
+                    <img :src="props.row.avatar">
+                  </q-avatar>
                 {{ props.row.name }}
               </q-td>
               <q-td key="email" :props="props">
@@ -181,88 +196,6 @@
 
 <script>
 const moment = require('moment')
-const records = [
-  {
-    name: 'Lindsey Stroud',
-    email: 'Lindsey.stroud@gmail.com',
-    companyName: 'Hatchbuck',
-    role: 'Manager',
-    forecast: '50',
-    recentAct: '5 Minutes ago'
-  },
-  {
-    name: 'Nicci Troiani',
-    email: 'nicci.troiani@gmail.com',
-    companyName: 'Slack',
-    role: 'Manager',
-    forecast: '75',
-    recentAct: '14 Minutes ago'
-  },
-  {
-    name: 'George Fields',
-    email: 'george.fields@gmail.com',
-    companyName: 'Clockify',
-    role: 'CEO',
-    forecast: '10',
-    recentAct: '6 Hours ago'
-  },
-  {
-    name: 'Rebecca Mooore',
-    email: 'rebecca.mooore@gmail.com',
-    companyName: 'Trello',
-    role: 'Engineer',
-    forecast: '25',
-    recentAct: 'Dec 14, 2018'
-  },
-  {
-    name: 'Jane Doe',
-    email: 'jane.doe@gmail.com',
-    companyName: 'Slack',
-    role: 'Manager',
-    forecast: '30',
-    recentAct: 'Dec 12, 2018'
-  },
-  {
-    name: 'Jones Dermont',
-    email: 'jones.dermont@gmail.com',
-    companyName: 'Slack',
-    role: 'Developer',
-    forecast: '40',
-    recentAct: 'Dec 11, 2018'
-  },
-  {
-    name: 'Martin Merces',
-    email: 'martin.merces@gmail.com',
-    companyName: 'Google',
-    role: 'Manager',
-    forecast: '60',
-    recentAct: 'Dec 9, 2018'
-  },
-  {
-    name: 'Franz Ferdinand',
-    email: 'franz.ferdinand@gmail.com',
-    companyName: 'Facebook',
-    role: 'Manager',
-    forecast: '100',
-    recentAct: 'Dec 6, 2018'
-  },
-  {
-    name: 'John Smith',
-    email: 'john.smith@gmail.com',
-    companyName: 'Skype',
-    role: 'CEO',
-    forecast: '75',
-    recentAct: 'Nov 30, 2018'
-  },
-  {
-    name: 'Judith Williams',
-    email: 'judith.williams@gmail.com',
-    companyName: 'Google',
-    role: 'Designer',
-    forecast: '45',
-    recentAct: 'Nov 26, 2018'
-  }
-]
 import { cloneDeep } from 'lodash'
 export default {
   data () {
@@ -270,6 +203,7 @@ export default {
       hasData: true,
       hideNoData: false,
       openDialog: false,
+      loading: false,
       // form data
       form: {
         name: '',
@@ -277,7 +211,7 @@ export default {
         companyName: '',
         role: '',
         forecast: '',
-        recentAct: moment(moment().format()).startOf('hour').fromNow() // gets current relative time
+        recentAct: moment(this.randomDate(new Date(2020, 5, 1), new Date())).startOf('hour').fromNow() // gets relative time
       },
       dialogTitle: '',
       editting: false,
@@ -299,16 +233,118 @@ export default {
         { name: 'role', align: 'left', label: 'Role', field: 'role' },
         { name: 'forecast', align: 'left', label: 'Forecast', field: 'forecast' },
         { name: 'recentAct', align: 'left', label: 'Recent activity', field: 'recentAct' }
+      ],
+      records: [
+        {
+          id: 1,
+          name: 'Lindsey Stroud',
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
+          email: 'Lindsey.stroud@gmail.com',
+          companyName: 'Hatchbuck',
+          role: 'Manager',
+          forecast: '50',
+          recentAct: '5 Minutes ago'
+        },
+        {
+          id: 2,
+          name: 'Nicci Troiani',
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
+          email: 'nicci.troiani@gmail.com',
+          companyName: 'Slack',
+          role: 'Manager',
+          forecast: '75',
+          recentAct: '14 Minutes ago'
+        },
+        {
+          id: 3,
+          name: 'George Fields',
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
+          email: 'george.fields@gmail.com',
+          companyName: 'Clockify',
+          role: 'CEO',
+          forecast: '10',
+          recentAct: '6 Hours ago'
+        },
+        {
+          id: 4,
+          name: 'Rebecca Mooore',
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
+          email: 'rebecca.mooore@gmail.com',
+          companyName: 'Trello',
+          role: 'Engineer',
+          forecast: '25',
+          recentAct: 'Dec 14, 2018'
+        },
+        {
+          id: 5,
+          name: 'Jane Doe',
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
+          email: 'jane.doe@gmail.com',
+          companyName: 'Slack',
+          role: 'Manager',
+          forecast: '30',
+          recentAct: 'Dec 12, 2018'
+        },
+        {
+          id: 6,
+          name: 'Jones Dermont',
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
+          email: 'jones.dermont@gmail.com',
+          companyName: 'Slack',
+          role: 'Developer',
+          forecast: '40',
+          recentAct: 'Dec 11, 2018'
+        },
+        {
+          id: 7,
+          name: 'Martin Merces',
+          email: 'martin.merces@gmail.com',
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
+          companyName: 'Google',
+          role: 'Manager',
+          forecast: '60',
+          recentAct: 'Dec 9, 2018'
+        },
+        {
+          id: 8,
+          name: 'Franz Ferdinand',
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
+          email: 'franz.ferdinand@gmail.com',
+          companyName: 'Facebook',
+          role: 'Manager',
+          forecast: '100',
+          recentAct: 'Dec 6, 2018'
+        },
+        {
+          id: 9,
+          name: 'John Smith',
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
+          email: 'john.smith@gmail.com',
+          companyName: 'Skype',
+          role: 'CEO',
+          forecast: '75',
+          recentAct: 'Nov 30, 2018'
+        },
+        {
+          id: 10,
+          name: 'Judith Williams',
+          avatar: 'https://cdn.quasar.dev/img/avatar.png',
+          email: 'judith.williams@gmail.com',
+          companyName: 'Google',
+          role: 'Designer',
+          forecast: '45',
+          recentAct: 'Nov 26, 2018'
+        }
       ]
     }
   },
 
   computed: {
-    records () {
-      return this.hasData === true
-        ? records
-        : []
-    },
+    // records () {
+    //   return this.hasData === true
+    //     ? records
+    //     : []
+    // },
     contactsKey: {
       handler: {
       },
@@ -361,6 +397,18 @@ export default {
     },
     deleteContact () {
       console.log('user deleted')
+      console.log(this.selected[0].id)
+      if (this.selected.length === 1) {
+        const id = this.selected[0].id
+        this.records = this.records.filter(contact => contact.id !== id)
+        this.selected.length = ''
+      } else {
+        console.log('count', this.selected.length)
+      }
+    },
+    // function generates random date between two dates
+    randomDate (start, end) {
+      return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
     },
     // notify plugin for error messages
     notify (message) {
@@ -383,9 +431,5 @@ export default {
   }
   .add-contact-button{
     margin-top: -20px
-  }
-  .top-table-span{
-  }
-  .top-table-expansion-item label {
   }
 </style>
