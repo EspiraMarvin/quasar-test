@@ -1,10 +1,12 @@
 <template>
-  <q-layout view="lHh lpR fFf">
+  <q-layout view="lHh lpR fFf" class="pages-bg">
 
     <q-header bordered class="bg-white">
-      <q-toolbar>
 
-        <q-btn class="small-screen-only" dense flat round icon="menu" color="black" @click="drawer = !drawer" />
+      <q-toolbar>
+        <q-separator vertical color="grey-2" class="tool-bar-separator"/>
+
+        <q-btn dense flat round icon="menu" color="grey-14" @click="drawer = !drawer" />
 
         <q-toolbar-title>
          <Search :search="search" />
@@ -16,17 +18,16 @@
     <q-drawer
       v-model="drawer"
       show-if-above
-
       :mini="miniState"
       @mouseover="miniState = false"
       @mouseout="miniState = true"
-
-      :width="283"
+      :width="220"
       :breakpoint="500"
       side="left"
-      bordered
     >
-      <p class="text-h6 text-center text-primary q-mt-sm sidebar-heading">SaaS Kit</p>
+      <template>
+        <p class="text-h6 text-center text-primary q-mt-sm sidebar-heading">SaaS Kit</p>
+      </template>
 
       <q-separator />
 
@@ -182,9 +183,16 @@ export default {
 </script>
 
 <style scoped>
+  .pages-bg {
+    background-color: #f5f6f8;
+  }
   .sidebar-heading{
     max-height: 26px;
     font-size: 18px;
-    overflow: hidden
+    overflow: hidden;
   }
+  .tool-bar-separator{
+    margin-left: -12px
+  }
+
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-pa-md dashboard">
+  <q-page class="q-pa-md">
     <div class="row col-xs-12">
       <div class="col-sm-7 col-xs-12 q-pa-sm q-ma-md">
         Dashboard 1
@@ -252,9 +252,6 @@ export default {
 </script>
 
 <style scoped>
-  .dashboard{
-    background-color: #f5f6f8;
-  }
   .flex-container-week-days {
     padding: 0;
     margin: 0;

@@ -2,6 +2,25 @@
   <q-page class="q-pa-md">
     <template>
       <div class="q-pa-sm q-pt-lg">
+        <div class="row q-mb-sm">
+          <div class="float-left col-xs-4 col-sm-1">
+            <span>Company:
+              <q-expansion-item dense dense-toggle class="top-table-expansion-item" label="All">
+                <q-item dense exact clickable><span class="text-caption">10</span></q-item>
+                <q-item dense exact clickable><span class="text-caption">50</span></q-item>
+              </q-expansion-item>
+            </span>
+          </div>
+          <q-space />
+          <div class="float-right">
+            <q-btn
+              label="Add contact"
+              color="primary"
+              class="q-mr-xs-auto text-white add-contact-button text-capitalize"
+              @click="addContact"
+            />
+          </div>
+        </div>
         <q-table
           title="Treats"
           :data="records"
@@ -10,12 +29,11 @@
           selection="multiple"
           binary-state-sort
           :selected.sync="selected"
-          hide-bottom
           hide-selected-banner
         >
-
 <!--          table top slot-->
           <template v-slot:top="props">
+
             <template v-if="selected.length">
               <span class="float-left">
                 <q-badge class="q-ml-sm" size="xs" v-model="props.selected" :label="selected.length" />
@@ -28,31 +46,22 @@
             <template v-else>
               <q-checkbox class="float-left" size="xs" color="white" v-model="props.selected"/>
             </template>
-
-            <q-space />
-
-            <q-btn
-              label="Add contact"
-              color="primary"
-              class="q-mr-sm text-white float-right text-capitalize"
-              @click="addContact"
-            />
           </template>
 <!--        end of table top slot-->
 
 <!--       custom table header -->
-          <template v-slot:header="props">
+          <template v-slot:header="props" :selected="selected">
               <q-tr :props="props">
                 <q-th>
                     <q-checkbox class="float-left" size="xs" v-model="props.selected"/>
                 </q-th>
-                <q-th
-                  v-for="col in props.cols"
-                  :key="col.name"
-                  :props="props"
-                >
-                  {{ col.label }}
-                </q-th>
+                  <q-th
+                    v-for="col in props.cols"
+                    :key="col.name"
+                    :props="props"
+                  >
+                    {{ col.label }}
+                  </q-th>
               </q-tr>
           </template>
 <!--      end of custom table header -->
@@ -66,14 +75,20 @@
               <q-td key="name" :props="props">
                 {{ props.row.name }}
               </q-td>
-              <q-td key="calories" :props="props">
-                {{ props.row.calories }}
+              <q-td key="email" :props="props">
+                {{ props.row.email }}
               </q-td>
-              <q-td key="fat" :props="props">
-                <div class="text-pre-wrap">{{ props.row.fat }}</div>
+              <q-td key="companyName" :props="props">
+                <div class="text-pre-wrap">{{ props.row.companyName }}</div>
               </q-td>
-              <q-td key="carbs" :props="props">
-                {{ props.row.carbs }}
+              <q-td key="role" :props="props">
+                {{ props.row.role }}
+              </q-td>
+              <q-td key="forecast" :props="props">
+                {{ props.row.forecast }}%
+              </q-td>
+              <q-td key="recentAct" :props="props">
+                {{ props.row.recentAct }}
               </q-td>
             </q-tr>
           </template>
@@ -148,8 +163,6 @@
               <q-btn
                 label="Save"
                 @click="btnSave"
-                :disabled="addingContact"
-                :loading="addingUser"
                 outline
                 color="primary"
                 class="q-pl-md q-pr-md"
@@ -167,101 +180,125 @@
 </template>
 
 <script>
+const moment = require('moment')
 const records = [
   {
-    name: 'Frozen Yogurt',
-    calories: 159,
-    fat: 6.0,
-    carbs: 24
+    name: 'Lindsey Stroud',
+    email: 'Lindsey.stroud@gmail.com',
+    companyName: 'Hatchbuck',
+    role: 'Manager',
+    forecast: '50',
+    recentAct: '5 Minutes ago'
   },
   {
-    name: 'Ice cream sandwich',
-    calories: 237,
-    fat: 9.0,
-    carbs: 37
+    name: 'Nicci Troiani',
+    email: 'nicci.troiani@gmail.com',
+    companyName: 'Slack',
+    role: 'Manager',
+    forecast: '75',
+    recentAct: '14 Minutes ago'
   },
   {
-    name: 'Eclair',
-    calories: 262,
-    fat: 16.0,
-    carbs: 23
+    name: 'George Fields',
+    email: 'george.fields@gmail.com',
+    companyName: 'Clockify',
+    role: 'CEO',
+    forecast: '10',
+    recentAct: '6 Hours ago'
   },
   {
-    name: 'Cupcake',
-    calories: 305,
-    fat: 3.7,
-    carbs: 67
+    name: 'Rebecca Mooore',
+    email: 'rebecca.mooore@gmail.com',
+    companyName: 'Trello',
+    role: 'Engineer',
+    forecast: '25',
+    recentAct: 'Dec 14, 2018'
   },
   {
-    name: 'Gingerbread',
-    calories: 356,
-    fat: 16.0,
-    carbs: 49
+    name: 'Jane Doe',
+    email: 'jane.doe@gmail.com',
+    companyName: 'Slack',
+    role: 'Manager',
+    forecast: '30',
+    recentAct: 'Dec 12, 2018'
   },
   {
-    name: 'Jelly bean',
-    calories: 375,
-    fat: 0.0,
-    carbs: 94
+    name: 'Jones Dermont',
+    email: 'jones.dermont@gmail.com',
+    companyName: 'Slack',
+    role: 'Developer',
+    forecast: '40',
+    recentAct: 'Dec 11, 2018'
   },
   {
-    name: 'Lollipop',
-    calories: 392,
-    fat: 0.2,
-    carbs: 98
+    name: 'Martin Merces',
+    email: 'martin.merces@gmail.com',
+    companyName: 'Google',
+    role: 'Manager',
+    forecast: '60',
+    recentAct: 'Dec 9, 2018'
   },
   {
-    name: 'Honeycomb',
-    calories: 408,
-    fat: 3.2,
-    carbs: 87
+    name: 'Franz Ferdinand',
+    email: 'franz.ferdinand@gmail.com',
+    companyName: 'Facebook',
+    role: 'Manager',
+    forecast: '100',
+    recentAct: 'Dec 6, 2018'
   },
   {
-    name: 'Donut',
-    calories: 452,
-    fat: 25.0,
-    carbs: 51
+    name: 'John Smith',
+    email: 'john.smith@gmail.com',
+    companyName: 'Skype',
+    role: 'CEO',
+    forecast: '75',
+    recentAct: 'Nov 30, 2018'
   },
   {
-    name: 'KitKat',
-    calories: 518,
-    fat: 26.0,
-    carbs: 65
+    name: 'Judith Williams',
+    email: 'judith.williams@gmail.com',
+    companyName: 'Google',
+    role: 'Designer',
+    forecast: '45',
+    recentAct: 'Nov 26, 2018'
   }
 ]
-
+import { cloneDeep } from 'lodash'
 export default {
   data () {
     return {
       hasData: true,
       hideNoData: false,
       openDialog: false,
+      // form data
       form: {
         name: '',
         email: '',
         companyName: '',
         role: '',
         forecast: '',
-        recentAct: ''
+        recentAct: moment(moment().format()).startOf('hour').fromNow() // gets current relative time
       },
-      dialogTitle: 'Add Contact',
+      dialogTitle: '',
       editting: false,
+      moment: moment,
       contacts: [],
-
       selected: [],
       columns: [
         {
           name: 'name',
           required: true,
-          label: 'Dessert (100g serving)',
+          label: 'Name',
           align: 'left',
           field: row => row.name,
           format: val => `${val}`,
           sortable: true
         },
-        { name: 'calories', align: 'center', label: 'Calories', field: 'calories', sortable: true },
-        { name: 'fat', label: 'Fat (g)', field: 'fat', sortable: true },
-        { name: 'carbs', label: 'Carbs (g)', field: 'carbs' }
+        { name: 'email', align: 'left', label: 'email', field: 'email', sortable: true },
+        { name: 'companyName', align: 'left', label: 'Company name', field: 'companyName', sortable: true },
+        { name: 'role', align: 'left', label: 'Role', field: 'role' },
+        { name: 'forecast', align: 'left', label: 'Forecast', field: 'forecast' },
+        { name: 'recentAct', align: 'left', label: 'Recent activity', field: 'recentAct' }
       ]
     }
   },
@@ -271,6 +308,11 @@ export default {
       return this.hasData === true
         ? records
         : []
+    },
+    contactsKey: {
+      handler: {
+      },
+      deep: true
     }
   },
   watch: {
@@ -286,8 +328,15 @@ export default {
 
   methods: {
     addContact () {
-      console.log('user created')
       this.openDialog = true
+      this.dialogTitle = 'Add Contact'
+    },
+    editContact () {
+      this.editting = true
+      this.openDialog = true
+      this.dialogTitle = 'Edit Contact'
+      this.form = cloneDeep(this.selected[0])
+      console.log(this.selected[0])
     },
     closeDialog () {
       this.editting = false
@@ -295,27 +344,48 @@ export default {
     },
     btnSave () {
       if (!this.editting) {
-        console.log('save clicked')
-        console.log(this.form)
-        if (!this.form.length) {
-          console.log('empty ensure to insert all records')
+        console.log('form length', this.form)
+        if (!this.form.name || !this.form.email || !this.form.companyName || !this.form.role || !this.form.forecast) {
+          return this.notify('All Fields are required !')
         }
-        this.contacts.push(this.form)
-        console.log('contacts', this.contacts)
+        // this.contacts = [...this.contacts, this.form]
+        this.records.unshift(this.form)
         this.form = '' // clear form
         this.closeDialog() // close dialog
+      } else {
+        // edit user here
+
+        // after edit clear form
+        this.form = ''
       }
     },
     deleteContact () {
       console.log('user deleted')
     },
-    editContact () {
-      console.log('edit user')
+    // notify plugin for error messages
+    notify (message) {
+      this.$q.notify({
+        message: message,
+        position: 'top',
+        color: 'red',
+        icon: 'announcement'
+      })
     }
   }
 }
 </script>
 
 <style scoped>
-
+  .top-table-expansion-item{
+    margin-left: 60px;
+    margin-top: -25px;
+    color: #109CF1
+  }
+  .add-contact-button{
+    margin-top: -20px
+  }
+  .top-table-span{
+  }
+  .top-table-expansion-item label {
+  }
 </style>
