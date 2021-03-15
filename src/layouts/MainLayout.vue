@@ -30,15 +30,15 @@
       </template>
 
       <q-separator />
-      <div class="row justify-center q-ma-md">
-        <q-avatar color="primary" text-color="white">
+      <span class="row justify-center q-ma-md" >
+        <q-avatar color="primary" class="q-mr-xs" text-color="white">
           <img :src="user.avatar">
         </q-avatar>
-        <div class="profile-details">
+        <div class="profile-details q-ml-lg q-mr-xs">
           <p>{{user.name}}</p>
           <p>{{user.email}}</p>
         </div>
-      </div>
+      </span>
 
       <q-list>
 

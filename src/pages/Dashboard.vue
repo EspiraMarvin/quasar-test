@@ -4,17 +4,18 @@
       <div class="col-sm-7 col-xs-12 q-pa-sm q-ma-md">
         Dashboard 1
         <q-card class="my-card">
-          <q-card-section class="col-12 q-pa-md">
+          <q-card-section class="q-pa-md">
               <div class="row">
-                <div class="col-sm-8 col-xs-12">8 tasks completed out of 10</div>
-                <div class="col-sm-4 col-xs-12">
-                  Show: <span style="color: #109CF1">This week</span>
-                  <q-expansion-item dense dense-toggle label="" style="margin-top: -28px">
-                    <q-item dense exact clickable><span class="text-caption">This Month</span></q-item>
-                    <q-item dense exact clickable><span class="text-caption">This Year</span></q-item>
-                  </q-expansion-item>
-                </div>
+                <div>8 tasks completed out of 10</div>
+                <q-space />
+                    <span> Show:
+                      <q-expansion-item dense dense-toggle class="q-ml-lg" label="This week" style="margin-top: -25px;color: #109CF1">
+                        <q-item dense exact clickable><span class="text-caption">This Month</span></q-item>
+                        <q-item dense exact clickable><span class="text-caption">This Year</span></q-item>
+                      </q-expansion-item>
+                    </span>
               </div>
+
               <div class="row">
                 <div class="col-sm-12 col-xs-10">
                   <q-linear-progress :value="progress" color="secondary" class="q-mt-sm" />
@@ -22,25 +23,24 @@
               </div>
               <div class="text-overline q-mt-sm q-mb-xs">23 December, Sunday</div>
               <div class="q-ma-sm">
-                <ul class="flex-container-week-days space-between">
-                  <li class="flex-item">Sun</li>
-                  <li class="flex-item text-primary">Mon</li>
-                  <li class="flex-item">Tue</li>
-                  <li class="flex-item">Wed</li>
-                  <li class="flex-item">Thu</li>
-                  <li class="flex-item">Fri</li>
-                  <li class="flex-item">Sat</li>
-                </ul>
-              </div>
-              <div class="q-ma-sm q-mt-xs">
-                <ul class="flex-container-week-dates space-between">
-                  <li class="flex-item bg-primary text-white">23</li>
-                  <li class="flex-item text-primary">24</li>
-                  <li class="flex-item">25</li>
-                  <li class="flex-item">26</li>
-                  <li class="flex-item">27</li>
-                  <li class="flex-item">28</li>
-                  <li class="flex-item">29</li>
+                <ul class="row justify-between flex-container-week-days">
+                  <li class="flex-item"
+                      v-for="day in customHelp"
+                      :key="day.id"
+                      @click="active_id=day.id"
+                  >
+                    <p
+                      :style="day.class ? 'color: #109CF1; border-radius: 50%' : 'background-color-green'"
+                    >
+                      {{day.day}}
+                    </p>
+                    <p
+                      :style="day.class ? 'background-color: #109CF1; color: white; border-radius: 50%;' : ''"
+                    >
+                      {{day.date}}
+                    </p>
+
+                  </li>
                 </ul>
               </div>
           </q-card-section>
@@ -50,119 +50,176 @@
 
           <q-card-section>
             <q-card-section class="q-pa-sm">
-              <q-card class="my-card">
+
+              <q-card
+                class="my-card"
+                v-for="task in limitTask"
+                :key="task.id"
+              >
                 <q-card-section class="text-black">
-                  <div class="text-subtitle1 text-weight-medium">Send benefit review by Sunday</div>
-                  <div class="text-subtitle2 text-weight-light text-grey">Due date: <span class="text-weight-light text-black">December 23, 2018</span></div>
+                  <div class="row">
+                    <div class="text-subtitle1 text-weight-medium">{{task.title}}</div>
+                    <q-space />
+                    <span class="text-grey-7 card-text-caption" style="font-size: 12px">{{task.tag}}</span>
+                  </div>
+                  <div class="text-subtitle2 text-weight-light text-grey">Due date: <span class="text-weight-light text-black">{{moment(task.dueDate).format('LL')}}</span></div>
                 </q-card-section>
                 <q-card-section class="q-mb-sm row user-task">
-                  <div class="col-xs-12 col-sm-6">
                     <q-item>
                       <q-item-section avatar>
                         <q-avatar
                           size="26px"
                         >
-                          <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+                          <img :src="task.assignee.avatar">
                         </q-avatar>
                       </q-item-section>
-                      <span class="text-weight-regular text-grey-7 card-text-caption">George Fields</span>
+                      <span class="text-weight-regular text-grey-7 card-text-caption">{{task.assignee.fullName}}</span>
                     </q-item>
 
-                  </div>
-                  <div class="col-xs-12 col-sm-6 q-mt-md">
-                    <q-btn size="sm" class="bg-secondary float-right text-white text-capitalize" flat>Completed</q-btn>
-                  </div>
+                  <q-space />
+
+                  <template v-if="task.status === 'Completed'">
+                    <div class="col-xs-12 col-sm-6 q-mt-md">
+                      <q-btn size="sm" class="bg-secondary float-right text-white text-capitalize" flat>Completed</q-btn>
+                    </div>
+                  </template>
+                  <template v-else-if="task.status === 'Ended'">
+                    <div class="col-xs-12 col-sm-6 q-mt-md">
+                      <q-btn size="sm" class="bg-negative float-right text-white text-capitalize" flat>Ended</q-btn>
+                      <q-icon @click="deleteUserTask(task.id)" name="delete" class="q-mr-lg float-right" color="accent" size="sm" />
+                      <q-icon @click="editUserTask(task)"  name="edit" class="q-mr-lg float-right" color="accent" size="sm" />
+                    </div>
+                  </template>
+                  <template v-else-if="task.status === 'Active'">
+                    <div class="col-xs-12 col-sm-6 q-mt-md">
+                      <q-btn size="sm" class="bg-warning float-right text-white text-capitalize" flat>Active</q-btn>
+                    </div>
+                  </template>
                 </q-card-section>
 
               </q-card>
-
-<!--              Second  card --->
-
-              <q-card class="my-card q-mt-lg">
-                <q-card-section class="text-black">
-                  <div class="text-subtitle1 text-weight-medium">Invite to office meet-up</div>
-                  <div class="text-subtitle2 text-weight-light text-grey">Due date: <span class="text-weight-light text-black">December 23, 2018</span></div>
-                </q-card-section>
-                <q-card-section class="q-mb-sm row user-task">
-                  <div class="col-xs-12 col-sm-6">
-                    <q-item>
-                      <q-item-section avatar>
-                        <q-avatar
-                          size="26px"
-                        >
-                          <img src="https://cdn.quasar.dev/img/boy-avatar.png">
-                        </q-avatar>
-                      </q-item-section>
-                      <span class="text-weight-regular text-grey-7 card-text-caption">Rebbeca Moore</span>
-                    </q-item>
-
-                  </div>
-                  <div class="col-xs-12 col-sm-6 q-mt-md">
-                    <q-btn size="sm" class="bg-negative float-right text-white text-capitalize" flat>Ended</q-btn>
-                    <q-icon name="delete" class="q-mr-xs float-right" color="accent" size="sm" />
-                    <q-icon name="edit" class="q-mr-xs float-right" color="accent" size="sm" />
-                  </div>
-                </q-card-section>
-
-              </q-card>
-
-<!--              third card-->
-
-              <q-card class="my-card q-mt-lg">
-                <q-card-section class="text-black">
-                  <div class="text-subtitle1 text-weight-medium">Invite to office meet-up</div>
-                  <div class="text-subtitle2 text-weight-light text-grey">Due date: <span class="text-weight-light text-black">December 23, 2018</span></div>
-                </q-card-section>
-                <q-card-section class="q-mb-sm row user-task">
-                  <div class="col-xs-12 col-sm-6">
-                    <q-item>
-                      <q-item-section avatar>
-                        <q-avatar
-                          size="26px"
-                        >
-                          <img src="https://cdn.quasar.dev/img/boy-avatar.png">
-                        </q-avatar>
-                      </q-item-section>
-                      <span class="text-weight-regular text-grey-7 card-text-caption">Lindsey Stroud</span>
-                    </q-item>
-
-                  </div>
-                  <div class="col-xs-12 col-sm-6 q-mt-md">
-                    <q-btn size="sm" class="bg-secondary float-right text-white text-capitalize" flat>Completed</q-btn>
-                  </div>
-                </q-card-section>
-
-              </q-card>
-
-
+              <q-btn
+                @click="limit = null"
+                flat style="color: #109CF1; margin-left: 35%" size="md" class="text-lowercase" label="show more" />
             </q-card-section>
           </q-card-section>
 
           <q-card-actions>
           </q-card-actions>
         </q-card>
+
+        <q-dialog v-model="openDialog">
+          <q-card style="width: 700px; max-width: 80vw;">
+            <q-card-section>
+              <q-toolbar>
+                <q-toolbar-title> Edit User Task</q-toolbar-title>
+              </q-toolbar>
+              <q-form ref="addUserForm">
+                <div class="row">
+                  <div class="col-md-6 col-xs-12 q-pa-md">
+                    <q-input
+                      standard
+                      v-model="form.title"
+                      label="Title *"
+                      type="text"
+                      lazy-rules
+                      :rules="[val => (val && val.length > 0) || 'Please enter name']"
+                    />
+                  </div>
+                  <div class="col-md-6 col-xs-12 q-pa-md">
+                    <q-input standard v-model="form.dueDate" mask="date" label="Due Date" :rules="['date']">
+                      <template v-slot:append>
+                        <q-icon name="event" class="cursor-pointer">
+                          <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
+                            <q-date v-model="form.dueDate">
+                              <div class="row items-center justify-end">
+                                <q-btn v-close-popup label="Close" color="primary" flat />
+                              </div>
+                            </q-date>
+                          </q-popup-proxy>
+                        </q-icon>
+                      </template>
+                    </q-input>
+                  </div>
+                </div>
+                <div class="col-md-6 col-xs-12 q-pa-md">
+                  <q-select
+                    :options="options"
+                    option-value="id"
+                    option-label="name"
+                    emit-value
+                    map-options
+                    v-model="form.user_id"
+                    label="Associated with"
+                    type="text" lazy-rules
+                    :rules="[val => (val && val.length > 0) || 'Select Assignee']"
+                  >
+                    <template v-slot:before>
+                      <q-avatar>
+                        <img src="https://cdn.quasar.dev/img/avatar5.jpg">
+                      </q-avatar>
+                    </template>
+                  </q-select>
+                </div>
+                <div class="col-md-6 col-xs-12 q-pa-md">
+                  <q-input
+                    standard
+                    v-model="form.tag"
+                    label="Tag *"
+                    type="text"
+                    lazy-rules
+                    :rules="[val => (val && val.length > 0) || 'Please enter tag']"
+                  />
+                </div>
+                <div class="col-md-6 col-xs-12 q-pa-md">
+                  <q-input
+                    standard
+                    v-model="form.status"
+                    label="Status *"
+                    type="text"
+                    lazy-rules
+                    :rules="[val => (val && val.length > 0) || 'Please enter status']"
+                  />
+                </div>
+              </q-form>
+            </q-card-section>
+
+            <q-card-actions align="right">
+              <q-btn color="info" class="q-pl-md q-pr-md" outline label="Cancel" @click="closeDialog" />
+              <q-btn
+                label="Save"
+                @click="btnSave"
+                outline
+                color="primary"
+                class="q-pl-md q-pr-md"
+              >
+                <template v-slot:loading>
+                  <q-spinner-facebook />
+                </template>
+              </q-btn>
+            </q-card-actions>
+          </q-card>
+        </q-dialog>
       </div>
 
-<!--      right panel with deals and tasks-->
-
+<!--      right panel with deals and tasks -->
       <div class="col-sm-4 col-xs-12 q-pa-sm q-ma-md">
         Dashboard 2
-<!--        deals-->
+<!--        deals -->
         <q-card class="my-card q-mb-xl">
           <q-card-section class="col-12 q-pa-md">
             <div class="row">
-              <div class="col-sm-8 col-xs-12">Deals</div>
-              <div class="col-sm-4 col-xs-12">
-                Show: <span style="color: #109CF1">Monthly</span>
-                <q-expansion-item dense dense-toggle label="" style="margin-top: -28px">
-                  <q-item dense exact clickable><span class="text-caption">Monthly</span></q-item>
-                  <q-item dense exact clickable><span class="text-caption">Yearly</span></q-item>
-                </q-expansion-item>
-              </div>
+              <div>Deals</div>
+              <q-space />
+                <span>Show:
+                  <q-expansion-item dense class="q-ml-lg" dense-toggle label="Monthly" style="margin-top: -25px;color: #109CF1">
+                    <q-item dense exact clickable><span class="text-caption">Monthly</span></q-item>
+                    <q-item dense exact clickable><span class="text-caption">Yearly</span></q-item>
+                  </q-expansion-item>
+                </span>
             </div>
           </q-card-section>
           <q-separator />
-
 
           <q-list>
             <q-item clickable>
@@ -196,14 +253,14 @@
         <q-card class="my-card">
           <q-card-section class="col-12 q-pa-md">
             <div class="row">
-              <div class="col-sm-8 col-xs-12">Tasks</div>
-              <div class="col-sm-4 col-xs-12">
-                Show: <span style="color: #109CF1">Monthly</span>
-                <q-expansion-item dense dense-toggle label="" style="margin-top: -28px">
-                  <q-item dense exact clickable><span class="text-caption">Weekly</span></q-item>
-                  <q-item dense exact clickable><span class="text-caption">Yearly</span></q-item>
-                </q-expansion-item>
-              </div>
+              <div>Tasks</div>
+              <q-space />
+              <span>Show:
+                  <q-expansion-item dense class="q-ml-lg" dense-toggle label="Monthly" style="margin-top: -25px;color: #109CF1">
+                    <q-item dense exact clickable><span class="text-caption">Weekly</span></q-item>
+                    <q-item dense exact clickable><span class="text-caption">Yearly</span></q-item>
+                  </q-expansion-item>
+                </span>
             </div>
           </q-card-section>
           <q-separator />
@@ -241,13 +298,107 @@
 </template>
 
 <script>
-export default {
+  const moment = require('moment')
+  import commonMixins from '../mixins/commonMixins'
+  import {tasks, users} from '../Config/users.js'
+  import { cloneDeep } from 'lodash'
+  export default {
   name: 'Dashboard',
+  mixins: [commonMixins],
   data (){
     return {
-      progress: 0.8
+      // form data
+      form: {
+        title: '',
+        dueDate: '',
+        user_id: '',
+        tag: '',
+        status: ''
+      },
+      progress: 0.8,
+      options: users,
+      days: [
+        { id : 1, date: 23, day : 'Sun', class: 'active'},
+        { id : 2, date: 24, day : 'Mon', class: ''},
+        { id : 3, date: 25, day : 'Tue', class: ''},
+        { id : 4, date: 26, day : 'Wed', class: ''},
+        { id : 5, date: 27, day : 'Thu', class: ''},
+        { id : 6, date: 28, day : 'Fri', class: ''},
+        { id : 7, date: 29, day : 'Sat', class: ''}
+      ],
+      active_id: 1,
+      getTasks: tasks,
+      moment: moment,
+      limit: 3,
+      showMore: {class: 'hidden'},
+      openDialog: false,
+      dialogTitle: ''
     }
-  }
+  },
+    methods: {
+    deleteUserTask (id) {
+      console.log('deleted', id)
+      this.getTasks = this.getTasks.filter(task => task.id !== id)
+      return this.notify('Task User Deleted Success !', 'secondary')
+    },
+    editUserTask (task) {
+      this.openDialog = true
+      let finalClone = cloneDeep(task)
+      this.form.user_id = finalClone.assignee.user_id
+      this.form.title = finalClone.title
+      this.form.dueDate = finalClone.dueDate
+      this.form.tag = finalClone.tag
+      this.form.status = finalClone.status
+      console.log(finalClone)
+
+
+      // this.selectedUsers = this.options.map(({ id,name, avatar }) => ({ id, name, avatar }));
+    },
+    closeDialog () {
+      this.openDialog = false
+    },
+    btnSave() {
+      const formItem = this.form
+      console.log('form', this.form.user_id)
+
+      // find the index of this ID's object
+      const objIndex = this.getTasks.findIndex(obj => obj.id === formItem.id)
+      this.getTasks[objIndex].id = formItem.id
+      this.getTasks[objIndex].title = formItem.title
+      this.getTasks[objIndex].dueDate = formItem.dueDate
+      this.getTasks[objIndex].user_id = formItem.user_id
+      this.getTasks[objIndex].companyName = formItem.companyName
+      this.getTasks[objIndex].role = formItem.role
+      this.getTasks[objIndex].forecast = formItem.forecast
+      this.getTasks[objIndex].recentAct = formItem.recentAct
+      // after edit clear form
+      this.form = ''
+      this.closeDialog()
+      this.notify('Contact Updated Success !', 'secondary')
+      }
+  },
+  computed: {
+    limitTask(){
+      return this.limit ? this.getTasks.slice(0, this.limit) :  this.getTasks
+    },
+    customHelp(){
+      return this.days.map(day=>{
+        day.class= this.active_id===day.id?'active':''
+        return day;
+      })
+    }
+  },
+
+    watch: {
+    limit: {
+      handler() {
+        if (this.limit === null){
+          this.showMore = false
+        }
+      },
+      deep: true
+    }
+    }
 }
 </script>
 
@@ -258,20 +409,10 @@ export default {
     list-style: none;
     display: flex;
   }
-  .flex-container-week-dates {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    display: flex;
-  }
-
   .flex-container-week-dates li {
     border-radius: 50%;
     width: 20px;
     height: 20px
-  }
-  .space-between {
-    justify-content: space-between;
   }
   .card-text-caption{
     margin-left: -20px;

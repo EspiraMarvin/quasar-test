@@ -122,7 +122,7 @@
                 <div class="row">
                   <div class="col-md-6 col-xs-12 q-pa-md">
                     <q-input
-                      filled
+                      standard
                       v-model="form.name"
                       label="Name *"
                       type="text"
@@ -132,18 +132,19 @@
                   </div>
                   <div class="col-md-6 col-xs-12 q-pa-md">
                     <q-input
-                      filled
+                      standard
                       v-model="form.email"
                       label="Email *"
                       type="email"
                       lazy-rules
+                      mask="email"
                       :rules="[val => (val && val.length > 0) || 'Please enter email']"
                     />
                   </div>
                   </div>
                   <div class="col-md-6 col-xs-12 q-pa-md">
                     <q-input
-                      filled
+                      standard
                       v-model="form.companyName"
                       label="Company Name *"
                       type="text"
@@ -153,7 +154,7 @@
                   </div>
                   <div class="col-md-6 col-xs-12 q-pa-md">
                     <q-input
-                      filled
+                      standard
                       v-model="form.role"
                       label="Role *"
                       type="text"
@@ -163,7 +164,7 @@
                   </div>
                   <div class="col-md-6 col-xs-12 q-pa-md">
                     <q-input
-                      filled
+                      standard
                       v-model="form.forecast"
                       label="Forecast *"
                       type="number"
@@ -197,8 +198,12 @@
 
 <script>
 const moment = require('moment')
+import commonMixins from '../mixins/commonMixins'
+import { users } from '../Config/users.js'
 import { cloneDeep } from 'lodash'
 export default {
+  name: 'Contacts',
+  mixins: [commonMixins],
   data () {
     return {
       openDialog: false,
@@ -215,7 +220,6 @@ export default {
       dialogTitle: '',
       editting: false,
       moment: moment,
-      contacts: [],
       selected: [],
       selectedRecords: [],
       pagination: {
@@ -241,108 +245,7 @@ export default {
         { name: 'forecast', align: 'left', label: 'Forecast', field: 'forecast' },
         { name: 'recentAct', align: 'left', label: 'Recent activity', field: 'recentAct' }
       ],
-      records: [
-        {
-          id: 1,
-          name: 'Lindsey Stroud',
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
-          email: 'Lindsey.stroud@gmail.com',
-          companyName: 'Hatchbuck',
-          role: 'Manager',
-          forecast: '50',
-          recentAct: '5 Minutes ago'
-        },
-        {
-          id: 2,
-          name: 'Nicci Troiani',
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
-          email: 'nicci.troiani@gmail.com',
-          companyName: 'Slack',
-          role: 'Manager',
-          forecast: '75',
-          recentAct: '14 Minutes ago'
-        },
-        {
-          id: 3,
-          name: 'George Fields',
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-          email: 'george.fields@gmail.com',
-          companyName: 'Clockify',
-          role: 'CEO',
-          forecast: '10',
-          recentAct: '6 Hours ago'
-        },
-        {
-          id: 4,
-          name: 'Rebecca Mooore',
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
-          email: 'rebecca.mooore@gmail.com',
-          companyName: 'Trello',
-          role: 'Engineer',
-          forecast: '25',
-          recentAct: 'Dec 14, 2018'
-        },
-        {
-          id: 5,
-          name: 'Jane Doe',
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
-          email: 'jane.doe@gmail.com',
-          companyName: 'Slack',
-          role: 'Manager',
-          forecast: '30',
-          recentAct: 'Dec 12, 2018'
-        },
-        {
-          id: 6,
-          name: 'Jones Dermont',
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-          email: 'jones.dermont@gmail.com',
-          companyName: 'Slack',
-          role: 'Developer',
-          forecast: '40',
-          recentAct: 'Dec 11, 2018'
-        },
-        {
-          id: 7,
-          name: 'Martin Merces',
-          email: 'martin.merces@gmail.com',
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
-          companyName: 'Google',
-          role: 'Manager',
-          forecast: '60',
-          recentAct: 'Dec 9, 2018'
-        },
-        {
-          id: 8,
-          name: 'Franz Ferdinand',
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-          email: 'franz.ferdinand@gmail.com',
-          companyName: 'Facebook',
-          role: 'Manager',
-          forecast: '100',
-          recentAct: 'Dec 6, 2018'
-        },
-        {
-          id: 9,
-          name: 'John Smith',
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
-          email: 'john.smith@gmail.com',
-          companyName: 'Skype',
-          role: 'CEO',
-          forecast: '75',
-          recentAct: 'Nov 30, 2018'
-        },
-        {
-          id: 10,
-          name: 'Judith Williams',
-          avatar: 'https://cdn.quasar.dev/img/avatar.png',
-          email: 'judith.williams@gmail.com',
-          companyName: 'Google',
-          role: 'Designer',
-          forecast: '45',
-          recentAct: 'Nov 26, 2018'
-        }
-      ]
+      records: users
     }
   },
 
@@ -374,7 +277,6 @@ export default {
       this.openDialog = true
       this.dialogTitle = 'Edit Contact'
       this.form = cloneDeep(this.selected[0])
-      console.log(this.selected[0])
     },
     closeDialog () {
       this.editting = false
@@ -390,7 +292,7 @@ export default {
         // this.contacts = [...this.contacts, this.form]
         // this.records = [...this.records, this.form]
         this.records.unshift(this.form)
-        this.form = '' // clear form
+        this.form = {} // clear form
         this.closeDialog() // close dialog
         return this.notify('Contact Added Success !', 'secondary')
       } else {
@@ -408,9 +310,9 @@ export default {
         this.records[objIndex].forecast = formItem.forecast
         this.records[objIndex].recentAct = formItem.recentAct
         // after edit clear form
-        this.form = ''
+        this.form = {}
         this.closeDialog()
-        return this.notify('Contact Updated Success !', 'secondary')
+        this.notify('Contact Updated Success !', 'secondary')
       }
     },
     deleteContact () {
@@ -424,7 +326,7 @@ export default {
         this.selectedRecords = this.selected
         // return this.records.filter(el => this.selectedRecords.includes(el))
         this.records = this.records.filter(contact => {
-          return this.records.findIndex(selectedRecords => contact.id !== selectedRecords.id)
+          this.records.findIndex(selectedRecords => contact.id !== selectedRecords.id)
         })
         this.selected.length = ''
         return this.notify(`${selectedCount} Contacts Deleted Success !`, 'secondary')
@@ -433,15 +335,6 @@ export default {
     // function generates random date between two dates
     randomDate (start, end) {
       return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
-    },
-    // notification plugin for messages
-    notify (message, type) {
-      this.$q.notify({
-        message: message,
-        position: 'top',
-        color: type,
-        icon: 'announcement'
-      })
     }
   }
 }
