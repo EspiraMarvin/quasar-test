@@ -1,4 +1,4 @@
-export const data = [
+export const getUsers = [
   {
     id: 1,
     name: 'Lindsey Stroud',
@@ -31,7 +31,7 @@ export const data = [
   },
   {
     id: 4,
-    name: 'Rebecca Mooore',
+    name: 'Rebecca Moore',
     avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
     email: 'rebecca.mooore@gmail.com',
     companyName: 'Trello',
@@ -101,7 +101,7 @@ export const data = [
   }
 ]
 
-export const tasks = [
+export const getTasks = [
   {
     id: 1,
     title: 'Send benefit review by Sunday.',
@@ -173,5 +173,89 @@ export const tasks = [
     },
     tag: 'Reminder',
     status: 'Completed'
+  },
+  {
+    id: 7,
+    title: 'Send Payment Invoice. ',
+    dueDate: '2020-11-20',
+    assignee: {
+      user_id: 7,
+      fullName: 'Martin Merces',
+      avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg'
+    },
+    tag: 'Reminder',
+    status: 'Completed'
+  }
+]
+export const getDays = [
+  { id: 1, date: 23, day: 'Sun', class: 'active' },
+  { id: 2, date: 24, day: 'Mon', class: '' },
+  { id: 3, date: 25, day: 'Tue', class: '' },
+  { id: 4, date: 26, day: 'Wed', class: '' },
+  { id: 5, date: 27, day: 'Thu', class: '' },
+  { id: 6, date: 28, day: 'Fri', class: '' },
+  { id: 7, date: 29, day: 'Sat', class: '' }
+]
+
+export const getTags = [
+  'reminder', 'call', 'event'
+]
+
+export const getEmails = [
+  {
+    email: 'martin.merces@gmail.com',
+    status: 'Draft'
+  },
+  {
+    email: 'martin.merces@gmail.com',
+    status: 'Scheduled'
+  },
+  {
+    email: 'martin.merces@gmail.com',
+    status: 'Sent'
+  },
+  {
+    email: 'martin.merces@gmail.com',
+    status: 'Draft'
+  },
+  {
+    email: 'martin.merces@gmail.com',
+    status: 'Archived'
+  },
+  {
+    email: 'martin.merces@gmail.com',
+    status: 'Draft'
+  },
+  {
+    email: 'martin.merces@gmail.com',
+    status: 'Scheduled'
+  },
+  {
+    email: 'martin.merces@gmail.com',
+    status: 'Sent'
+  },
+  {
+    email: 'martin.merces@gmail.com',
+    status: 'Archived'
+  },
+  {
+    email: 'martin.merces@gmail.com',
+    status: 'Draft'
+  }
+
+]
+
+export const getDeals = [
+  {
+    name: 200,
+    status: 'Low'
+  },
+  {
+    name: 150,
+    status: 'High'
+  },
+  {
+    name: 100,
+    status: 'Urgent'
   }
 ]

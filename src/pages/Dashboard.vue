@@ -25,7 +25,7 @@
               <div class="q-ma-sm">
                 <ul class="row justify-between flex-container-week-days">
                   <li class="flex-item"
-                      v-for="day in customHelp"
+                      v-for="day in customdays"
                       :key="day.id"
                       @click="active_id=day.id"
                   >
@@ -152,12 +152,26 @@
                     v-model="form.user_id"
                     label="Associated with"
                     type="text" lazy-rules
-                    :rules="[val => (val && val.length > 0) || 'Select Assignee']"
                   >
-                    <template v-slot:before>
+                    <template v-slot:before="scope">
                       <q-avatar>
-                        <img src="https://cdn.quasar.dev/img/avatar5.jpg">
+                        <img ref="avatarImg" src="https://cdn.quasar.dev/img/avatar5.jpg">
                       </q-avatar>
+                    </template>
+                    <template v-slot:option="scope">
+                      <q-item
+                        v-bind="scope.itemProps"
+                        v-on="scope.itemEvents"
+                      >
+                        <q-item-section avatar>
+                          <q-avatar>
+                            <img :src="scope.opt.avatar"/>
+                          </q-avatar>
+                        </q-item-section>
+                        <q-item-section>
+                          <q-item-label v-html="scope.opt.name"></q-item-label>
+                        </q-item-section>
+                      </q-item>
                     </template>
                   </q-select>
                 </div>
@@ -300,7 +314,7 @@
 <script>
   const moment = require('moment')
   import commonMixins from '../mixins/commonMixins'
-  import { tasks, data } from '../Config/data.js'
+  import { getTasks, getUsers, getDays, getTags, getEmails, getDeals} from '../Config/data.js'
   import { cloneDeep } from 'lodash'
 
   export default {
@@ -318,30 +332,21 @@
       },
       editId: null,
       progress: 0.8,
-      options: data,
-      days: [
-        { id : 1, date: 23, day : 'Sun', class: 'active'},
-        { id : 2, date: 24, day : 'Mon', class: ''},
-        { id : 3, date: 25, day : 'Tue', class: ''},
-        { id : 4, date: 26, day : 'Wed', class: ''},
-        { id : 5, date: 27, day : 'Thu', class: ''},
-        { id : 6, date: 28, day : 'Fri', class: ''},
-        { id : 7, date: 29, day : 'Sat', class: ''}
-      ],
+      options: getUsers,
       active_id: 1,
-      getTasks: tasks,
-      finalEditClone: [],
+      tasks: getTasks,
+      tags: getTags,
+      days: getDays,
       moment: moment,
       limit: 3,
       showMore: {class: 'hidden'},
       openDialog: false,
-      dialogTitle: ''
     }
   },
     methods: {
     deleteUserTask (id) {
       console.log('deleted', id)
-      this.getTasks = this.getTasks.filter(task => task.id !== id)
+      this.tasks = this.tasks.filter(task => task.id !== id)
       return this.notify('Task User Deleted Success !', 'secondary')
     },
     editUserTask (task) {
@@ -359,15 +364,15 @@
       this.openDialog = false
     },
     btnSave() {
-      console.log('user id', this.form.user_id)
       // find the index of this ID's object
-      const objIndex = this.getTasks.findIndex(obj => obj.id === this.editId)
-      this.getTasks[objIndex].id = this.editId
-      this.getTasks[objIndex].title = this.form.title
-      this.getTasks[objIndex].dueDate = this.form.dueDate
-      this.getTasks[objIndex].assignee.user_id = this.form.user_id
-      this.getTasks[objIndex].tag = this.form.tag
-      this.getTasks[objIndex].status = this.form.status
+      const objIndex = this.tasks.findIndex(obj => obj.id === this.editId)
+
+      this.tasks[objIndex].title = this.form.title
+      this.tasks[objIndex].dueDate = this.form.dueDate
+      this.tasks[objIndex].assignee.user_id = this.form.user_id
+      this.tasks[objIndex].tag = this.form.tag
+      this.tasks[objIndex].status = this.form.status
+
       this.form = {}
       this.closeDialog()
       this.notify('Task User Updated Success !', 'secondary')
@@ -375,9 +380,9 @@
   },
   computed: {
     limitTask(){
-      return this.limit ? this.getTasks.slice(0, this.limit) :  this.getTasks
+      return this.limit ? this.tasks.slice(0, this.limit) :  this.tasks
     },
-    customHelp(){
+    customdays(){
       return this.days.map(day=>{
         day.class= this.active_id===day.id?'active':''
         return day;
