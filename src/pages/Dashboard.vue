@@ -300,7 +300,7 @@
 <script>
   const moment = require('moment')
   import commonMixins from '../mixins/commonMixins'
-  import { tasks, users } from '../Config/users.js'
+  import { tasks, data } from '../Config/data.js'
   import { cloneDeep } from 'lodash'
 
   export default {
@@ -318,7 +318,7 @@
       },
       editId: null,
       progress: 0.8,
-      options: users,
+      options: data,
       days: [
         { id : 1, date: 23, day : 'Sun', class: 'active'},
         { id : 2, date: 24, day : 'Mon', class: ''},

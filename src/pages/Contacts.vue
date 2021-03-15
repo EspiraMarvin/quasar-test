@@ -199,7 +199,7 @@
 <script>
 const moment = require('moment')
 import commonMixins from '../mixins/commonMixins'
-import { users } from '../Config/users.js'
+import { data } from '../Config/data.js'
 import { cloneDeep } from 'lodash'
 export default {
   name: 'Contacts',
@@ -245,7 +245,7 @@ export default {
         { name: 'forecast', align: 'left', label: 'Forecast', field: 'forecast' },
         { name: 'recentAct', align: 'left', label: 'Recent activity', field: 'recentAct' }
       ],
-      records: users
+      records: data
     }
   },
 
