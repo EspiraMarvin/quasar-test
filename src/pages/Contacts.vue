@@ -138,7 +138,7 @@
                       type="email"
                       lazy-rules
                       mask="email"
-                      :rules="[val => (val && val.length > 0) || 'Please enter email']"
+                      :rules="[val => !!val || 'Email is missing', isValidEmail]"
                     />
                   </div>
                   </div>
@@ -271,11 +271,10 @@ export default {
       this.editting = false
       this.openDialog = false
     },
-    btnSave () {
+    btnSave (val) {
       // add contact
       if (!this.editting) {
-        console.log('form length', this.form)
-        if (!this.form.name || !this.form.email || !this.form.companyName || !this.form.role || !this.form.forecast) {
+        if (!this.form.name || !this.form.email || this.isValidEmail(this.form.email) === 'Invalid email' || !this.form.companyName || !this.form.role || !this.form.forecast) {
           return this.notify('All Fields are required !', 'red')
         }
         // this.contacts = [...this.contacts, this.form]
@@ -285,6 +284,7 @@ export default {
         this.closeDialog() // close dialog
         return this.notify('Contact Added Success !', 'secondary')
       } else {
+        if (this.isValidEmail(this.form.email) === 'Invalid email') return this.notify('Invalid email !', 'red')
         // edit contact // get the object with data to edit
         const formItem = this.form
         // find the index of this ID's object
@@ -323,6 +323,11 @@ export default {
     // function generates random date between two dates
     randomDate (start, end) {
       return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
+    },
+    // email validation
+    isValidEmail (val) {
+      const emailPattern = /^(?=[a-zA-Z0-9@._%+-]{6,254}$)[a-zA-Z0-9._%+-]{1,64}@(?:[a-zA-Z0-9-]{1,63}\.){1,8}[a-zA-Z]{2,63}$/
+      return emailPattern.test(val) || 'Invalid email'
     }
   }
 }

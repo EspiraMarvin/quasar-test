@@ -2,7 +2,6 @@
   <q-page class="q-pa-md">
     <div class="row col-xs-12">
       <div class="col-sm-7 col-xs-12 q-pa-sm q-ma-md">
-        Dashboard 1
         <q-card class="my-card">
           <q-card-section class="q-pa-md">
               <div class="row">
@@ -179,7 +178,7 @@
                   <q-input
                     standard
                     v-model="form.tag"
-                    label="Tag *"
+                    label="Tag (Call/ Event/ Reminder) *"
                     type="text"
                     lazy-rules
                     :rules="[val => (val && val.length > 0) || 'Please enter tag']"
@@ -189,7 +188,7 @@
                   <q-input
                     standard
                     v-model="form.status"
-                    label="Status *"
+                    label="Status (Complete/ Ended/ Active) *"
                     type="text"
                     lazy-rules
                     :rules="[val => (val && val.length > 0) || 'Please enter status']"
@@ -203,7 +202,7 @@
               <q-btn
                 label="Save"
                 @click="btnSave"
-                outline
+                outline5
                 color="primary"
                 class="q-pl-md q-pr-md"
               >
@@ -218,7 +217,6 @@
 
 <!--      right panel with deals and tasks -->
       <div class="col-sm-4 col-xs-12 q-pa-sm q-ma-md">
-        Dashboard 2
 <!--        deals -->
         <q-card class="my-card q-mb-xl">
           <q-card-section class="col-12 q-pa-md">
