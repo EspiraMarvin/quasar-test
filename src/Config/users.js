@@ -119,7 +119,7 @@ export const tasks = [
     title: 'Invite to office meet-up.',
     dueDate: '2018-12-23',
     assignee: {
-      user_id: 2,
+      user_id: 4,
       fullName: 'Rebecca Moore',
       avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg'
     },

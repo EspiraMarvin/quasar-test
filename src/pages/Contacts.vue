@@ -296,8 +296,7 @@ export default {
         this.closeDialog() // close dialog
         return this.notify('Contact Added Success !', 'secondary')
       } else {
-        // edit contact here
-        // get the object with data to edit
+        // edit contact // get the object with data to edit
         const formItem = this.form
         // find the index of this ID's object
         const objIndex = this.records.findIndex(obj => obj.id === formItem.id)

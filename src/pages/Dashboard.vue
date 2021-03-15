@@ -300,8 +300,9 @@
 <script>
   const moment = require('moment')
   import commonMixins from '../mixins/commonMixins'
-  import {tasks, users} from '../Config/users.js'
+  import { tasks, users } from '../Config/users.js'
   import { cloneDeep } from 'lodash'
+
   export default {
   name: 'Dashboard',
   mixins: [commonMixins],
@@ -315,6 +316,7 @@
         tag: '',
         status: ''
       },
+      editId: null,
       progress: 0.8,
       options: users,
       days: [
@@ -328,6 +330,7 @@
       ],
       active_id: 1,
       getTasks: tasks,
+      finalEditClone: [],
       moment: moment,
       limit: 3,
       showMore: {class: 'hidden'},
@@ -349,32 +352,25 @@
       this.form.dueDate = finalClone.dueDate
       this.form.tag = finalClone.tag
       this.form.status = finalClone.status
-      console.log(finalClone)
-
-
-      // this.selectedUsers = this.options.map(({ id,name, avatar }) => ({ id, name, avatar }));
+      //object id to be used to edit
+      this.editId = task.id
     },
     closeDialog () {
       this.openDialog = false
     },
     btnSave() {
-      const formItem = this.form
-      console.log('form', this.form.user_id)
-
+      console.log('user id', this.form.user_id)
       // find the index of this ID's object
-      const objIndex = this.getTasks.findIndex(obj => obj.id === formItem.id)
-      this.getTasks[objIndex].id = formItem.id
-      this.getTasks[objIndex].title = formItem.title
-      this.getTasks[objIndex].dueDate = formItem.dueDate
-      this.getTasks[objIndex].user_id = formItem.user_id
-      this.getTasks[objIndex].companyName = formItem.companyName
-      this.getTasks[objIndex].role = formItem.role
-      this.getTasks[objIndex].forecast = formItem.forecast
-      this.getTasks[objIndex].recentAct = formItem.recentAct
-      // after edit clear form
-      this.form = ''
+      const objIndex = this.getTasks.findIndex(obj => obj.id === this.editId)
+      this.getTasks[objIndex].id = this.editId
+      this.getTasks[objIndex].title = this.form.title
+      this.getTasks[objIndex].dueDate = this.form.dueDate
+      this.getTasks[objIndex].assignee.user_id = this.form.user_id
+      this.getTasks[objIndex].tag = this.form.tag
+      this.getTasks[objIndex].status = this.form.status
+      this.form = {}
       this.closeDialog()
-      this.notify('Contact Updated Success !', 'secondary')
+      this.notify('Task User Updated Success !', 'secondary')
       }
   },
   computed: {
