@@ -27,3 +27,5 @@ quasar dev / yarn dev
 ```bash
 quasar test --unit jest / yarn run unit
 ```
+
+### Link to the site is also [here](https://quasar-admin-site.netlify.app)
