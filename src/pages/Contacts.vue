@@ -101,7 +101,7 @@
                 {{ props.row.role }}
               </q-td>
               <q-td key="forecast" :props="props">
-                {{ props.row.forecast }}%
+                {{ props.row.forecast }} %
               </q-td>
               <q-td key="recentAct" :props="props">
                 {{ props.row.recentAct }}
@@ -165,7 +165,7 @@
                   <div class="col-md-6 col-xs-12 q-pa-md">
                     <q-input
                       standard
-                      v-model="form.status"
+                      v-model="form.forecast"
                       label="Forecast *"
                       type="number"
                       lazy-rules

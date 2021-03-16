@@ -6,7 +6,7 @@ export const getUsers = [
     email: 'lindsey.stroud@gmail.com',
     companyName: 'Hatchbuck',
     role: 'Manager',
-    forecast: '50',
+    forecast: 50,
     recentAct: '5 Minutes ago'
   },
   {
@@ -16,7 +16,7 @@ export const getUsers = [
     email: 'nicci.troiani@gmail.com',
     companyName: 'Slack',
     role: 'Manager',
-    forecast: '75',
+    forecast: 75,
     recentAct: '14 Minutes ago'
   },
   {
@@ -26,7 +26,7 @@ export const getUsers = [
     email: 'george.fields@gmail.com',
     companyName: 'Clockify',
     role: 'CEO',
-    forecast: '10',
+    forecast: 10,
     recentAct: '6 Hours ago'
   },
   {
@@ -36,7 +36,7 @@ export const getUsers = [
     email: 'rebecca.mooore@gmail.com',
     companyName: 'Trello',
     role: 'Engineer',
-    forecast: '25',
+    forecast: 25,
     recentAct: 'Dec 14, 2018'
   },
   {
@@ -46,7 +46,7 @@ export const getUsers = [
     email: 'jane.doe@gmail.com',
     companyName: 'Slack',
     role: 'Manager',
-    forecast: '30',
+    forecast: 30,
     recentAct: 'Dec 12, 2018'
   },
   {
@@ -56,7 +56,7 @@ export const getUsers = [
     email: 'jones.dermont@gmail.com',
     companyName: 'Slack',
     role: 'Developer',
-    forecast: '40',
+    forecast: 40,
     recentAct: 'Dec 11, 2018'
   },
   {
@@ -66,7 +66,7 @@ export const getUsers = [
     avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
     companyName: 'Google',
     role: 'Manager',
-    forecast: '60',
+    forecast: 60,
     recentAct: 'Dec 9, 2018'
   },
   {
@@ -76,7 +76,7 @@ export const getUsers = [
     email: 'franz.ferdinand@gmail.com',
     companyName: 'Facebook',
     role: 'Manager',
-    forecast: '100',
+    forecast: 100,
     recentAct: 'Dec 6, 2018'
   },
   {
@@ -86,7 +86,7 @@ export const getUsers = [
     email: 'john.smith@gmail.com',
     companyName: 'Skype',
     role: 'CEO',
-    forecast: '75',
+    forecast: 75,
     recentAct: 'Nov 30, 2018'
   },
   {
@@ -96,7 +96,7 @@ export const getUsers = [
     email: 'judith.williams@gmail.com',
     companyName: 'Google',
     role: 'Designer',
-    forecast: '45',
+    forecast: 45,
     recentAct: 'Nov 26, 2018'
   }
 ]
