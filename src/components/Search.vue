@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <q-input
-      placeholder=""
+      placeholder="Search ..."
       class="q-ma-xs q-ml-xs-xs bg-white col-xs-9 col-sm-10 col-md-11"
       filled
       dense
