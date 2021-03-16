@@ -169,7 +169,11 @@
                       label="Forecast *"
                       type="number"
                       lazy-rules
-                      :rules="[val => (val && val.length > 0) || 'Please enter forecast']"
+                      mask="number"
+                      :rules="[
+                        val => val !== null && val !== '' || 'Please type a forecast number',
+                        val => val > 0 && val < 100 || 'Please type a number'
+                        ]"
                     />
                   </div>
               </q-form>

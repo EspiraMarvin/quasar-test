@@ -15,7 +15,21 @@ const routes = [
     ]
   },
   {
+    path: '/tasks/:id',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/Tasks.vue') }
+    ]
+  },
+  {
     path: '/email',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/Email.vue') }
+    ]
+  },
+  {
+    path: '/email/:id',
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/Email.vue') }
@@ -37,6 +51,13 @@ const routes = [
   },
   {
     path: '/deals',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/Deals.vue') }
+    ]
+  },
+  {
+    path: '/deals/:id',
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/Deals.vue') }

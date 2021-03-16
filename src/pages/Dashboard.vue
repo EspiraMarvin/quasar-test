@@ -30,6 +30,7 @@
                   >
                     <p
                       :style="day.class ? 'color: #109CF1; border-radius: 50%' : 'background-color-green'"
+                      @click="clickDay(day)"
                     >
                       {{day.day}}
                     </p>
@@ -98,7 +99,8 @@
 
               </q-card>
               <q-btn
-                @click="limit = null"
+                @click="hide"
+                v-if="showMore"
                 flat style="color: #109CF1; margin-left: 35%" size="md" class="text-lowercase" label="show more" />
             </q-card-section>
           </q-card-section>
@@ -175,24 +177,34 @@
                   </q-select>
                 </div>
                 <div class="col-md-6 col-xs-12 q-pa-md">
-                  <q-input
-                    standard
+                  <q-select
+                    :options="tags"
+                    option-value="name"
+                    option-label="name"
+                    emit-value
+                    map-options
                     v-model="form.tag"
-                    label="Tag (Call/ Event/ Reminder) *"
+                    label="Tag *"
                     type="text"
                     lazy-rules
                     :rules="[val => (val && val.length > 0) || 'Please enter tag']"
-                  />
+                  >
+                  </q-select>
                 </div>
                 <div class="col-md-6 col-xs-12 q-pa-md">
-                  <q-input
-                    standard
+                  <q-select
+                    :options="status"
+                    option-value="name"
+                    option-label="name"
+                    emit-value
+                    map-options
                     v-model="form.status"
-                    label="Status (Complete/ Ended/ Active) *"
+                    label="Status *"
                     type="text"
                     lazy-rules
                     :rules="[val => (val && val.length > 0) || 'Please enter status']"
-                  />
+                   >
+                  </q-select>
                 </div>
               </q-form>
             </q-card-section>
@@ -312,9 +324,8 @@
 <script>
   const moment = require('moment')
   import commonMixins from '../mixins/commonMixins'
-  import { getTasks, getUsers, getDays, getTags, getEmails, getDeals} from '../Config/data.js'
+  import { getTasks, getUsers, getDays, getTags, getStatus, getDeals} from '../Config/data.js'
   import { cloneDeep } from 'lodash'
-
   export default {
   name: 'Dashboard',
   mixins: [commonMixins],
@@ -334,14 +345,19 @@
       active_id: 1,
       tasks: getTasks,
       tags: getTags,
+      status: getStatus,
       days: getDays,
       moment: moment,
       limit: 3,
-      showMore: {class: 'hidden'},
+      showMore: true,
       openDialog: false,
     }
   },
     methods: {
+    hide () {
+      this.limit = null
+      this.showMore = false
+    },
     deleteUserTask (id) {
       console.log('deleted', id)
       this.tasks = this.tasks.filter(task => task.id !== id)
@@ -374,7 +390,10 @@
       this.form = {}
       this.closeDialog()
       this.notify('Task User Updated Success !', 'secondary')
-      }
+      },
+    clickDay(day) {
+      console.log('day clicked', day)
+    }
   },
   computed: {
     limitTask(){
@@ -387,16 +406,15 @@
       })
     }
   },
-
-    watch: {
-    limit: {
-      handler() {
-        if (this.limit === null){
-          this.showMore = false
-        }
-      },
-      deep: true
-    }
+    watch : {
+      limit : {
+        handler() {
+          if (this.limit === null) {
+            this.showMore === false
+          }
+        },
+        deep: true
+      }
     }
 }
 </script>

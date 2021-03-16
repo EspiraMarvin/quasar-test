@@ -188,57 +188,69 @@ export const getTasks = [
   }
 ]
 export const getDays = [
-  { id: 1, date: 23, day: 'Sun', class: 'active' },
-  { id: 2, date: 24, day: 'Mon', class: '' },
-  { id: 3, date: 25, day: 'Tue', class: '' },
-  { id: 4, date: 26, day: 'Wed', class: '' },
-  { id: 5, date: 27, day: 'Thu', class: '' },
-  { id: 6, date: 28, day: 'Fri', class: '' },
-  { id: 7, date: 29, day: 'Sat', class: '' }
+  { id: 1, date: 23, day: 'Sun', year: 2018, class: 'active' },
+  { id: 2, date: 24, day: 'Mon', year: 2018, class: '' },
+  { id: 3, date: 25, day: 'Tue', year: 2018, class: '' },
+  { id: 4, date: 26, day: 'Wed', year: 2018, class: '' },
+  { id: 5, date: 27, day: 'Thu', year: 2018, class: '' },
+  { id: 6, date: 28, day: 'Fri', year: 2018, class: '' },
+  { id: 7, date: 29, day: 'Sat', year: 2018, class: '' }
 ]
 
 export const getTags = [
-  'reminder', 'call', 'event'
+  { id: 1, name: 'reminder' }, { id: 2, name: 'call' }, { id: 3, name: 'event' }
 ]
-
+export const getStatus = [
+  { id: 1, name: 'Completed' }, { id: 2, name: 'Ended' }, { id: 3, name: 'Active' }
+]
 export const getEmails = [
   {
+    id: 1,
     email: 'martin.merces@gmail.com',
     status: 'Draft'
   },
   {
-    email: 'martin.merces@gmail.com',
+    id: 2,
+    email: 'marvin.espira@gmail.com',
     status: 'Scheduled'
   },
   {
+    id: 3,
     email: 'martin.merces@gmail.com',
     status: 'Sent'
   },
   {
+    id: 4,
     email: 'martin.merces@gmail.com',
     status: 'Draft'
   },
   {
+    id: 5,
     email: 'martin.merces@gmail.com',
     status: 'Archived'
   },
   {
+    id: 6,
     email: 'martin.merces@gmail.com',
     status: 'Draft'
   },
   {
+    id: 7,
     email: 'martin.merces@gmail.com',
     status: 'Scheduled'
   },
   {
+    id: 8,
     email: 'martin.merces@gmail.com',
     status: 'Sent'
   },
   {
+    id: 9,
     email: 'martin.merces@gmail.com',
     status: 'Archived'
   },
   {
+    id: 10,
     email: 'martin.merces@gmail.com',
     status: 'Draft'
   }
@@ -247,15 +259,15 @@ export const getEmails = [
 
 export const getDeals = [
   {
-    name: 200,
+    name: 50,
     status: 'Low'
   },
   {
-    name: 150,
+    name: 200,
     status: 'High'
   },
   {
-    name: 100,
+    name: 120,
     status: 'Urgent'
   }
 ]

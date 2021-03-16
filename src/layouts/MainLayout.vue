@@ -56,6 +56,7 @@
         </q-item>
 
         <q-item
+          @click="task"
           to="/tasks"
           clickable
           v-ripple
@@ -66,8 +67,28 @@
 
           <q-item-section class="text-subtitle1">Tasks</q-item-section>
         </q-item>
+            <q-tabs
+              v-if="isTask"
+              v-model="tab"
+              vertical
+              no-caps
+            >
+              <q-item class="row justify-center" to="/tasks/Active" exact clickable>
+                <q-icon class="radio_icon" keep-color size="xs" name="radio_button_unchecked" val="orange" color="orange" />
+                <span class="text-black q-mt-sm">Active</span>
+              </q-item>
+              <q-item class="row justify-center q-ml-lg" to="/tasks/Completed" exact clickable>
+                <q-icon class="radio_icon" keep-color size="xs" name="radio_button_unchecked" val="green" color="green" />
+                <span class="text-black q-mt-sm">Completed</span>
+              </q-item>
+              <q-item class="row justify-center" to="/tasks/Ended" exact clickable>
+                <q-icon class="radio_icon" keep-color size="xs" name="radio_button_unchecked" val="red" color="red" />
+                <span class="text-black q-mt-sm">Ended</span>
+              </q-item>
+            </q-tabs>
 
         <q-item
+          @click="email"
           to="/email"
           clickable
           v-ripple
@@ -78,6 +99,29 @@
 
           <q-item-section class="text-subtitle1">Email</q-item-section>
         </q-item>
+        <q-tabs
+          v-if="isEmail"
+          v-model="tab"
+          vertical
+          no-caps
+        >
+          <q-item class="row justify-center" to="/email/Draft" exact clickable>
+            <q-icon class="radio_icon" keep-color size="xs" name="radio_button_unchecked" val="orange" color="orange" />
+            <span class="text-black q-mt-sm">Draft</span>
+          </q-item>
+          <q-item class="row justify-center q-ml-lg" to="/email/Scheduled" exact clickable>
+            <q-icon class="radio_icon" keep-color size="xs" name="radio_button_unchecked" val="green" color="indigo" />
+            <span class="text-black q-mt-sm">Scheduled</span>
+          </q-item>
+          <q-item class="row justify-center" to="/email/Sent" exact clickable>
+            <q-icon class="radio_icon" keep-color size="xs" name="radio_button_unchecked" val="red" color="green" />
+            <span class="text-black q-mt-sm">Sent</span>
+          </q-item>
+          <q-item class="row justify-center" to="/email/Archived" exact clickable>
+            <q-icon class="radio_icon" keep-color size="xs" name="radio_button_unchecked" val="red" color="red" />
+            <span class="text-black q-mt-sm">Archived</span>
+          </q-item>
+        </q-tabs>
 
         <q-item
           to="/contacts"
@@ -104,6 +148,7 @@
         </q-item>
 
         <q-item
+          @click="deals"
           to="/deals"
           clickable
           v-ripple
@@ -114,6 +159,25 @@
 
           <q-item-section class="text-subtitle1">Deals</q-item-section>
         </q-item>
+        <q-tabs
+          v-if="isDeal"
+          v-model="tab"
+          vertical
+          no-caps
+        >
+          <q-item class="row justify-center" to="/deals/Low" exact clickable>
+            <q-icon class="radio_icon" keep-color size="xs" name="radio_button_unchecked" val="orange" color="orange" />
+            <span class="text-black q-mt-sm">Low</span>
+          </q-item>
+          <q-item class="row justify-center q-ml-lg" to="/deals/High" exact clickable>
+            <q-icon class="radio_icon" keep-color size="xs" name="radio_button_unchecked" val="green" color="green" />
+            <span class="text-black q-mt-sm">High</span>
+          </q-item>
+          <q-item class="row justify-center" to="/deals/Urgent" exact clickable>
+            <q-icon class="radio_icon" keep-color size="xs" name="radio_button_unchecked" val="red" color="red" />
+            <span class="text-black q-mt-sm">Urgent</span>
+          </q-item>
+        </q-tabs>
 
         <q-separator />
 
@@ -134,13 +198,13 @@
 
       <div>
         <q-list
-          class="large-screen-only"
-          style="height:10px; margin-bottom: 0; margin-top: 180px; position: relative; min-height: 200px"
+          class="fixed-bottom-left large-screen-only"
         >
           <q-item
             @click="drawer = !drawer"
             clickable
             v-ripple
+            class="q-mb-md"
           >
             <q-item-section avatar>
               <q-icon name="eva-npm" color="accent" size="sm" />
@@ -151,13 +215,13 @@
         </q-list>
 
         <q-list
-          class="small-screen-only q-mt-xl-lg"
-          style="margin-bottom: 0; margin-top: 130px; position: relative"
+          class="fixed-bottom-left small-screen-only"
         >
           <q-item
             @click="drawer = !drawer"
             clickable
             v-ripple
+            class="q-mb-md"
           >
             <q-item-section avatar>
               <q-icon name="eva-npm" color="accent" size="sm" />
@@ -192,7 +256,23 @@ export default {
         name: 'Sierra Ferguson',
         avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
         email: 's.ferguson@gmail.com'
-      }
+      },
+      tab: '',
+      isTask: false,
+      isEmail: false,
+      isDeal: false
+    }
+  },
+
+  methods: {
+    task () {
+      this.isTask = !this.isTask
+    },
+    email () {
+      this.isEmail = !this.isEmail
+    },
+    deals () {
+      this.isDeal = !this.isDeal
     }
   }
 }
@@ -212,6 +292,9 @@ export default {
   }
   .profile-details{
     overflow: hidden;
+  }
+  .radio_icon{
+    margin-top: 8px;
   }
 
 </style>
