@@ -1,11 +1,11 @@
 # quasar-test
 To Install the app follow these instructions
 
-## clone the [https://github.com/EspiraMarvin/quasar-test.git](https://github.com/EspiraMarvin/quasar-test.git)
+## clone this [repo](https://github.com/EspiraMarvin/quasar-test.git)
 
-## navigate to the folder with the cloned repo
+## navigate to the folder containing this cloned repo
 
-## open with your editor of choice
+## open the folder with your editor of choice
 
 ## Install the dependencies run
 
@@ -13,10 +13,14 @@ To Install the app follow these instructions
 yarn install
 ```
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
+### Start the app in development
+
 ```bash
-quasar dev
+quasar dev / yarn dev
 ```
 ###open the [localhost:8080](http://localhost:8080) port is 8080
 
-
+### To run all tests
+```bash
+quasar test --unit jest / yarn run unit
+```
