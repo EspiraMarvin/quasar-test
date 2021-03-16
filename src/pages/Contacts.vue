@@ -165,11 +165,10 @@
                   <div class="col-md-6 col-xs-12 q-pa-md">
                     <q-input
                       standard
-                      v-model="form.forecast"
+                      v-model="form.status"
                       label="Forecast *"
                       type="number"
                       lazy-rules
-                      mask="number"
                       :rules="[
                         val => val !== null && val !== '' || 'Please type a forecast number',
                         val => val > 0 && val < 100 || 'Please type a number'
@@ -183,7 +182,7 @@
               <q-btn color="info" class="q-pl-md q-pr-md" outline label="Cancel" @click="closeDialog" />
               <q-btn
                 label="Save"
-                @click="btnSave"
+                @click="btnSave()"
                 outline
                 color="primary"
                 class="q-pl-md q-pr-md"
@@ -253,17 +252,11 @@ export default {
     }
   },
 
-  computed: {
-
-  },
-  watch: {
-
-  },
-
   methods: {
     addContact () {
       this.openDialog = true
       this.dialogTitle = 'Add Contact'
+      this.editting = false
     },
     editContact () {
       this.editting = true
@@ -275,17 +268,18 @@ export default {
       this.editting = false
       this.openDialog = false
     },
-    btnSave (val) {
-      // add contact
+    btnSave () {
       if (!this.editting) {
-        if (!this.form.name || !this.form.email || this.isValidEmail(this.form.email) === 'Invalid email' || !this.form.companyName || !this.form.role || !this.form.forecast) {
+        if (!this.form.name.length && !this.form.email.length && !this.form.companyName.length &&
+          !this.form.role.length && !this.form.forecast.length) {
           return this.notify('All Fields are required !', 'red')
+        } else if (this.isValidEmail(this.form.email) === 'Invalid email') {
+          return this.notify('Invalid email !', 'red')
         }
-        // this.contacts = [...this.contacts, this.form]
-        // this.records = [...this.records, this.form]
+        // add records to array (front)
         this.records.unshift(this.form)
         this.form = {} // clear form
-        this.closeDialog() // close dialog
+        this.closeDialog()
         return this.notify('Contact Added Success !', 'secondary')
       } else {
         if (this.isValidEmail(this.form.email) === 'Invalid email') return this.notify('Invalid email !', 'red')
@@ -327,11 +321,6 @@ export default {
     // function generates random date between two dates
     randomDate (start, end) {
       return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
-    },
-    // email validation
-    isValidEmail (val) {
-      const emailPattern = /^(?=[a-zA-Z0-9@._%+-]{6,254}$)[a-zA-Z0-9._%+-]{1,64}@(?:[a-zA-Z0-9-]{1,63}\.){1,8}[a-zA-Z]{2,63}$/
-      return emailPattern.test(val) || 'Invalid email'
     }
   }
 }

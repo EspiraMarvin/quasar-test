@@ -3,7 +3,7 @@ export const getUsers = [
     id: 1,
     name: 'Lindsey Stroud',
     avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
-    email: 'Lindsey.stroud@gmail.com',
+    email: 'lindsey.stroud@gmail.com',
     companyName: 'Hatchbuck',
     role: 'Manager',
     forecast: '50',
@@ -211,47 +211,47 @@ export const getEmails = [
   },
   {
     id: 2,
-    email: 'marvin.espira@gmail.com',
+    email: 'curtisschmidt@gmail.com',
     status: 'Scheduled'
   },
   {
     id: 3,
-    email: 'martin.merces@gmail.com',
+    email: 'lindsey.stroud@gmail.com',
     status: 'Sent'
   },
   {
     id: 4,
-    email: 'martin.merces@gmail.com',
+    email: 'john.smith@gmail.com',
     status: 'Draft'
   },
   {
     id: 5,
-    email: 'martin.merces@gmail.com',
+    email: 'jane.doe@gmail.com',
     status: 'Archived'
   },
   {
     id: 6,
-    email: 'martin.merces@gmail.com',
+    email: 'nicci.troiani@gmail.com',
     status: 'Draft'
   },
   {
     id: 7,
-    email: 'martin.merces@gmail.com',
+    email: 'franz.ferdinand@gmail.com',
     status: 'Scheduled'
   },
   {
     id: 8,
-    email: 'martin.merces@gmail.com',
+    email: 'judith.williams@gmail.com',
     status: 'Sent'
   },
   {
     id: 9,
-    email: 'martin.merces@gmail.com',
+    email: 'rebecca.mooore@gmail.com',
     status: 'Archived'
   },
   {
     id: 10,
-    email: 'martin.merces@gmail.com',
+    email: 'jones.dermont@gmail.com',
     status: 'Draft'
   }
 
@@ -259,15 +259,44 @@ export const getEmails = [
 
 export const getDeals = [
   {
-    name: 50,
-    status: 'Low'
+    date: '1 Dec',
+    value: 50,
+    rating: 'Low',
+    status: 'closed'
   },
   {
-    name: 200,
-    status: 'High'
+    date: '8 Dec',
+    value: 200,
+    rating: 'High',
+    status: 'closed'
   },
   {
-    name: 120,
-    status: 'Urgent'
+    date: '16 Dec',
+    value: 120,
+    rating: 'Urgent',
+    status: 'closed'
+  },
+  {
+    date: '22 Dec',
+    value: 90,
+    rating: 'High',
+    status: 'closed'
+  },
+  {
+    value: 170,
+    rating: 'Urgent',
+    status: 'closed'
+  },
+  {
+    date: '28 Dec',
+    value: 130,
+    rating: 'Closed',
+    status: 'closed'
+  },
+  {
+    date: '31 Dec',
+    value: 140,
+    rating: 'Urgent',
+    status: 'open'
   }
 ]

@@ -6,7 +6,7 @@
       <q-toolbar>
         <q-separator vertical color="grey-2" class="tool-bar-separator"/>
 
-        <q-btn dense flat round icon="menu" color="grey-14" @click="drawer = !drawer" />
+        <q-btn flat round icon="menu" color="grey-14" @click="drawer = !drawer" />
 
         <q-toolbar-title>
          <Search :search="search" />
@@ -30,15 +30,29 @@
       </template>
 
       <q-separator />
-      <span class="row justify-center q-ma-md" >
-        <q-avatar color="primary" class="q-mr-xs" text-color="white">
-          <img :src="user.avatar">
-        </q-avatar>
+      <div class="large-screen-only">
+        <span class="row justify-center q-ma-md">
+          <q-avatar color="primary" class="q-mr-xs" text-color="white">
+            <img :src="user.avatar">
+          </q-avatar>
+        <div v-if="!miniState" class="profile-details q-ml-lg q-mr-xs">
+          <p>{{user.name}}</p>
+          <p>{{user.email}}</p>
+        </div>
+      </span>
+      </div>
+
+      <div class="small-screen-only">
+        <span class="row justify-center q-ma-md">
+          <q-avatar color="primary" class="q-mr-xs" text-color="white">
+            <img :src="user.avatar">
+          </q-avatar>
         <div class="profile-details q-ml-lg q-mr-xs">
           <p>{{user.name}}</p>
           <p>{{user.email}}</p>
         </div>
       </span>
+      </div>
 
       <q-list>
 
@@ -107,19 +121,19 @@
         >
           <q-item class="row justify-center" to="/email/Draft" exact clickable>
             <q-icon class="radio_icon" keep-color size="xs" name="radio_button_unchecked" val="orange" color="orange" />
-            <span class="text-black q-mt-sm">Draft</span>
+            <span class="text-black q-mt-sm q-ml-xs">Draft</span>
           </q-item>
           <q-item class="row justify-center q-ml-lg" to="/email/Scheduled" exact clickable>
             <q-icon class="radio_icon" keep-color size="xs" name="radio_button_unchecked" val="green" color="indigo" />
-            <span class="text-black q-mt-sm">Scheduled</span>
+            <span class="text-black q-mt-sm q-ml-xs">Scheduled</span>
           </q-item>
           <q-item class="row justify-center" to="/email/Sent" exact clickable>
             <q-icon class="radio_icon" keep-color size="xs" name="radio_button_unchecked" val="red" color="green" />
-            <span class="text-black q-mt-sm">Sent</span>
+            <span class="text-black q-mt-sm q-mr-md">&nbsp;Sent</span>
           </q-item>
           <q-item class="row justify-center" to="/email/Archived" exact clickable>
             <q-icon class="radio_icon" keep-color size="xs" name="radio_button_unchecked" val="red" color="red" />
-            <span class="text-black q-mt-sm">Archived</span>
+            <span class="text-black q-mt-sm q-mr-md" style="margin-right: -10px"> Archived</span>
           </q-item>
         </q-tabs>
 
@@ -167,15 +181,15 @@
         >
           <q-item class="row justify-center" to="/deals/Low" exact clickable>
             <q-icon class="radio_icon" keep-color size="xs" name="radio_button_unchecked" val="orange" color="orange" />
-            <span class="text-black q-mt-sm">Low</span>
+            <span class="text-black q-mt-sm q-mr-xl">Low</span>
           </q-item>
           <q-item class="row justify-center q-ml-lg" to="/deals/High" exact clickable>
             <q-icon class="radio_icon" keep-color size="xs" name="radio_button_unchecked" val="green" color="green" />
-            <span class="text-black q-mt-sm">High</span>
+            <span class="text-black q-mt-sm q-mr-xl">High</span>
           </q-item>
           <q-item class="row justify-center" to="/deals/Urgent" exact clickable>
             <q-icon class="radio_icon" keep-color size="xs" name="radio_button_unchecked" val="red" color="red" />
-            <span class="text-black q-mt-sm">Urgent</span>
+            <span class="text-black q-mt-sm q-mr-xl">Urgent</span>
           </q-item>
         </q-tabs>
 
@@ -196,40 +210,41 @@
 
       </q-list>
 
+      <q-list
+        class="large-screen-only"
+      >
+        <q-item
+          @click="drawer = !drawer"
+          clickable
+          v-ripple
+          style="margin-top: 400px"
+        >
+          <q-item-section avatar>
+            <q-icon name="eva-npm" color="accent" size="sm" />
+          </q-item-section>
+
+          <q-item-section class="text-subtitle1">Toggle sidebar</q-item-section>
+        </q-item>
+      </q-list>
+
+      <q-list
+        class="relative small-screen-only q-mt-md"
+      >
+        <q-item
+          @click="drawer = !drawer"
+          clickable
+          v-ripple
+          class="q-mb-md"
+        >
+          <q-item-section avatar>
+            <q-icon name="eva-npm" color="accent" size="sm" />
+          </q-item-section>
+
+          <q-item-section class="text-subtitle1">Toggle sidebar</q-item-section>
+        </q-item>
+      </q-list>
+
       <div>
-        <q-list
-          class="fixed-bottom-left large-screen-only"
-        >
-          <q-item
-            @click="drawer = !drawer"
-            clickable
-            v-ripple
-            class="q-mb-md"
-          >
-            <q-item-section avatar>
-              <q-icon name="eva-npm" color="accent" size="sm" />
-            </q-item-section>
-
-            <q-item-section class="text-subtitle1">Toggle sidebar</q-item-section>
-          </q-item>
-        </q-list>
-
-        <q-list
-          class="fixed-bottom-left small-screen-only"
-        >
-          <q-item
-            @click="drawer = !drawer"
-            clickable
-            v-ripple
-            class="q-mb-md"
-          >
-            <q-item-section avatar>
-              <q-icon name="eva-npm" color="accent" size="sm" />
-            </q-item-section>
-
-            <q-item-section class="text-subtitle1">Toggle sidebar</q-item-section>
-          </q-item>
-        </q-list>
 
       </div>
 

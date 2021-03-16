@@ -13,7 +13,7 @@
         <q-card-section>
           <div class="row no-wrap items-center" style="height:10.5px">
             <div class="col ellipsis row">&nbsp;
-              &nbsp;<span>{{ deal.name }} </span>
+              &nbsp;<span>{{ deal.value }} - {{ deal.rating }} - {{ deal.date }}</span>
             </div>
           </div>
         </q-card-section>
@@ -40,11 +40,9 @@ export default {
         return
       }
       this.deals = getDeals.filter(deal => {
-        return deal.status === this.$route.params.id
+        return deal.rating === this.$route.params.id
       })
     }
-  },
-  created () {
   },
   mounted () {
     this.filterDeals()

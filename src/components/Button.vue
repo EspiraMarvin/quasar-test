@@ -1,12 +1,12 @@
 <template>
-    <div class="text-center">
-      Settings
+    <div>
+      <button>show more</button>
     </div>
 </template>
 
 <script>
 export default {
-  name: 'Settings'
+  name: 'Button'
 }
 </script>
 

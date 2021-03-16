@@ -1,26 +1,22 @@
-# Quasar App (quasar-test)
+# quasar-test
+To Install the app follow these instructions
 
-A Quasar Framework app
+## clone the [https://github.com/EspiraMarvin/quasar-test.git](https://github.com/EspiraMarvin/quasar-test.git)
 
-## Install the dependencies
+## navigate to the folder with the cloned repo
+
+## open with your editor of choice
+
+## Install the dependencies run
+
 ```bash
-yarn
+yarn install
 ```
 
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)
 ```bash
 quasar dev
 ```
+###open the [localhost:8080](http://localhost:8080) port is 8080
 
-### Lint the files
-```bash
-yarn run lint
-```
 
-### Build the app for production
-```bash
-quasar build
-```
-
-### Customize the configuration
-See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).

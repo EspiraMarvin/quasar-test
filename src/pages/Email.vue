@@ -43,11 +43,8 @@ export default {
       })
     }
   },
-  created () {
-    this.filterEmails()
-  },
   mounted () {
-    // this.filterEmails()
+    this.filterEmails()
   },
   watch: {
     '$route.params.id': {

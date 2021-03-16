@@ -20,7 +20,7 @@
                   <q-linear-progress :value="progress" color="secondary" class="q-mt-sm" />
                 </div>
               </div>
-              <div class="text-overline q-mt-sm q-mb-xs">23 December, Sunday</div>
+              <div class="text-overline q-mt-sm q-mb-xs">{{ currentDate }}</div>
               <div class="q-ma-sm">
                 <ul class="row justify-between flex-container-week-days">
                   <li class="flex-item"
@@ -30,7 +30,6 @@
                   >
                     <p
                       :style="day.class ? 'color: #109CF1; border-radius: 50%' : 'background-color-green'"
-                      @click="clickDay(day)"
                     >
                       {{day.day}}
                     </p>
@@ -227,9 +226,9 @@
         </q-dialog>
       </div>
 
-<!--      right panel with deals and tasks -->
+<!--      right panel with Closed deals and tasks -->
       <div class="col-sm-4 col-xs-12 q-pa-sm q-ma-md">
-<!--        deals -->
+<!--        Closed deals -->
         <q-card class="my-card q-mb-xl">
           <q-card-section class="col-12 q-pa-md">
             <div class="row">
@@ -245,30 +244,10 @@
           </q-card-section>
           <q-separator />
 
-          <q-list>
-            <q-item clickable>
-              <q-item-section avatar>
-                <q-icon color="primary" name="local_bar" />
-              </q-item-section>
+<!--            line graph component-->
 
-              <q-item-section>
-                <q-item-label>Bar XYZ</q-item-label>
-                <q-item-label caption>Have a drink.</q-item-label>
-              </q-item-section>
-            </q-item>
+          <LineGraph />
 
-            <q-item clickable>
-              <q-item-section avatar>
-                <q-icon color="red" name="local_gas_station" />
-              </q-item-section>
-
-              <q-item-section>
-                <q-item-label>Gas Station</q-item-label>
-                <q-item-label caption>Fill your gas tank.</q-item-label>
-              </q-item-section>
-            </q-item>
-
-          </q-list>
         </q-card>
 
 
@@ -289,31 +268,9 @@
           </q-card-section>
           <q-separator />
 
+<!--          apex donut component  -->
+          <ApexDonut />
 
-          <q-list>
-            <q-item clickable>
-              <q-item-section avatar>
-                <q-icon color="primary" name="local_bar" />
-              </q-item-section>
-
-              <q-item-section>
-                <q-item-label>Bar XYZ</q-item-label>
-                <q-item-label caption>Have a drink.</q-item-label>
-              </q-item-section>
-            </q-item>
-
-            <q-item clickable>
-              <q-item-section avatar>
-                <q-icon color="red" name="local_gas_station" />
-              </q-item-section>
-
-              <q-item-section>
-                <q-item-label>Gas Station</q-item-label>
-                <q-item-label caption>Fill your gas tank.</q-item-label>
-              </q-item-section>
-            </q-item>
-
-          </q-list>
         </q-card>
       </div>
 
@@ -325,10 +282,13 @@
   const moment = require('moment')
   import commonMixins from '../mixins/commonMixins'
   import { getTasks, getUsers, getDays, getTags, getStatus, getDeals} from '../Config/data.js'
+  import LineGraph from '../components/LineGraph'
+  import ApexDonut from '../components/ApexDonut'
   import { cloneDeep } from 'lodash'
   export default {
   name: 'Dashboard',
-  mixins: [commonMixins],
+    components: { LineGraph, ApexDonut },
+    mixins: [commonMixins],
   data (){
     return {
       // form data
@@ -339,8 +299,11 @@
         tag: '',
         status: ''
       },
+      optionss: {},
+      series: [44, 55, 41, 17, 15],
       editId: null,
       progress: 0.8,
+      currentDate: '23 December, Sunday',
       options: getUsers,
       active_id: 1,
       tasks: getTasks,
@@ -351,6 +314,11 @@
       limit: 3,
       showMore: true,
       openDialog: false,
+      sections: [
+        { label: 'Red section', value: 25, color: 'red' },
+        { label: 'Green section', value: 25, color: 'green' },
+        { label: 'Blue section', value: 25, color: 'blue' }
+      ],
     }
   },
     methods: {
@@ -390,10 +358,7 @@
       this.form = {}
       this.closeDialog()
       this.notify('Task User Updated Success !', 'secondary')
-      },
-    clickDay(day) {
-      console.log('day clicked', day)
-    }
+      }
   },
   computed: {
     limitTask(){
@@ -405,17 +370,7 @@
         return day;
       })
     }
-  },
-    watch : {
-      limit : {
-        handler() {
-          if (this.limit === null) {
-            this.showMore === false
-          }
-        },
-        deep: true
-      }
-    }
+  }
 }
 </script>
 
