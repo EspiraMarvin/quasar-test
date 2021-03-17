@@ -46,7 +46,7 @@
                 <q-badge class="q-ml-sm" size="xs" v-model="props.selected" :label="selected.length" />
                 <span class="q-ml-md">{{selected.length}} selected
                   <q-icon v-show="selected.length === 1" name="edit" class="q-ml-md" color="accent" size="20px" @click="editContact"/>
-                  <q-icon name="delete" class="q-ml-md" color="accent" size="20px" @click="deleteContact"/>
+                  <q-icon name="delete" class="q-ml-md" color="accent" size="20px" @click="deleteContact(records.indexOf(props.row))"/>
                 </span>
               </span>
             </template>
@@ -302,21 +302,13 @@ export default {
       }
     },
     deleteContact () {
-      if (this.selected.length === 1) {
-        const id = this.selected[0].id
-        this.records = this.records.filter(contact => contact.id !== id)
-        this.selected.length = ''
-        return this.notify('Contact Deleted Success !', 'secondary')
-      } else if (this.selected.length > 1 && this.selected.length) {
-        const selectedCount = this.selected.length
-        this.selectedRecords = this.selected
-        // return this.records.filter(el => this.selectedRecords.includes(el))
-        this.records = this.records.filter(contact => {
-          this.records.findIndex(selectedRecords => contact.id !== selectedRecords.id)
-        })
-        this.selected.length = ''
-        return this.notify(`${selectedCount} Contacts Deleted Success !`, 'secondary')
-      }
+      const selectedCount = this.selected.length
+      this.selected.filter(item => {
+        this.records.splice(this.records.indexOf(item), 1)
+        return item
+      })
+      this.selected = []
+      return this.notify(`${selectedCount} Contacts Deleted Success !`, 'secondary')
     },
     // function generates random date between two dates
     randomDate (start, end) {
