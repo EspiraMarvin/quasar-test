@@ -329,7 +329,7 @@
     deleteUserTask (id) {
       console.log('deleted', id)
       this.tasks = this.tasks.filter(task => task.id !== id)
-      return this.notify('Task User Deleted Success !', 'secondary')
+      return this.notify('Task User Deleted Success !', 'red')
     },
     editUserTask (task) {
       this.openDialog = true
