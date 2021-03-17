@@ -29,6 +29,7 @@
     "echarts": "^4.8.0",
     "lodash": "latest",
     "moment": "^2.29.1",
+    "pluralize": "^8.0.0",
     "quasar": "^1.0.0",
     "v-charts": "^1.19.0",
     "v-charts-v2": "^2.0.9",

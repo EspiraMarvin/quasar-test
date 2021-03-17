@@ -46,7 +46,7 @@
                 <q-badge class="q-ml-sm" size="xs" v-model="props.selected" :label="selected.length" />
                 <span class="q-ml-md">{{selected.length}} selected
                   <q-icon v-show="selected.length === 1" name="edit" class="q-ml-md" color="accent" size="20px" @click="editContact"/>
-                  <q-icon name="delete" class="q-ml-md" color="accent" size="20px" @click="deleteContact(records.indexOf(props.row))"/>
+                  <q-icon name="delete" class="q-ml-md" color="accent" size="20px" @click="deleteContact"/>
                 </span>
               </span>
             </template>
@@ -201,6 +201,7 @@
 
 <script>
 const moment = require('moment')
+const pluralize = require('pluralize')
 import commonMixins from '../mixins/commonMixins'
 import { getUsers } from '../Config/data.js'
 import { cloneDeep } from 'lodash'
@@ -223,8 +224,8 @@ export default {
       dialogTitle: '',
       editting: false,
       moment: moment,
+      pluralize: pluralize,
       selected: [],
-      selectedRecords: [],
       pagination: {
         sortBy: 'desc',
         descending: false,
@@ -303,12 +304,13 @@ export default {
     },
     deleteContact () {
       const selectedCount = this.selected.length
+      const contactNo = pluralize('Contact', selectedCount, true)
       this.selected.filter(item => {
         this.records.splice(this.records.indexOf(item), 1)
         return item
       })
       this.selected = []
-      return this.notify(`${selectedCount} Contacts Deleted Success !`, 'secondary')
+      return this.notify(`${contactNo} Deleted Success !`, 'red')
     },
     // function generates random date between two dates
     randomDate (start, end) {
