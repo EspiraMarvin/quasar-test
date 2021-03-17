@@ -28,4 +28,5 @@ quasar dev / yarn dev
 quasar test --unit jest / yarn run unit
 ```
 
+### note: data is served from src folder under Config/data.js
 ### Link to the site is also [here](https://quasar-admin-site.netlify.app)
