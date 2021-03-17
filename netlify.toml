@@ -1,8 +1,9 @@
 # example netlify.toml
 [build]
-  command = "quasar build"
+  command = "quasar build-pwa"
   functions = "netlify/functions"
-  publish = "dist\spa"
+  publish = "dist\pwa"
+  # publish = "dist\spa"
 
   ## Uncomment to use this redirect for Single Page Applications like create-react-app.
   ## Not needed for static site generators.
