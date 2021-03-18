@@ -32,10 +32,14 @@ quasar test --unit jest / yarn run unit
 ### Link to the site is also [here](https://quasar-admin-site.netlify.app)
 
 <div>
+Dashboard Toggled
 <img src="src/assets/dashboard-toggled.png" alt="Dashboard Toggled" style="width: 50%">
+Dashboard
 <img src="src/assets/dashboard.png" alt="Dashboard" style="width: 50%">
 <img src="src/assets/Contact.png" alt="Contact" style="width: 50%">
+Contacts
 <img src="src/assets/AddContact.png" alt="Add Contact" style="width: 50%">
+Add Contact
 <img src="src/assets/Tasks.png" alt="Task" style="width: 50%">
 <img src="src/assets/Email.png" alt="Email" style="width: 50%">
 <img src="src/assets/Email.png" alt="Email" style="width: 50%">
