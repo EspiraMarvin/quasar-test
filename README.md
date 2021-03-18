@@ -36,15 +36,21 @@ Dashboard Toggled
 <img src="src/assets/dashboard-toggled.png" alt="Dashboard Toggled" style="width: 50%">
 Dashboard
 <img src="src/assets/dashboard.png" alt="Dashboard" style="width: 50%">
-<img src="src/assets/Contact.png" alt="Contact" style="width: 50%">
 Contacts
-<img src="src/assets/AddContact.png" alt="Add Contact" style="width: 50%">
+<img src="src/assets/Contact.png" alt="Contact" style="width: 50%">
 Add Contact
+<img src="src/assets/AddContact.png" alt="Add Contact" style="width: 50%">
+Tasks
 <img src="src/assets/Tasks.png" alt="Task" style="width: 50%">
+Emails
 <img src="src/assets/Email.png" alt="Email" style="width: 50%">
-<img src="src/assets/Email.png" alt="Email" style="width: 50%">
+Deals
+<img src="src/assets/Deal.png" alt="Email" style="width: 50%">
+Edit User Task
 <img src="src/assets/EditUserTask.png" alt="Edit User Task" style="width: 50%">
+Edit User Task Select User Dropdown
 <img src="src/assets/EditUserTaskSelectUser.png" alt="Edit User Task Select User Dropdown" style="width: 50%">
+Edit Contact
 <img src="src/assets/EditContact.png" alt="Edit Contact" style="width: 50%">
 
 </div>
