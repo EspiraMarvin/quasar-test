@@ -30,3 +30,15 @@ quasar test --unit jest / yarn run unit
 
 ### note: data is served from src folder under Config/data.js
 ### Link to the site is also [here](https://quasar-admin-site.netlify.app)
+
+<div>
+<img src="src/assets/dashboard-toggled.png" alt="Dashboard Toggled" style="width: 50%">
+<img src="src/assets/dashboard.png" alt="Dashboard" style="width: 50%">
+<img src="src/assets/Contact.png" alt="Contact" style="width: 50%">
+<img src="src/assets/Tasks.png" alt="Task" style="width: 50%">
+<img src="src/assets/Email.png" alt="Email" style="width: 50%">
+<img src="src/assets/Email.png" alt="Email" style="width: 50%">
+<img src="src/assets/EditUserTask.png" alt="Edit User Task" style="width: 50%">
+<img src="src/assets/EditContact.png" alt="Edit Contact" style="width: 50%">
+
+</div>
