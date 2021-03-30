@@ -4,46 +4,45 @@
       <div class="col-sm-7 col-xs-12 q-pa-sm q-ma-md">
         <q-card class="my-card">
           <q-card-section class="q-pa-md">
-              <div class="row">
-                <div>8 tasks completed out of 10</div>
-                <q-space />
-                    <span> Show:
+            <div class="row">
+              <div>8 tasks completed out of 10</div>
+              <q-space />
+              <span> Show:
                       <q-expansion-item dense dense-toggle class="q-ml-lg" label="This week" style="margin-top: -25px;color: #109CF1">
                         <q-item dense exact clickable><span class="text-caption">This Month</span></q-item>
                         <q-item dense exact clickable><span class="text-caption">This Year</span></q-item>
                       </q-expansion-item>
                     </span>
-              </div>
+            </div>
 
-              <div class="row">
-                <div class="col-sm-12 col-xs-10">
-                  <q-linear-progress :value="progress" color="secondary" class="q-mt-sm" />
-                </div>
+            <div class="row">
+              <div class="col-sm-12 col-xs-10">
+                <q-linear-progress :value="progress" color="secondary" class="q-mt-sm" />
               </div>
-              <div class="text-overline q-mt-sm q-mb-xs">{{ currentDate }}</div>
-              <div class="q-ma-sm">
-                <ul class="row justify-between flex-container-week-days">
-                  <li class="flex-item"
-                      v-for="day in customdays"
-                      :key="day.id"
-                      @click="active_id=day.id"
+            </div>
+            <div class="text-overline q-mt-sm q-mb-xs">{{ currentDate }}</div>
+            <div class="q-ma-sm">
+              <ul class="row justify-between flex-container-week-days">
+                <li class="flex-item"
+                    v-for="day in customdays"
+                    :key="day.id"
+                    @click="active_id=day.id"
+                >
+                  <p
+                    :style="day.class ? 'color: #109CF1; border-radius: 50%' : 'background-color-green'"
                   >
-                    <p
-                      :style="day.class ? 'color: #109CF1; border-radius: 50%' : 'background-color-green'"
-                    >
-                      {{day.day}}
-                    </p>
-                    <p
-                      :style="day.class ? 'background-color: #109CF1; color: white; border-radius: 50%;' : ''"
-                    >
-                      {{day.date}}
-                    </p>
+                    {{day.day}}
+                  </p>
+                  <p
+                    :style="day.class ? 'background-color: #109CF1; color: white; border-radius: 50%;' : ''"
+                  >
+                    {{day.date}}
+                  </p>
 
-                  </li>
-                </ul>
-              </div>
+                </li>
+              </ul>
+            </div>
           </q-card-section>
-
 
           <q-separator />
 
@@ -64,16 +63,16 @@
                   <div class="text-subtitle2 text-weight-light text-grey">Due date: <span class="text-weight-light text-black">{{moment(task.dueDate).format('LL')}}</span></div>
                 </q-card-section>
                 <q-card-section class="q-mb-sm row user-task">
-                    <q-item>
-                      <q-item-section avatar>
-                        <q-avatar
-                          size="26px"
-                        >
-                          <img :src="task.assignee.avatar">
-                        </q-avatar>
-                      </q-item-section>
-                      <span class="text-weight-regular text-grey-7 card-text-caption">{{task.assignee.fullName}}</span>
-                    </q-item>
+                  <q-item>
+                    <q-item-section avatar>
+                      <q-avatar
+                        size="26px"
+                      >
+                        <img :src="task.assignee.avatar">
+                      </q-avatar>
+                    </q-item-section>
+                    <span class="text-weight-regular text-grey-7 card-text-caption">{{task.assignee.fullName}}</span>
+                  </q-item>
 
                   <q-space />
 
@@ -153,9 +152,9 @@
                     label="Associated with"
                     type="text" lazy-rules
                   >
-                    <template v-slot:before="scope">
+                    <template v-slot:before>
                       <q-avatar>
-                        <img ref="avatarImg" src="https://cdn.quasar.dev/img/avatar5.jpg">
+                        <img ref="avatarImg" :src="form.avatar">
                       </q-avatar>
                     </template>
                     <template v-slot:option="scope">
@@ -202,7 +201,7 @@
                     type="text"
                     lazy-rules
                     :rules="[val => (val && val.length > 0) || 'Please enter status']"
-                   >
+                  >
                   </q-select>
                 </div>
               </q-form>
@@ -226,15 +225,15 @@
         </q-dialog>
       </div>
 
-<!--      right panel with Closed deals and tasks -->
+      <!--      right panel with Closed deals and tasks -->
       <div class="col-sm-4 col-xs-12 q-pa-sm q-ma-md">
-<!--        Closed deals -->
+        <!--        Closed deals -->
         <q-card class="my-card q-mb-xl">
           <q-card-section class="col-12 q-pa-md">
             <div class="row">
               <div>Deals</div>
               <q-space />
-                <span>Show:
+              <span>Show:
                   <q-expansion-item dense class="q-ml-lg" dense-toggle label="Monthly" style="margin-top: -25px;color: #109CF1">
                     <q-item dense exact clickable><span class="text-caption">Monthly</span></q-item>
                     <q-item dense exact clickable><span class="text-caption">Yearly</span></q-item>
@@ -244,14 +243,13 @@
           </q-card-section>
           <q-separator />
 
-<!--            line graph component-->
+          <!--            line graph component-->
 
           <LineGraph />
 
         </q-card>
 
-
-<!--       Tasks pie chart -->
+        <!--       Tasks pie chart -->
 
         <q-card class="my-card">
           <q-card-section class="col-12 q-pa-md">
@@ -268,7 +266,7 @@
           </q-card-section>
           <q-separator />
 
-<!--          apex donut component  -->
+          <!--          apex donut component  -->
           <ApexDonut />
 
         </q-card>
@@ -279,23 +277,24 @@
 </template>
 
 <script>
-  const moment = require('moment')
-  import commonMixins from '../mixins/commonMixins'
-  import { getTasks, getUsers, getDays, getTags, getStatus, getDeals} from '../Config/data.js'
-  import LineGraph from '../components/LineGraph'
-  import ApexDonut from '../components/ApexDonut'
-  import { cloneDeep } from 'lodash'
-  export default {
+const moment = require('moment')
+import commonMixins from '../mixins/commonMixins'
+import { getTasks, getUsers, getDays, getTags, getStatus } from '../Config/data.js'
+import LineGraph from '../components/LineGraph'
+import ApexDonut from '../components/ApexDonut'
+import { cloneDeep } from 'lodash'
+export default {
   name: 'Dashboard',
-    components: { LineGraph, ApexDonut },
-    mixins: [commonMixins],
-  data (){
+  components: { LineGraph, ApexDonut },
+  mixins: [commonMixins],
+  data () {
     return {
       // form data
       form: {
         title: '',
         dueDate: '',
         user_id: '',
+        avatar: '',
         tag: '',
         status: ''
       },
@@ -318,56 +317,57 @@
         { label: 'Red section', value: 25, color: 'red' },
         { label: 'Green section', value: 25, color: 'green' },
         { label: 'Blue section', value: 25, color: 'blue' }
-      ],
+      ]
     }
   },
-    methods: {
+  methods: {
     hide () {
       this.limit = null
       this.showMore = false
     },
     deleteUserTask (id) {
-      console.log('deleted', id)
       this.tasks = this.tasks.filter(task => task.id !== id)
       return this.notify('Task User Deleted Success !', 'red')
     },
     editUserTask (task) {
       this.openDialog = true
-      let finalClone = cloneDeep(task)
+      const finalClone = cloneDeep(task)
       this.form.user_id = finalClone.assignee.user_id
+      this.form.avatar = finalClone.assignee.avatar
       this.form.title = finalClone.title
       this.form.dueDate = finalClone.dueDate
       this.form.tag = finalClone.tag
       this.form.status = finalClone.status
-      //object id to be used to edit
+      // object id to be used to edit
       this.editId = task.id
     },
     closeDialog () {
       this.openDialog = false
     },
-    btnSave() {
+    btnSave () {
       // find the index of this ID's object
       const objIndex = this.tasks.findIndex(obj => obj.id === this.editId)
 
       this.tasks[objIndex].title = this.form.title
       this.tasks[objIndex].dueDate = this.form.dueDate
       this.tasks[objIndex].assignee.user_id = this.form.user_id
+      this.tasks[objIndex].assignee.avatar = this.form.avatar
       this.tasks[objIndex].tag = this.form.tag
       this.tasks[objIndex].status = this.form.status
 
       this.form = {}
       this.closeDialog()
       this.notify('Task User Updated Success !', 'secondary')
-      }
+    }
   },
   computed: {
-    limitTask(){
-      return this.limit ? this.tasks.slice(0, this.limit) :  this.tasks
+    limitTask () {
+      return this.limit ? this.tasks.slice(0, this.limit) : this.tasks
     },
-    customdays(){
-      return this.days.map(day=>{
-        day.class= this.active_id===day.id?'active':''
-        return day;
+    customdays () {
+      return this.days.map(day => {
+        day.class = this.active_id === day.id ? 'active' : ''
+        return day
       })
     }
   }

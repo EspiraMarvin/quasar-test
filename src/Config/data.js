@@ -198,7 +198,7 @@ export const getDays = [
 ]
 
 export const getTags = [
-  { id: 1, name: 'reminder' }, { id: 2, name: 'call' }, { id: 3, name: 'event' }
+  { id: 1, name: 'Reminder' }, { id: 2, name: 'Call' }, { id: 3, name: 'Event' }
 ]
 export const getStatus = [
   { id: 1, name: 'Completed' }, { id: 2, name: 'Ended' }, { id: 3, name: 'Active' }

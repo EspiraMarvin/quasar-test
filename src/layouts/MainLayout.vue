@@ -9,7 +9,7 @@
         <q-btn flat round icon="menu" color="grey-14" @click="drawer = !drawer" />
 
         <q-toolbar-title>
-         <Search :search="search" />
+          <Search />
         </q-toolbar-title>
 
       </q-toolbar>
