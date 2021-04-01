@@ -61,13 +61,11 @@
 
 <script>
 import TaskList from '../components/TaskList'
-import commonMixins from '../mixins/commonMixins'
 import LineGraph from '../components/LineGraph'
 import ApexDonut from '../components/ApexDonut'
 export default {
   name: 'Dashboard',
   components: { TaskList, LineGraph, ApexDonut },
-  mixins: [commonMixins],
   data () {
     return {
     }

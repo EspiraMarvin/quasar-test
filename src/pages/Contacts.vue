@@ -42,9 +42,9 @@
           <template v-slot:top="props">
 
             <template v-if="selected.length">
-              <span class="float-left">
+              <span class="">
                 <q-badge class="q-ml-sm" size="xs" v-model="props.selected" :label="selected.length" />
-                <span class="q-ml-md">{{selected.length}} selected
+                <span class="q-ml-md">selected
                   <q-icon v-show="selected.length === 1" name="edit" class="q-ml-md" color="accent" size="20px" @click="editContact"/>
                   <q-icon name="delete" class="q-ml-md" color="accent" size="20px" @click="deleteContact"/>
                 </span>

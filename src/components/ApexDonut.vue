@@ -29,7 +29,7 @@ export default {
         },
         chart: {
           toolbar: {
-            show: false
+            show: true
           }
         },
         title: {
@@ -52,6 +52,9 @@ export default {
           }
         }],
         legend: {
+          // position: 'top',
+          // horizontalAlign: 'left',
+          // offsetX: -10,
           labels: {
             colors: '#FFF'
           }

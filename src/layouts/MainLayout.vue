@@ -20,7 +20,7 @@
       show-if-above
       :mini="miniState"
       @mouseover="miniState = false"
-      @mouseout="miniState = true"
+      @mouseout="miniState = false"
       :width="283"
       :breakpoint="500"
       side="left"
@@ -56,6 +56,39 @@
 
       <EssentialLinks />
 
+      <q-list
+        class="large-screen-only"
+      >
+        <q-item
+          @click="drawer = !drawer"
+          clickable
+          v-ripple
+          style="margin-top: 400px"
+        >
+          <q-item-section avatar>
+            <q-icon name="eva-npm" color="accent" size="sm" />
+          </q-item-section>
+
+          <q-item-section class="text-subtitle1">Toggle sidebar</q-item-section>
+        </q-item>
+      </q-list>
+
+      <q-list
+        class="relative  small-screen-only q-mt-md"
+      >
+        <q-item
+          @click="drawer = !drawer"
+          clickable
+          v-ripple
+        >
+          <q-item-section avatar>
+            <q-icon name="eva-npm" color="accent" size="sm" />
+          </q-item-section>
+
+          <q-item-section class="text-subtitle1">Toggle sidebar</q-item-section>
+        </q-item>
+      </q-list>
+
     </q-drawer>
 
     <q-page-container>
@@ -73,7 +106,7 @@ export default {
   data () {
     return {
       drawer: false,
-      miniState: true,
+      miniState: false,
       search: 'Global Search',
       user: {
         id: 1,
