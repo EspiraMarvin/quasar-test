@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Button from '../../../src/components/Button'
+import Button from './Button'
 export default {
   name: 'Child',
   components: { Button },

@@ -46,12 +46,6 @@ describe('Mount Quasar', () => {
     expect(vm.counter).toBe(1)
   })
 
-  it('manipulates state', async () => {
-    await wrapper.setData({ count: 10 })
-
-    await wrapper.setProps({ foo: 'bar' })
-  })
-
   test('should render username, then hide it', async () => {
     const wrapper = mount(User)
     expect(wrapper.text()).toMatch(/username/)

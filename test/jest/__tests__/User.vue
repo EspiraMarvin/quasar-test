@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import Button from '../../../src/components/Button'
+import Button from './Button'
 export default {
   name: 'User',
   // eslint-disable-next-line vue/no-unused-components

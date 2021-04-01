@@ -6,7 +6,7 @@
           <div class="float-left col-xs-4 col-sm-1">
             <span>Company:
               <q-expansion-item dense dense-toggle class="top-table-expansion-item" label="All">
-                <q-item dense exact clickable><span class="text-caption">10</span></q-item>
+                <q-item @click="filterCompany(value)" :value="10" dense exact clickable><span class="text-caption">10</span></q-item>
                 <q-item dense exact clickable><span class="text-caption">50</span></q-item>
               </q-expansion-item>
             </span>
@@ -271,17 +271,17 @@ export default {
     },
     btnSave () {
       if (!this.editting) {
-        if (!this.form.name.length && !this.form.email.length && !this.form.companyName.length &&
-          !this.form.role.length && !this.form.forecast.length) {
+        if (!this.form.name.length || !this.form.email.length || !this.form.companyName.length || !this.form.role.length || !this.form.forecast.length) {
           return this.notify('All Fields are required !', 'red')
         } else if (this.isValidEmail(this.form.email) === 'Invalid email') {
           return this.notify('Invalid email !', 'red')
+        } else if (this.form.name.length && this.form.email.length && this.form.companyName.length && this.form.role.length && this.form.forecast.length) {
+          // add records to array (front)
+          this.records.unshift(this.form)
+          this.form = {} // clear form
+          this.closeDialog()
+          return this.notify('Contact Added Success !', 'secondary')
         }
-        // add records to array (front)
-        this.records.unshift(this.form)
-        this.form = {} // clear form
-        this.closeDialog()
-        return this.notify('Contact Added Success !', 'secondary')
       } else {
         if (this.isValidEmail(this.form.email) === 'Invalid email') return this.notify('Invalid email !', 'red')
         // edit contact // get the object with data to edit
@@ -315,6 +315,9 @@ export default {
     // function generates random date between two dates
     randomDate (start, end) {
       return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
+    },
+    filterCompany (value) {
+      console.log(value)
     }
   }
 }
