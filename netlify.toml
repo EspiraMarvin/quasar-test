@@ -2,8 +2,8 @@
 [build]
   command = "quasar build-pwa"
   functions = "netlify/functions"
-  publish = "dist\spa"
-  #publish = "dist\pwa"
+  #publish = "dist\spa"
+  publish = "dist\pwa"
 
 
   ## Uncomment to use this redirect for Single Page Applications like create-react-app.
