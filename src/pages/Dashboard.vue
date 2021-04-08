@@ -1,17 +1,17 @@
 <template>
   <q-page class="q-pa-md">
     <div class="row col-xs-12">
-      <div class="col-sm-7 col-xs-12 q-pa-sm q-ma-md">
+      <div class="col-sm-7 col-xs-12 q-pa-xs q-ma-md">
 
         <TaskList />
 
       </div>
 
       <!--      right panel with Closed deals and tasks -->
-      <div class="col-sm-4 col-xs-12 q-pa-sm q-ma-md">
+      <div class="col-sm-4 col-xs-12 q-pa-xs q-ma-md">
         <!--        Closed deals -->
-        <q-card class="my-card q-mb-xl">
-          <q-card-section class="">
+        <q-card class="my-card q-mb-lg">
+          <q-card-section class="q-pa-md">
             <div class="row">
               <div>Deals</div>
               <q-space />

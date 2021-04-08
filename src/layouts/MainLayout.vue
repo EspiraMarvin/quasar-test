@@ -19,8 +19,6 @@
       v-model="drawer"
       show-if-above
       :mini="miniState"
-      @mouseover="miniState = false"
-      @mouseout="miniState = false"
       :width="283"
       :breakpoint="500"
       side="left"
@@ -60,7 +58,7 @@
         class="large-screen-only"
       >
         <q-item
-          @click="drawer = !drawer"
+          @click="miniState = !miniState"
           clickable
           v-ripple
           style="margin-top: 400px"

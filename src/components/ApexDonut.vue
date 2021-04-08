@@ -29,7 +29,7 @@ export default {
         },
         chart: {
           toolbar: {
-            show: true
+            show: false
           }
         },
         title: {

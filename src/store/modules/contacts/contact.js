@@ -103,12 +103,12 @@ const state = () => ({
   ],
   fetchingContacts: false,
   addingContact: false
-});
+})
 
 const getters = {
   GET_FETCHING_CONTACTS: state => state.fetchingContacts,
   GET_CONTACTS: state => state.contacts,
   GET_ADDING_CONTACTS: state => state.addingContact
-};
+}
 
 // const mutations

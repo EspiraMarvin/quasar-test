@@ -3,7 +3,7 @@
     <q-card class="my-card">
     <q-card-section class="q-pa-md">
       <div class="row">
-        <div>8 tasks completed out of 10</div>
+        <div>{{taskSummary}}</div>
         <q-space />
         <span> Show:
                       <q-expansion-item dense dense-toggle class="q-ml-lg" label="This week" style="margin-top: -25px;color: #109CF1">
@@ -52,7 +52,7 @@
           v-for="task in limitTask"
           :key="task.id"
         >
-          <q-card-section class="text-black">
+          <q-card-section class="text-black" @click="clickTask">
             <div class="row">
               <div class="text-subtitle1 text-weight-medium">{{task.title}}</div>
               <q-space />
@@ -243,6 +243,7 @@ export default {
         tag: '',
         status: ''
       },
+      taskSummary: '8 tasks completed out of 10',
       editId: null,
       progress: 0.8,
       currentDate: '23 December, Sunday',
@@ -259,6 +260,9 @@ export default {
     }
   },
   methods: {
+    clickTask () {
+
+    },
     hide () {
       this.limit = null
       this.showMore = false
