@@ -13,14 +13,24 @@
 
     <q-space />
 
-    <q-icon name="eva-bell-outline" class="q-pa-sm " size="md" color="black" />
+    <q-tabs
+      v-model="tab"
+    >
+      <q-tab alert name="bell" style="color:#000;" icon="eva-bell-outline" />
+    </q-tabs>
+
   </div>
 
 </template>
 
 <script>
 export default {
-  name: 'Search'
+  name: 'Search',
+  data () {
+    return {
+      tab: ''
+    }
+  }
 }
 </script>
 
