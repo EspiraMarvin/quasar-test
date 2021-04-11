@@ -3,7 +3,7 @@
     <div class="row col-xs-12">
       <div class="col-sm-7 col-xs-12 q-pa-xs q-ma-md">
 
-        <TaskList />
+        <TaskDetails />
 
       </div>
 
@@ -60,12 +60,12 @@
 </template>
 
 <script>
-import TaskList from '../components/TaskList'
-import LineGraph from '../components/LineGraph'
-import ApexDonut from '../components/ApexDonut'
+import TaskDetails from '../components/dashboard/Task/TaskDetails'
+import LineGraph from '../components/dashboard/LineGraph'
+import ApexDonut from '../components/dashboard/ApexDonut'
 export default {
   name: 'Dashboard',
-  components: { TaskList, LineGraph, ApexDonut },
+  components: { TaskDetails, LineGraph, ApexDonut },
   data () {
     return {
     }
