@@ -1,12 +1,14 @@
 <template>
-    <div class="text-center">
-      Settings
+    <div class="flex flex-center">
+      <Cube />
     </div>
 </template>
 
 <script>
+import Cube from '../components/setting/Cube'
 export default {
-  name: 'Settings'
+  name: 'Settings',
+  components: { Cube }
 }
 </script>
 
