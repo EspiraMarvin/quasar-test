@@ -118,12 +118,12 @@
               <q-toolbar>
                 <q-toolbar-title>{{ dialogTitle }}</q-toolbar-title>
               </q-toolbar>
-              <q-form ref="addUserForm">
+              <q-form ref="userForm">
                 <div class="row">
                   <div class="col-md-6 col-xs-12 q-pa-md">
                     <q-input
                       standard
-                      v-model="form.name"
+                      v-model="userForm.name"
                       label="Name *"
                       type="text"
                       lazy-rules
@@ -133,7 +133,7 @@
                   <div class="col-md-6 col-xs-12 q-pa-md">
                     <q-input
                       standard
-                      v-model="form.email"
+                      v-model="userForm.email"
                       label="Email *"
                       type="email"
                       lazy-rules
@@ -145,7 +145,7 @@
                   <div class="col-md-6 col-xs-12 q-pa-md">
                     <q-input
                       standard
-                      v-model="form.companyName"
+                      v-model="userForm.companyName"
                       label="Company Name *"
                       type="text"
                       lazy-rules
@@ -155,7 +155,7 @@
                   <div class="col-md-6 col-xs-12 q-pa-md">
                     <q-input
                       standard
-                      v-model="form.role"
+                      v-model="userForm.role"
                       label="Role *"
                       type="text"
                       lazy-rules
@@ -165,7 +165,7 @@
                   <div class="col-md-6 col-xs-12 q-pa-md">
                     <q-input
                       standard
-                      v-model="form.forecast"
+                      v-model="userForm.forecast"
                       label="Forecast *"
                       type="number"
                       lazy-rules
@@ -213,7 +213,7 @@ export default {
       openDialog: false,
       loading: false,
       // form data
-      form: {
+      userForm: {
         name: '',
         email: '',
         companyName: '',
@@ -263,29 +263,31 @@ export default {
       this.editting = true
       this.openDialog = true
       this.dialogTitle = 'Edit Contact'
-      this.form = cloneDeep(this.selected[0])
+      this.userForm = cloneDeep(this.selected[0])
     },
     closeDialog () {
       this.editting = false
+      this.userForm = {}
       this.openDialog = false
     },
     btnSave () {
       if (!this.editting) {
-        if (!this.form.name.length || !this.form.email.length || !this.form.companyName.length || !this.form.role.length || !this.form.forecast.length) {
-          return this.notify('All Fields are required !', 'red')
-        } else if (this.isValidEmail(this.form.email) === 'Invalid email') {
-          return this.notify('Invalid email !', 'red')
-        } else if (this.form.name.length && this.form.email.length && this.form.companyName.length && this.form.role.length && this.form.forecast.length) {
+        if (!this.userForm.name || !this.userForm.email || !this.userForm.companyName || !this.userForm.role || !this.userForm.forecast) {
+          this.$refs.userForm.focus()
+          this.notify('All Fields are required !', 'red')
+        } else if (this.isValidEmail(this.userForm.email) === 'Invalid email') {
+          this.notify('Invalid email !', 'red')
+        } else if (this.userForm.name && this.userForm && this.userForm.companyName && this.userForm.role && this.userForm.forecast) {
           // add records to array (front)
-          this.records.unshift(this.form)
-          this.form = {} // clear form
+          this.records.unshift(this.userForm)
+          this.userForm = {} // clear form
           this.closeDialog()
           return this.notify('Contact Added Success !', 'secondary')
         }
       } else {
-        if (this.isValidEmail(this.form.email) === 'Invalid email') return this.notify('Invalid email !', 'red')
+        if (this.isValidEmail(this.userForm.email) === 'Invalid email') return this.notify('Invalid email !', 'red')
         // edit contact // get the object with data to edit
-        const formItem = this.form
+        const formItem = this.userForm
         // find the index of this ID's object
         const objIndex = this.records.findIndex(obj => obj.id === formItem.id)
         this.records[objIndex].id = formItem.id
@@ -297,7 +299,7 @@ export default {
         this.records[objIndex].forecast = formItem.forecast
         this.records[objIndex].recentAct = formItem.recentAct
         // after edit clear form
-        this.form = {}
+        this.userForm = {}
         this.closeDialog()
         this.notify('Contact Updated Success !', 'secondary')
       }
