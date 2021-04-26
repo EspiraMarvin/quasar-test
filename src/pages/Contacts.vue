@@ -81,10 +81,7 @@
               </q-td>
               <q-td key="name" :props="props">
                   <q-avatar size="sm" class="q-mr-xs" v-if="!props.row.avatar">
-                    <q-icon
-                      size="sm"
-                      name="face"
-                    />
+                    <q-icon size="sm" name="face" />
                   </q-avatar>
                   <q-avatar size="sm" class="q-mr-xs" v-else>
                     <img :src="props.row.avatar">
@@ -118,7 +115,7 @@
                       label="Name *"
                       type="text"
                       lazy-rules
-                      :rules="[val => (val && val.length > 0) || 'Please enter name']"
+                      :rules="[val => (val && val.length > 0) || 'Please enter name', hasWhiteSpacesOnly]"
                     />
                   </div>
                   <div class="col-md-6 col-xs-12 q-pa-md">
@@ -140,7 +137,7 @@
                       label="Company Name *"
                       type="text"
                       lazy-rules
-                      :rules="[val => (val && val.length > 0) || 'Please enter company name']"
+                      :rules="[val => (val && val.length > 0) || 'Please enter company name', hasWhiteSpacesOnly]"
                     />
                   </div>
                   <div class="col-md-6 col-xs-12 q-pa-md">
@@ -150,7 +147,7 @@
                       label="Role *"
                       type="text"
                       lazy-rules
-                      :rules="[val => (val && val.length > 0) || 'Please enter role']"
+                      :rules="[val => (val && val.length > 0) || 'Please enter role', hasWhiteSpacesOnly]"
                     />
                   </div>
                   <div class="col-md-6 col-xs-12 q-pa-md">
@@ -206,6 +203,7 @@ export default {
         forecast: '',
         recentAct: ''
       },
+      loading: false,
       openDialog: false,
       dialogTitle: '',
       errorMessage: '',
@@ -274,7 +272,6 @@ export default {
           this.errorMessage = 'Invalid email'
         } else if (this.userForm.name && this.userForm && this.userForm.companyName && this.userForm.role && this.userForm.forecast) {
           // add records to array (front)
-          console.log('userform', this.userForm)
           this.userForm.recentAct = moment(this.randomDate(new Date(2020, 5, 1), new Date())).startOf('hour').fromNow() // gets relative time
           this.records.unshift(this.userForm)
           this.userForm = {} // clear form
