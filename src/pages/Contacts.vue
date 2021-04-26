@@ -2,7 +2,7 @@
   <q-page class="q-pa-md">
     <template>
       <div class="q-pa-sm q-pt-lg">
-        <div class="row q-mb-sm">
+        <div class="flex justify-between q-mb-sm">
           <div class="float-left col-xs-4 col-sm-1">
             <span>Company:
               <q-expansion-item dense dense-toggle class="top-table-expansion-item" label="All">
@@ -35,16 +35,16 @@
         >
 <!--          table loading data-->
           <template v-slot:loading>
-            <q-inner-loading showing color="primary" />
+            <q-inner-loading  showing color="primary" />
           </template>
 
 <!--          table top slot-->
           <template v-slot:top="props">
 
             <template v-if="selected.length">
-              <span class="">
+              <span class="action-buttons">
                 <q-badge class="q-ml-sm" size="xs" v-model="props.selected" :label="selected.length" />
-                <span class="q-ml-md">selected
+                <span class="q-ml-sm">selected
                   <q-icon v-show="selected.length === 1" name="edit" class="q-ml-md" color="accent" size="20px" @click="editContact"/>
                   <q-icon name="delete" class="q-ml-md" color="accent" size="20px" @click="deleteContact"/>
                 </span>
@@ -91,21 +91,11 @@
                   </q-avatar>
                 {{ props.row.name }}
               </q-td>
-              <q-td key="email" :props="props">
-                {{ props.row.email }}
-              </q-td>
-              <q-td key="companyName" :props="props">
-                <div class="text-pre-wrap">{{ props.row.companyName }}</div>
-              </q-td>
-              <q-td key="role" :props="props">
-                {{ props.row.role }}
-              </q-td>
-              <q-td key="forecast" :props="props">
-                {{ props.row.forecast }} %
-              </q-td>
-              <q-td key="recentAct" :props="props">
-                {{ props.row.recentAct }}
-              </q-td>
+              <template v-for="col in props.cols">
+                <q-td v-if="col.name !== 'name'" :key="col.name">
+                  {{ props.row[col.name] }}
+                </q-td>
+              </template>
             </q-tr>
           </template>
         </q-table>
@@ -118,6 +108,7 @@
               <q-toolbar>
                 <q-toolbar-title>{{ dialogTitle }}</q-toolbar-title>
               </q-toolbar>
+              <span class="flex flex-center text-red-12">{{ errorMessage }}</span>
               <q-form ref="userForm">
                 <div class="row">
                   <div class="col-md-6 col-xs-12 q-pa-md">
@@ -182,15 +173,11 @@
               <q-btn color="info" class="q-pl-md q-pr-md" outline label="Cancel" @click="closeDialog" />
               <q-btn
                 label="Save"
-                @click="btnSave()"
+                @click="btnSave"
                 outline
                 color="primary"
                 class="q-pl-md q-pr-md"
-              >
-                <template v-slot:loading>
-                  <q-spinner-facebook />
-                </template>
-              </q-btn>
+              />
             </q-card-actions>
           </q-card>
         </q-dialog>
@@ -210,8 +197,6 @@ export default {
   mixins: [commonMixins],
   data () {
     return {
-      openDialog: false,
-      loading: false,
       // form data
       userForm: {
         name: '',
@@ -219,9 +204,11 @@ export default {
         companyName: '',
         role: '',
         forecast: '',
-        recentAct: moment(this.randomDate(new Date(2020, 5, 1), new Date())).startOf('hour').fromNow() // gets relative time
+        recentAct: ''
       },
+      openDialog: false,
       dialogTitle: '',
+      errorMessage: '',
       editting: false,
       moment: moment,
       pluralize: pluralize,
@@ -234,25 +221,34 @@ export default {
         // rowsNumber: xx if getting data from a server
       },
       columns: [
-        {
-          name: 'name',
-          required: true,
-          label: 'Name',
-          align: 'left',
-          field: row => row.name,
-          format: val => `${val}`,
-          sortable: true
-        },
-        { name: 'email', align: 'left', label: 'email', field: 'email', sortable: true },
-        { name: 'companyName', align: 'left', label: 'Company name', field: 'companyName', sortable: true },
+        { name: 'name', required: true, label: 'Name', align: 'left', field: row => row.name, sortable: true },
+        { name: 'email', align: 'left', label: 'Email', field: 'email', sortable: true },
+        { name: 'companyName', align: 'left', label: 'Company Name', field: 'companyName', sortable: true },
         { name: 'role', align: 'left', label: 'Role', field: 'role' },
         { name: 'forecast', align: 'left', label: 'Forecast', field: 'forecast' },
-        { name: 'recentAct', align: 'left', label: 'Recent activity', field: 'recentAct' }
+        { name: 'recentAct', align: 'left', label: 'Recent Activity', field: 'recentAct' }
       ],
-      records: getUsers
+      records: []
     }
   },
-
+  mounted () {
+    this.loading = true
+    setTimeout(() => {
+      this.records = getUsers
+      this.loading = false
+    }, 1500)
+  },
+  watch: {
+    // this watches if dialog is closed, then resets the form an d error message if present
+    openDialog: {
+      handler (dialog) {
+        if (dialog === false) {
+          this.userForm = {}
+          this.errorMessage = ''
+        }
+      }
+    }
+  },
   methods: {
     addContact () {
       this.openDialog = true
@@ -267,41 +263,47 @@ export default {
     },
     closeDialog () {
       this.editting = false
-      this.userForm = {}
       this.openDialog = false
     },
     btnSave () {
       if (!this.editting) {
         if (!this.userForm.name || !this.userForm.email || !this.userForm.companyName || !this.userForm.role || !this.userForm.forecast) {
           this.$refs.userForm.focus()
-          this.notify('All Fields are required !', 'red')
+          this.errorMessage = 'All Fields Are Required!'
         } else if (this.isValidEmail(this.userForm.email) === 'Invalid email') {
-          this.notify('Invalid email !', 'red')
+          this.errorMessage = 'Invalid email'
         } else if (this.userForm.name && this.userForm && this.userForm.companyName && this.userForm.role && this.userForm.forecast) {
           // add records to array (front)
+          console.log('userform', this.userForm)
+          this.userForm.recentAct = moment(this.randomDate(new Date(2020, 5, 1), new Date())).startOf('hour').fromNow() // gets relative time
           this.records.unshift(this.userForm)
           this.userForm = {} // clear form
           this.closeDialog()
           return this.notify('Contact Added Success !', 'secondary')
         }
       } else {
-        if (this.isValidEmail(this.userForm.email) === 'Invalid email') return this.notify('Invalid email !', 'red')
-        // edit contact // get the object with data to edit
-        const formItem = this.userForm
-        // find the index of this ID's object
-        const objIndex = this.records.findIndex(obj => obj.id === formItem.id)
-        this.records[objIndex].id = formItem.id
-        this.records[objIndex].name = formItem.name
-        this.records[objIndex].avatar = formItem.avatar
-        this.records[objIndex].email = formItem.email
-        this.records[objIndex].companyName = formItem.companyName
-        this.records[objIndex].role = formItem.role
-        this.records[objIndex].forecast = formItem.forecast
-        this.records[objIndex].recentAct = formItem.recentAct
-        // after edit clear form
-        this.userForm = {}
-        this.closeDialog()
-        this.notify('Contact Updated Success !', 'secondary')
+        if (!this.userForm.name || !this.userForm.email || !this.userForm.companyName || !this.userForm.role || !this.userForm.forecast) {
+          this.errorMessage = 'All Fields Are Required'
+        } else if (this.isValidEmail(this.userForm.email) === 'Invalid email') {
+          this.errorMessage = 'Invalid email'
+        } else if (this.userForm.name && this.userForm && this.userForm.companyName && this.userForm.role && this.userForm.forecast) {
+          // edit contact // get the object with data to edit
+          const formItem = this.userForm
+          // find the index of this ID's object
+          const objIndex = this.records.findIndex(obj => obj.id === formItem.id)
+          this.records[objIndex].id = formItem.id
+          this.records[objIndex].name = formItem.name
+          this.records[objIndex].avatar = formItem.avatar
+          this.records[objIndex].email = formItem.email
+          this.records[objIndex].companyName = formItem.companyName
+          this.records[objIndex].role = formItem.role
+          this.records[objIndex].forecast = formItem.forecast
+          this.records[objIndex].recentAct = formItem.recentAct
+          // after edit clear form
+          this.userForm = {}
+          this.closeDialog()
+          this.notify('Contact Updated Success !', 'secondary')
+        }
       }
     },
     deleteContact () {
@@ -313,10 +315,6 @@ export default {
       })
       this.selected = []
       return this.notify(`${contactNo} Deleted Success !`, 'red')
-    },
-    // function generates random date between two dates
-    randomDate (start, end) {
-      return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
     },
     filterCompany (value) {
       console.log(value)
@@ -333,5 +331,8 @@ export default {
   }
   .add-contact-button{
     margin-top: -20px
+  }
+  .action-buttons {
+    margin-top: 9px;
   }
 </style>
