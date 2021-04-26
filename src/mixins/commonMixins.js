@@ -1,5 +1,5 @@
 const commonMixins = {
-  // notification plugin for messages
+  // common reusable functions
 
   methods: {
     // email validation
@@ -17,6 +17,8 @@ const commonMixins = {
     hasWhiteSpacesOnly (val) {
       return val.replace(/\s/g, '').length || 'field is empty'
     },
+
+    // notification plugin for messages
     notify (message, type) {
       this.$q.notify({
         message: message,
