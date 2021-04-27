@@ -9,10 +9,14 @@
           exact
         >
           <q-item-section avatar>
-            <q-icon name="dashboard" size="sm" />
+            <div>
+              <q-icon name="dashboard" size="sm" />
+            </div>
           </q-item-section>
 
-          <q-item-section class="text-subtitle1">Dashboard</q-item-section>
+          <q-item-section class="text-subtitle1">
+            <span>Dashboard</span>
+          </q-item-section>
         </q-item>
 
         <q-item
@@ -164,7 +168,20 @@ export default {
       miniState: true,
       isTask: false,
       isEmail: false,
-      isDeal: false
+      isDeal: false,
+      links: [
+        {
+          to: '/',
+          name: 'Dashboard',
+          icon: ''
+        },
+        {
+          to: '/tasks',
+          name: 'Tasks',
+          icon: ''
+
+        }
+      ]
     }
   },
   methods: {
