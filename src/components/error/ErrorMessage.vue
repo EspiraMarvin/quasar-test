@@ -1,6 +1,7 @@
 <template>
-    <div class="flex flex-center chip">
+    <div class="flex flex-center">
       <q-chip
+        class="chip"
         :class="errorMessage ? 'bg-red text-white' : 'hidden'" :icon="errorMessage ? 'warning' : ''"
       >
       {{ errorMessage }}
@@ -23,7 +24,7 @@ export default {
 
 <style scoped>
   .chip {
-    margin-top: 0px;
-    margin-bottom: -13px;
+    margin-top: -10px;
+    margin-bottom: -18px;
   }
 </style>
