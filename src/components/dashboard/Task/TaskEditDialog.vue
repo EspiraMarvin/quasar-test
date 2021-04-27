@@ -18,7 +18,7 @@
             />
           </div>
           <div class="col-md-6 col-xs-12 q-pa-md">
-            <q-input standard v-model="form.dueDate" mask="date" placeholder="Due Date" :rules="['date']">
+            <q-input standard v-model="form.dueDate" mask="date" placeholder="Due Date" lazy-rules :rules="[val => (val && val.length > 0) || 'Enter Due Date', hasWhiteSpacesOnly]">
               <template v-slot:append>
                 <q-icon name="event" class="cursor-pointer">
                   <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
