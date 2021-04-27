@@ -108,8 +108,8 @@ export const getTasks = [
     dueDate: '2018-12-23',
     assignee: {
       user_id: 1,
-      fullName: 'George Fields',
-      avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg'
+      fullName: 'Lindsey Stroud',
+      avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg'
     },
     tag: 'Reminder',
     status: 'Completed'
@@ -132,8 +132,8 @@ export const getTasks = [
     dueDate: '2018-12-23',
     assignee: {
       user_id: 3,
-      fullName: 'Lindsey Stroud',
-      avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg'
+      fullName: 'George Fields',
+      avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg'
     },
     tag: 'Event',
     status: 'Completed'
