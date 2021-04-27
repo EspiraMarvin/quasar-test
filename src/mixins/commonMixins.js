@@ -1,6 +1,9 @@
 const commonMixins = {
   // common reusable functions
-
+  data () {
+    return {
+    }
+  },
   methods: {
     // email validation
     isValidEmail (val) {
