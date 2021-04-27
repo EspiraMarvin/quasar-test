@@ -1,48 +1,45 @@
 <template>
-  <q-page class="q-pa-md">
-    <div class="row col-xs-12">
-      <div class="col-sm-7 col-xs-12 q-pa-xs q-ma-md">
+  <q-page class="q-pa-sm">
+    <div class="row">
 
-        <TaskDetails />
-
-      </div>
+      <!--      left panel with user tasks details -->
+        <TaskDetails class="col-xs-12 col-sm-7 col-md-7 q-pa-xs q-ma-sm" />
+      <!--    end of left panel with user tasks details -->
 
       <!--      right panel with Closed deals and tasks -->
-      <div class="col-sm-4 col-xs-12 q-pa-xs q-ma-md">
+      <div class="col-xs-12 col-sm-4 col-md-4 q-pa-xs q-ma-sm">
         <!--        Closed deals -->
-        <q-card class="my-card q-mb-lg">
-          <q-card-section class="q-pa-md">
+        <q-card class="my-card q-mb-md">
+          <q-card-section class="q-pa-sm">
             <div class="row">
               <div>Deals</div>
               <q-space />
               <span>Show:
+                <div>
                   <q-expansion-item dense class="q-ml-lg" dense-toggle label="Monthly" style="margin-top: -25px;color: #109CF1">
-                    <q-item dense exact clickable><span class="text-caption">Monthly</span></q-item>
-                    <q-item dense exact clickable><span class="text-caption">Yearly</span></q-item>
+                    <q-item dense exact clickable><span class="text-caption drp-item">Yearly</span></q-item>
                   </q-expansion-item>
+                </div>
                 </span>
             </div>
           </q-card-section>
           <q-separator />
 
           <!--  line graph component-->
-          <div style="max-width: 500px">
             <LineGraph />
-          </div>
 
         </q-card>
 
         <!--  Tasks pie chart -->
 
-        <q-card class="my-card">
-          <q-card-section class="col-12 q-pa-md">
+        <q-card class="my-card q-mb-md">
+          <q-card-section class="col-12 q-pa-sm">
             <div class="row">
               <div>Tasks</div>
               <q-space />
               <span>Show:
                   <q-expansion-item dense class="q-ml-lg" dense-toggle label="Monthly" style="margin-top: -25px;color: #109CF1">
-                    <q-item dense exact clickable><span class="text-caption">Weekly</span></q-item>
-                    <q-item dense exact clickable><span class="text-caption">Yearly</span></q-item>
+                    <q-item dense exact clickable><span class="text-caption drp-item">Yearly</span></q-item>
                   </q-expansion-item>
                 </span>
             </div>
@@ -74,5 +71,7 @@ export default {
 </script>
 
 <style scoped>
-
+  .drp-item {
+    font-size: 14px;
+  }
 </style>

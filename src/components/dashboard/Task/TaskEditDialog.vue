@@ -118,7 +118,7 @@
 <script>
 import commonMixins from '../../../mixins/commonMixins'
 import { cloneDeep } from 'lodash'
-import ErrorMessage from '../../Error/ErrorMessage'
+import ErrorMessage from '../../error/ErrorMessage'
 export default {
   name: 'TaskEdit',
   components: { ErrorMessage },
