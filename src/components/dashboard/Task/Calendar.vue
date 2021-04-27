@@ -2,8 +2,8 @@
   <div>
     <div class="text-overline q-mt-sm q-mb-xs">{{ currentDate }}</div>
     <div class="q-ma-sm">
-      <ul class="row justify-between flex-container-week-days">
-        <li class="flex-item"
+      <ul class="flex justify-between week-days">
+        <li
             v-for="day in customdays"
             :key="day.id"
             @click="active_id=day.id"
@@ -26,14 +26,13 @@
 </template>
 
 <script>
-import { getDays } from '../../../Config/data'
-
+import { getDays } from 'src/Config/data'
 export default {
   name: 'Calendar',
   data () {
     return {
-      currentDate: '23 December, Sunday',
       days: getDays,
+      currentDate: '23 December, Sunday',
       active_id: 1
     }
   },
@@ -49,16 +48,10 @@ export default {
 </script>
 
 <style scoped>
-  .flex-container-week-days {
+  .week-days {
     padding: 0;
     margin: 0;
     list-style: none;
-    display: flex;
-  }
-  .flex-container-week-dates li {
-    border-radius: 50%;
-    width: 20px;
-    height: 20px
   }
 
 </style>

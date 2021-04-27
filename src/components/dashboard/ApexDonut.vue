@@ -1,5 +1,7 @@
 <template>
-  <apexchart type="donut" height="211" :options="chartOptions" :series="series" />
+  <div>
+    <apexchart type="donut" height="211" style="" :options="chartOptions" :series="series" />
+  </div>
 </template>
 
 <script>

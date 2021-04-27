@@ -1,9 +1,5 @@
 <template>
-  <div class="row">
-    <div class="col-sm-12 col-xs-10">
-      <q-linear-progress :value="progress" color="secondary" class="q-mt-sm" />
-    </div>
-  </div>
+      <q-linear-progress :value="progress" color="secondary" track-color="red" class="q-mt-sm" />
 </template>
 
 <script>

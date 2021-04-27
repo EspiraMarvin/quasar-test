@@ -1,5 +1,5 @@
 <template>
-  <VeLine :data="chartData" :colors="gradient"></VeLine>
+  <VeLine style="max-height: 372px" :data="chartData" :colors="gradient" />
 </template>
 
 <script>

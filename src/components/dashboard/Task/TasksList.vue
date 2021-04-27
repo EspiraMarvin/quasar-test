@@ -1,34 +1,81 @@
 <template>
-  <div>
-    <q-card
-      class="my-card"
+  <div class="q-mt-md">
+    <transition-group
+      appear
+      enter-active-class="animated fadeIn slower"
+    >
+      <q-card
       v-for="task in limitTask"
       :key="task.id"
+      @click="showActions(task)"
     >
-      <q-card>
         <q-card-section class="text-black">
-          <div class="row">
-            <div class="text-subtitle1 text-weight-medium">{{task.title}}</div>
-            <q-space />
-            <span class="text-grey-7 card-text-caption" style="font-size: 12px">{{task.tag}}</span>
+          <div class="flex justify-between items-center">
+            <span class="text-subtitle1 text-weight-medium">{{task.title}}</span>
+            <span class="to-next-line text-grey-7 card-text-caption" style="font-size: 12px">{{task.tag}}</span>
           </div>
-          <div class="text-subtitle2 text-weight-light text-grey">Due date: <span class="text-weight-light text-black">{{moment(task.dueDate).format('LL')}}</span></div>
+          <div class="text-subtitle2 text-weight-light text-grey">
+            Due date: <span class="text-weight-light text-black">{{moment(task.dueDate).format('LL')}}</span>
+          </div>
         </q-card-section>
-        <q-card-section class="q-mb-sm row user-task">
-          <q-item>
-            <q-item-section avatar>
-              <q-avatar
-                size="26px"
-              >
-                <img :src="task.assignee.avatar">
-              </q-avatar>
-            </q-item-section>
-            <span class="text-weight-regular text-grey-7 card-text-caption">{{task.assignee.fullName}}</span>
-          </q-item>
+        <q-card-section class="q-mb-sm user-task">
+          <div class="flex no-wrap justify-between items-center">
+            <div class="flex no-wrap">
+              <q-item-section avatar>
+                <q-avatar
+                  size="26px"
+                >
+                  <img :src="task.assignee.avatar">
+                </q-avatar>
+              </q-item-section>
+              <span class="text-weight-regular text-grey-7 card-text-caption">{{task.assignee.fullName}}</span>
+            </div>
+            <div class="to-next-line">
+               <q-icon
+                  v-if="editDetails"
+                  @click="editUserTask(task)"
+                  name="edit"
+                  color="accent"
+                  class="q-mr-sm"
+                  size="20px"
+                />
+                <q-icon
+                  v-if="editDetails"
+                  @click="deleteUserTask(task.id)"
+                  name="delete"
+                  color="accent"
+                  class="q-mr-sm delete-button"
+                  size="20px"
+                />
+            </div>
+            <div>
+              <q-btn
+                size="sm"
+                flat
+                :label="task.status"
+                :class="task.status === 'Completed' ? 'bg-secondary': task.status === 'Ended' ? 'bg-negative': task.status === 'Active' ? 'bg-warning': ''"
+                class="actions-button text-white text-capitalize"
+              />
+            </div>
+          </div>
 
-          <q-space />
+<!--          <div class="col-xs-12 col-sm-6 q-mt-md">-->
 
-          <template v-if="task.status === 'Completed'">
+<!--            <q-btn size="sm" v-if="task.status === 'Completed'" class="bg-secondary float-right text-white text-capitalize" flat>{{ task.status }}</q-btn>-->
+<!--            <q-btn size="sm" v-if="task.status === 'Ended'" class="bg-negative float-right text-white text-capitalize" flat>{{ task.status }}</q-btn>-->
+<!--            <div>-->
+<!--              <q-icon @click="deleteUserTask(task.id)" name="delete" class="q-mr-lg float-right" color="accent" size="sm" />-->
+<!--              <q-icon @click="editUserTask(task)"  name="edit" class="q-mr-lg float-right" color="accent" size="sm" />-->
+<!--            </div>-->
+<!--            <q-btn size="sm" v-if="task.status === 'Active'" class="bg-warning float-right text-white text-capitalize" flat>{{ task.status }}</q-btn>-->
+<!--            <div>-->
+<!--              <q-icon @click="deleteUserTask(task.id)" name="delete" class="q-mr-lg float-right" color="accent" size="sm" />-->
+<!--              <q-icon @click="editUserTask(task)"  name="edit" class="q-mr-lg float-right" color="accent" size="sm" />-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--
+     <template v-if="task.status === 'Completed'">
             <div class="col-xs-12 col-sm-6 q-mt-md">
               <q-btn size="sm" class="bg-secondary float-right text-white text-capitalize" flat>Completed</q-btn>
             </div>
@@ -36,8 +83,10 @@
           <template v-else-if="task.status === 'Ended'">
             <div class="col-xs-12 col-sm-6 q-mt-md">
               <q-btn size="sm" class="bg-negative float-right text-white text-capitalize" flat>Ended</q-btn>
-              <q-icon @click="deleteUserTask(task.id)" name="delete" class="q-mr-lg float-right" color="accent" size="sm" />
-              <q-icon @click="editUserTask(task)"  name="edit" class="q-mr-lg float-right" color="accent" size="sm" />
+              <div v-show="toggle">
+                <q-icon @click="deleteUserTask(task.id)" name="delete" class="q-mr-lg float-right" color="accent" size="sm" />
+                <q-icon @click="editUserTask(task)"  name="edit" class="q-mr-lg float-right" color="accent" size="sm" />
+              </div>
             </div>
           </template>
           <template v-else-if="task.status === 'Active'">
@@ -45,162 +94,47 @@
               <q-btn size="sm" class="bg-warning float-right text-white text-capitalize" flat>Active</q-btn>
             </div>
           </template>
+-->
         </q-card-section>
       </q-card>
-
-    </q-card>
-    <q-btn
-      @click="hide"
-      v-if="showMore"
-      flat style="color: #109CF1; margin-left: 35%" size="md" class="text-lowercase" label="show more"
-    />
+    </transition-group>
+      <q-btn
+        @click="hide"
+        v-if="showMore"
+        flat style="color: #109CF1; margin-left: 35%" size="md" class="text-lowercase" label="show more"
+      />
 
     <q-dialog v-model="openDialog">
-      <q-card style="width: 700px; max-width: 80vw;">
-        <q-card-section>
-          <q-toolbar>
-            <q-toolbar-title> Edit User Task</q-toolbar-title>
-          </q-toolbar>
-          <q-form ref="addUserForm">
-            <div class="row">
-              <div class="col-md-6 col-xs-12 q-pa-md">
-                <q-input
-                  standard
-                  v-model="form.title"
-                  label="Title *"
-                  type="text"
-                  lazy-rules
-                  :rules="[val => (val && val.length > 0) || 'Please enter name']"
-                />
-              </div>
-              <div class="col-md-6 col-xs-12 q-pa-md">
-                <q-input standard v-model="form.dueDate" mask="date" label="Due Date" :rules="['date']">
-                  <template v-slot:append>
-                    <q-icon name="event" class="cursor-pointer">
-                      <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
-                        <q-date v-model="form.dueDate">
-                          <div class="row items-center justify-end">
-                            <q-btn v-close-popup label="Close" color="primary" flat />
-                          </div>
-                        </q-date>
-                      </q-popup-proxy>
-                    </q-icon>
-                  </template>
-                </q-input>
-              </div>
-            </div>
-            <div class="col-md-6 col-xs-12 q-pa-md">
-              <q-select
-                :options="options"
-                option-value="id"
-                option-label="name"
-                emit-value
-                map-options
-                v-model="form.user_id"
-                label="Associated with"
-                type="text" lazy-rules
-              >
-                <template v-slot:before>
-                  <q-avatar>
-                    <img ref="avatarImg" :src="form.avatar">
-                  </q-avatar>
-                </template>
-                <template v-slot:option="scope">
-                  <q-item
-                    v-bind="scope.itemProps"
-                    v-on="scope.itemEvents"
-                  >
-                    <q-item-section avatar>
-                      <q-avatar>
-                        <img :src="scope.opt.avatar"/>
-                      </q-avatar>
-                    </q-item-section>
-                    <q-item-section>
-                      <q-item-label v-html="scope.opt.name"></q-item-label>
-                    </q-item-section>
-                  </q-item>
-                </template>
-              </q-select>
-            </div>
-            <div class="col-md-6 col-xs-12 q-pa-md">
-              <q-select
-                :options="tags"
-                option-value="name"
-                option-label="name"
-                emit-value
-                map-options
-                v-model="form.tag"
-                label="Tag *"
-                type="text"
-                lazy-rules
-                :rules="[val => (val && val.length > 0) || 'Please enter tag']"
-              >
-              </q-select>
-            </div>
-            <div class="col-md-6 col-xs-12 q-pa-md">
-              <q-select
-                :options="status"
-                option-value="name"
-                option-label="name"
-                emit-value
-                map-options
-                v-model="form.status"
-                label="Status *"
-                type="text"
-                lazy-rules
-                :rules="[val => (val && val.length > 0) || 'Please enter status']"
-              >
-              </q-select>
-            </div>
-          </q-form>
-        </q-card-section>
-
-        <q-card-actions align="right">
-          <q-btn color="info" class="q-pl-md q-pr-md" outline label="Cancel" @click="closeDialog" />
-          <q-btn
-            label="Save"
-            @click="btnSave"
-            outline5
-            color="primary"
-            class="q-pl-md q-pr-md"
-          >
-            <template v-slot:loading>
-              <q-spinner-facebook />
-            </template>
-          </q-btn>
-        </q-card-actions>
-      </q-card>
+      <TaskEditDialog :users="users" :tags="tags" :status="status" :tasks="tasks" :taskToEdit="taskToEdit" :closeDialog="closeDialog"/>
     </q-dialog>
+
   </div>
 </template>
 
 <script>
 const moment = require('moment')
-import { getStatus, getTags, getTasks, getUsers } from 'src/Config/data'
-import { cloneDeep } from 'lodash'
-
+import TaskEditDialog from './TaskEditDialog'
+import commonMixins from '../../../mixins/commonMixins'
+import { getTasks, getStatus, getTags, getUsers } from 'src/Config/data'
 export default {
   name: 'TasksList',
+  components: { TaskEditDialog },
+  mixins: [commonMixins],
   data () {
     return {
-      // form data
-      form: {
-        title: '',
-        dueDate: '',
-        user_id: '',
-        avatar: '',
-        tag: '',
-        status: ''
-      },
       tasks: getTasks,
-      options: getUsers,
       status: getStatus,
       tags: getTags,
-      editId: null,
+      users: getUsers,
+      taskToEdit: {},
       showMore: true,
       limit: 3,
       moment: moment,
-      openDialog: false
+      openDialog: false,
+      toggle: false,
+      showActionsButtons: false,
+      displayButtons: true,
+      editDetails: true
     }
   },
   methods: {
@@ -215,51 +149,48 @@ export default {
     closeDialog () {
       this.openDialog = false
     },
+    showActions (task) {
+      this.editDetails = !this.editDetails
+    },
     editUserTask (task) {
       this.openDialog = true
-      console.log('dialog openned', this.openDialog)
-      const finalClone = cloneDeep(task)
-      this.form.user_id = finalClone.assignee.user_id
-      this.form.avatar = finalClone.assignee.avatar
-      this.form.title = finalClone.title
-      this.form.dueDate = finalClone.dueDate
-      this.form.tag = finalClone.tag
-      this.form.status = finalClone.status
-      // object id to be used to edit
-      this.editId = task.id
-    },
-    btnSave () {
-      // find the index of this ID's object
-      const objIndex = this.tasks.findIndex(obj => obj.id === this.editId)
-
-      this.tasks[objIndex].title = this.form.title
-      this.tasks[objIndex].dueDate = this.form.dueDate
-      this.tasks[objIndex].assignee.user_id = this.form.user_id
-      this.tasks[objIndex].assignee.avatar = this.form.avatar
-      this.tasks[objIndex].tag = this.form.tag
-      this.tasks[objIndex].status = this.form.status
-
-      this.form = {}
-      this.closeDialog()
-      this.notify('Task User Updated Success !', 'secondary')
+      this.taskToEdit = task
     }
   },
   computed: {
     limitTask () {
       return this.limit ? this.tasks.slice(0, this.limit) : this.tasks
+    },
+    tasksButtonClass () {
+      return {
+        Completed: this.tasks
+      }
     }
   }
 }
 </script>
 
 <style scoped>
-  .card-text-caption{
+  .card-text-caption {
     margin-left: -20px;
     margin-top: 5px
   }
-  .user-task{
-    margin-left: -10px;
-    margin-top: -22px
+  .user-task {
+    /*margin-left: -10px;*/
+    margin-top: -10px
   }
-
+  .actions-button {
+    width: 60px;
+    height: 25px;
+    /*float: right!important;*/
+  }
+  .edit-button {
+    /*margin-right: -30px;*/
+  }
+  .delete-button {
+    /*margin-right: -30px;*/
+  }
+  .to-next-line {
+    margin-left: auto;
+  }
 </style>
