@@ -125,6 +125,7 @@ export default {
   .bottom-left-button {
     position: absolute;
     left:    0;
-    bottom:   20px;
+    bottom:  0;
+    width: 100%;
   }
 </style>

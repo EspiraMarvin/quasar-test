@@ -15,7 +15,7 @@
             <span class="to-next-line text-grey-7 card-text-caption" style="font-size: 12px">{{task.tag}}</span>
           </div>
           <div class="text-subtitle2 text-weight-light text-grey">
-            Due date: <span class="text-weight-light text-black">{{moment(task.dueDate).format('LL')}}</span>
+            Due date: <span class="text-weight-light text-black">{{ moment(task.dueDate).format('LL') }}</span>
           </div>
         </q-card-section>
         <q-card-section class="q-mb-sm user-task">
@@ -30,23 +30,9 @@
               </q-item-section>
               <span class="text-weight-regular text-grey-7 card-text-caption">{{task.assignee.fullName}}</span>
             </div>
-            <div class="to-next-line">
-               <q-icon
-                  v-if="editDetails"
-                  @click="editUserTask(task)"
-                  name="edit"
-                  color="accent"
-                  class="q-mr-sm"
-                  size="20px"
-                />
-                <q-icon
-                  v-if="editDetails"
-                  @click="deleteUserTask(task.id)"
-                  name="delete"
-                  color="accent"
-                  class="q-mr-sm delete-button"
-                  size="20px"
-                />
+            <div  v-if="actionsButtons === true && tasksActionsId ===  task.id" class="to-next-line">
+              <q-icon @click="editUserTask(task)" name="edit" color="accent" class="q-mr-sm" size="20px"/>
+              <q-icon @click="deleteUserTask(task.id)" name="delete" color="accent" class="q-mr-sm" size="20px"/>
             </div>
             <div>
               <q-btn
@@ -58,51 +44,16 @@
               />
             </div>
           </div>
-
-<!--          <div class="col-xs-12 col-sm-6 q-mt-md">-->
-
-<!--            <q-btn size="sm" v-if="task.status === 'Completed'" class="bg-secondary float-right text-white text-capitalize" flat>{{ task.status }}</q-btn>-->
-<!--            <q-btn size="sm" v-if="task.status === 'Ended'" class="bg-negative float-right text-white text-capitalize" flat>{{ task.status }}</q-btn>-->
-<!--            <div>-->
-<!--              <q-icon @click="deleteUserTask(task.id)" name="delete" class="q-mr-lg float-right" color="accent" size="sm" />-->
-<!--              <q-icon @click="editUserTask(task)"  name="edit" class="q-mr-lg float-right" color="accent" size="sm" />-->
-<!--            </div>-->
-<!--            <q-btn size="sm" v-if="task.status === 'Active'" class="bg-warning float-right text-white text-capitalize" flat>{{ task.status }}</q-btn>-->
-<!--            <div>-->
-<!--              <q-icon @click="deleteUserTask(task.id)" name="delete" class="q-mr-lg float-right" color="accent" size="sm" />-->
-<!--              <q-icon @click="editUserTask(task)"  name="edit" class="q-mr-lg float-right" color="accent" size="sm" />-->
-<!--            </div>-->
-<!--          </div>-->
-
-<!--
-     <template v-if="task.status === 'Completed'">
-            <div class="col-xs-12 col-sm-6 q-mt-md">
-              <q-btn size="sm" class="bg-secondary float-right text-white text-capitalize" flat>Completed</q-btn>
-            </div>
-          </template>
-          <template v-else-if="task.status === 'Ended'">
-            <div class="col-xs-12 col-sm-6 q-mt-md">
-              <q-btn size="sm" class="bg-negative float-right text-white text-capitalize" flat>Ended</q-btn>
-              <div v-show="toggle">
-                <q-icon @click="deleteUserTask(task.id)" name="delete" class="q-mr-lg float-right" color="accent" size="sm" />
-                <q-icon @click="editUserTask(task)"  name="edit" class="q-mr-lg float-right" color="accent" size="sm" />
-              </div>
-            </div>
-          </template>
-          <template v-else-if="task.status === 'Active'">
-            <div class="col-xs-12 col-sm-6 q-mt-md">
-              <q-btn size="sm" class="bg-warning float-right text-white text-capitalize" flat>Active</q-btn>
-            </div>
-          </template>
--->
         </q-card-section>
       </q-card>
     </transition-group>
+    <div class="flex flex-center">
       <q-btn
         @click="hide"
         v-if="showMore"
-        flat style="color: #109CF1; margin-left: 35%" size="md" class="text-lowercase" label="show more"
+        flat style="color: #109CF1" size="md" class="text-lowercase" label="show more"
       />
+    </div>
 
     <q-dialog v-model="openDialog">
       <TaskEditDialog :users="users" :tags="tags" :status="status" :tasks="tasks" :taskToEdit="taskToEdit" :closeDialog="closeDialog"/>
@@ -131,10 +82,8 @@ export default {
       limit: 3,
       moment: moment,
       openDialog: false,
-      toggle: false,
-      showActionsButtons: false,
-      displayButtons: true,
-      editDetails: true
+      actionsButtons: false,
+      tasksActionsId: null
     }
   },
   methods: {
@@ -150,7 +99,10 @@ export default {
       this.openDialog = false
     },
     showActions (task) {
-      this.editDetails = !this.editDetails
+      if (task) {
+        this.tasksActionsId = task.id
+        this.actionsButtons = true
+      }
     },
     editUserTask (task) {
       this.openDialog = true
@@ -176,19 +128,11 @@ export default {
     margin-top: 5px
   }
   .user-task {
-    /*margin-left: -10px;*/
     margin-top: -10px
   }
   .actions-button {
     width: 60px;
     height: 25px;
-    /*float: right!important;*/
-  }
-  .edit-button {
-    /*margin-right: -30px;*/
-  }
-  .delete-button {
-    /*margin-right: -30px;*/
   }
   .to-next-line {
     margin-left: auto;
