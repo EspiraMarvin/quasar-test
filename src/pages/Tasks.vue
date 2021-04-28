@@ -3,7 +3,7 @@
     <h4 class="text-h6 text-center">Tasks</h4>
     <p class="text-center" v-if="this.$route.params.id">Tasks {{this.$route.params.id}}</p>
 
-    <q-list class="my-list q-mr-lg q-ml-lg">
+    <q-list class="my-list q-mr-sm q-ml-sm">
       <q-card
         v-for="task in tasks"
         :key="task.id"

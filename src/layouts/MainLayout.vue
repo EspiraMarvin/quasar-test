@@ -1,5 +1,6 @@
 <template>
-  <q-layout view="lHh lpR fFf" class="pages-bg">
+  <q-layout
+    view="lHh lpR fFf" class="pages-bg">
 
     <q-header bordered class="bg-white">
 
@@ -19,7 +20,7 @@
       v-model="drawer"
       show-if-above
       :mini="miniState"
-      :width="283"
+      :width="250"
       :breakpoint="500"
       side="left"
     >
@@ -28,24 +29,12 @@
       </template>
 
       <q-separator />
-      <div class="large-screen-only">
-        <span class="row justify-center q-ma-md">
-          <q-avatar color="primary" class="q-mr-xs" text-color="white">
+      <div>
+        <span class="flex justify-center items-center q-ma-md">
+          <q-avatar color="primary" class="" text-color="white">
             <img :src="user.avatar">
           </q-avatar>
-        <div v-if="!miniState" class="profile-details q-ml-lg q-mr-xs">
-          <p>{{user.name}}</p>
-          <p>{{user.email}}</p>
-        </div>
-      </span>
-      </div>
-
-      <div class="small-screen-only">
-        <span class="row justify-center q-ma-md">
-          <q-avatar color="primary" class="q-mr-xs" text-color="white">
-            <img :src="user.avatar">
-          </q-avatar>
-        <div class="profile-details q-ml-lg q-mr-xs">
+        <div v-if="!miniState" class="profile-details q-ml-lg">
           <p>{{user.name}}</p>
           <p>{{user.email}}</p>
         </div>
@@ -61,7 +50,7 @@
           @click="miniState = !miniState"
           clickable
           v-ripple
-          style="margin-top: 400px"
+          class="bottom-left-button"
         >
           <q-item-section avatar>
             <q-icon name="eva-npm" color="accent" size="sm" />
@@ -72,12 +61,13 @@
       </q-list>
 
       <q-list
-        class="relative  small-screen-only q-mt-md"
+        class="small-screen-only"
       >
         <q-item
           @click="drawer = !drawer"
           clickable
           v-ripple
+          class="bottom-left-button"
         >
           <q-item-section avatar>
             <q-icon name="eva-npm" color="accent" size="sm" />
@@ -130,7 +120,11 @@ export default {
     margin-left: -12px
   }
   .profile-details{
-    overflow: hidden;
+    /*overflow: hidden;*/
   }
-
+  .bottom-left-button {
+    position: absolute;
+    left:    0;
+    bottom:   20px;
+  }
 </style>

@@ -126,8 +126,8 @@ export default {
   methods: {
     btnSave () {
       if (!this.editting) {
-        if (this.hasWhiteSpacesOnly(this.userForm.name || this.userForm.email || this.userForm.companyName ||
-          this.userForm.role || this.userForm.forecast) === 'field is empty') {
+        if (this.hasWhiteSpacesOnly(this.userForm.name && this.userForm.companyName &&
+          this.userForm.role && this.userForm.forecast) === 'field is empty') {
           this.$refs.userForm.focus()
           this.errorMessage = 'All Fields Are Required !'
         } else if (this.isValidEmail(this.userForm.email) === 'Invalid email') {
@@ -142,11 +142,9 @@ export default {
         }
       } else {
         // editting
-        if (this.hasWhiteSpacesOnly(this.userForm.name && this.userForm.email && this.userForm.companyName &&
-          this.userForm.role && this.userForm.forecast) === 'field is empty') {
-          this.errorMessage = 'All Fields Are Required !'
-        } else if (this.userForm.name && this.userForm.email && this.userForm.companyName && this.userForm.role &&
-          this.userForm.forecast) {
+        if (this.hasWhiteSpacesOnly(this.userForm.name || this.userForm.companyName ||
+          this.userForm.role || this.userForm.forecast) === 'field is empty' &&
+          this.isValidEmail(this.userForm.email) !== 'Invalid email') {
           // get the object with data to edit
           const formItem = this.userForm
           // find the index of this ID's object
@@ -163,6 +161,9 @@ export default {
           this.userForm = {}
           this.closeDialog()
           this.notify('Contact Updated Success !', 'secondary')
+        } else {
+          this.errorMessage = 'All Fields Are Required !'
+          this.errorMessage = 'Invalid email'
         }
       }
     }

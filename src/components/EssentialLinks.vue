@@ -8,15 +8,15 @@
           v-ripple
           exact
         >
-          <q-item-section avatar>
-            <div>
+          <div class="flex items-end">
+            <q-item-section avatar>
               <q-icon name="dashboard" size="sm" />
-            </div>
-          </q-item-section>
+            </q-item-section>
 
-          <q-item-section class="text-subtitle1">
-            <span>Dashboard</span>
-          </q-item-section>
+            <q-item-section class="text-subtitle1">
+              <span>Dashboard</span>
+            </q-item-section>
+          </div>
         </q-item>
 
         <q-item
@@ -34,19 +34,19 @@
         <q-tabs
           v-if="isTask"
           vertical
-          no-caps
+          class="tab-spacing"
         >
-          <q-item class="row justify-center" to="/tasks/Active" exact clickable>
-            <q-icon class="radio_icon" keep-color size="xs" name="radio_button_unchecked" val="orange" color="orange" />
-            <span class="text-black q-mt-sm">Active</span>
+          <q-item class="dropdown-list" to="/tasks/Active" exact clickable>
+              <q-icon class="q-mr-xs" style="" keep-color size="xs" name="radio_button_unchecked" val="orange" color="orange" />
+            <span class="text-black">Active</span>
           </q-item>
-          <q-item class="row justify-center q-ml-lg" to="/tasks/Completed" exact clickable>
-            <q-icon class="radio_icon" keep-color size="xs" name="radio_button_unchecked" val="green" color="green" />
-            <span class="text-black q-mt-sm">Completed</span>
+          <q-item class="dropdown-list" to="/tasks/Completed" exact clickable>
+            <q-icon class="q-mr-xs" keep-color size="xs" name="radio_button_unchecked" val="green" color="green" />
+            <span class="text-black">Completed</span>
           </q-item>
-          <q-item class="row justify-center" to="/tasks/Ended" exact clickable>
-            <q-icon class="radio_icon" keep-color size="xs" name="radio_button_unchecked" val="red" color="red" />
-            <span class="text-black q-mt-sm">Ended</span>
+          <q-item class="dropdown-list" to="/tasks/Ended" exact clickable>
+            <q-icon class="q-mr-xs" keep-color size="xs" name="radio_button_unchecked" val="red" color="red" />
+            <span class="text-black">Ended</span>
           </q-item>
         </q-tabs>
 
@@ -66,22 +66,23 @@
           v-if="isEmail"
           vertical
           no-caps
+          class="tab-spacing"
         >
-          <q-item class="row justify-center" to="/email/Draft" exact clickable>
-            <q-icon class="radio_icon" keep-color size="xs" name="radio_button_unchecked" val="orange" color="orange" />
-            <span class="text-black q-mt-sm q-ml-xs">Draft</span>
+          <q-item class="dropdown-list" to="/email/Draft" exact clickable>
+            <q-icon class="q-mr-xs" keep-color size="xs" name="radio_button_unchecked" val="orange" color="orange" />
+            <span class="text-black">Draft</span>
           </q-item>
-          <q-item class="row justify-center q-ml-lg" to="/email/Scheduled" exact clickable>
-            <q-icon class="radio_icon" keep-color size="xs" name="radio_button_unchecked" val="green" color="indigo" />
-            <span class="text-black q-mt-sm q-ml-xs">Scheduled</span>
+          <q-item class="dropdown-list" to="/email/Scheduled" exact clickable>
+            <q-icon class="q-mr-xs" keep-color size="xs" name="radio_button_unchecked" val="green" color="indigo" />
+            <span class="text-black">Scheduled</span>
           </q-item>
-          <q-item class="row justify-center" to="/email/Sent" exact clickable>
-            <q-icon class="radio_icon" keep-color size="xs" name="radio_button_unchecked" val="red" color="green" />
-            <span class="text-black q-mt-sm q-mr-md">&nbsp;Sent</span>
+          <q-item class="dropdown-list" to="/email/Sent" exact clickable>
+            <q-icon class="q-mr-xs" keep-color size="xs" name="radio_button_unchecked" val="red" color="green" />
+            <span class="text-black">&nbsp;Sent</span>
           </q-item>
-          <q-item class="row justify-center" to="/email/Archived" exact clickable>
-            <q-icon class="radio_icon" keep-color size="xs" name="radio_button_unchecked" val="red" color="red" />
-            <span class="text-black q-mt-sm q-mr-md" style="margin-right: -10px"> Archived</span>
+          <q-item class="dropdown-list" to="/email/Archived" exact clickable>
+            <q-icon class="q-mr-xs" keep-color size="xs" name="radio_button_unchecked" val="red" color="red" />
+            <span class="text-black" style="margin-right: -10px"> Archived</span>
           </q-item>
         </q-tabs>
 
@@ -124,19 +125,19 @@
         <q-tabs
           v-if="isDeal"
           vertical
-          no-caps
+          class="tab-spacing"
         >
-          <q-item class="row justify-center" to="/deals/Low" exact clickable>
-            <q-icon class="radio_icon" keep-color size="xs" name="radio_button_unchecked" val="orange" color="orange" />
-            <span class="text-black q-mt-sm q-mr-xl">Low</span>
+          <q-item class="dropdown-list" to="/deals/Low" exact clickable>
+            <q-icon class="q-mr-xs" keep-color size="xs" name="radio_button_unchecked" val="orange" color="orange" />
+            <span class="text-black">Low</span>
           </q-item>
-          <q-item class="row justify-center q-ml-lg" to="/deals/High" exact clickable>
-            <q-icon class="radio_icon" keep-color size="xs" name="radio_button_unchecked" val="green" color="green" />
-            <span class="text-black q-mt-sm q-mr-xl">High</span>
+          <q-item class="dropdown-list" to="/deals/High" exact clickable>
+            <q-icon class="q-mr-xs" keep-color size="xs" name="radio_button_unchecked" val="green" color="green" />
+            <span class="text-black">High</span>
           </q-item>
-          <q-item class="row justify-center" to="/deals/Urgent" exact clickable>
-            <q-icon class="radio_icon" keep-color size="xs" name="radio_button_unchecked" val="red" color="red" />
-            <span class="text-black q-mt-sm q-mr-xl">Urgent</span>
+          <q-item class="dropdown-list" to="/deals/Urgent" exact clickable>
+            <q-icon class="q-mr-xs" keep-color size="xs" name="radio_button_unchecked" val="red" color="red" />
+            <span class="text-black">Urgent</span>
           </q-item>
         </q-tabs>
 
@@ -199,7 +200,14 @@ export default {
 </script>
 
 <style scoped>
-  .radio_icon{
-    margin-top: 8px;
+  .dropdown-list{
+    align-items: center;
+    justify-content: start;
+    margin-left: 50px;
+    margin-top: -1px;
+  }
+  .tab-spacing{
+    margin-top: -10px;
+    margin-bottom: -10px;
   }
 </style>
