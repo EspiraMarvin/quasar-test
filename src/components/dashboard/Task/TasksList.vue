@@ -59,17 +59,22 @@
       <TaskEditDialog :users="users" :tags="tags" :status="status" :tasks="tasks" :taskToEdit="taskToEdit" :closeDialog="closeDialog"/>
     </q-dialog>
 
+    <q-dialog persistent v-model="confirmDelete" transition-show="fadeIn" transition-hide="fadeOut">
+      <DeleteDialog :deleteWarningDetails="deleteWarningDetails" :proceedDelete="proceedDelete" />
+    </q-dialog>
+
   </div>
 </template>
 
 <script>
+import DeleteDialog from '../../globals/DeleteDialog'
 const moment = require('moment')
 import TaskEditDialog from './TaskEditDialog'
 import commonMixins from '../../../mixins/commonMixins'
 import { getTasks, getStatus, getTags, getUsers } from 'src/Config/data'
 export default {
   name: 'TasksList',
-  components: { TaskEditDialog },
+  components: { DeleteDialog, TaskEditDialog },
   mixins: [commonMixins],
   data () {
     return {
@@ -83,7 +88,10 @@ export default {
       moment: moment,
       openDialog: false,
       actionsButtons: false,
-      tasksActionsId: null
+      taskIDToBeDelete: null,
+      tasksActionsId: null,
+      confirmDelete: false,
+      deleteWarningDetails: []
     }
   },
   methods: {
@@ -92,7 +100,14 @@ export default {
       this.showMore = false
     },
     deleteUserTask (id) {
-      this.tasks = this.tasks.filter(task => task.id !== id)
+      this.taskIDToBeDelete = id
+      this.confirmDelete = true
+      this.deleteWarningDetails[0] = 'Delete User Task?'
+      this.deleteWarningDetails[1] = "Are you sure you want to proceed. This can't be undone"
+    },
+    proceedDelete () {
+      this.confirmDelete = false
+      this.tasks = this.tasks.filter(task => task.id !== this.taskIDToBeDelete)
       return this.notify('Task User Deleted Success !', 'red')
     },
     closeDialog () {

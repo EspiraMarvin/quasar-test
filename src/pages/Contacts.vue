@@ -6,7 +6,7 @@
           <div class="float-left col-xs-4 col-sm-1">
             <span>Company:
               <q-expansion-item dense dense-toggle class="top-table-expansion-item" label="All">
-                <q-item @click="filterCompany(value)" :value="10" dense exact clickable><span class="text-caption">10</span></q-item>
+                <q-item dense exact clickable><span class="text-caption">10</span></q-item>
                 <q-item dense exact clickable><span class="text-caption">50</span></q-item>
               </q-expansion-item>
             </span>
@@ -104,19 +104,24 @@
         />
         </q-dialog>
 
+        <q-dialog persistent v-model="confirmDelete" transition-show="fadeIn" transition-hide="fadeOut">
+          <DeleteDialog :deleteWarningDetails="deleteWarningDetails" :proceedDelete="proceedDelete" />
+        </q-dialog>
+
       </div>
     </template>
   </q-page>
 </template>
 
 <script>
+import DeleteDialog from '../components/globals/DeleteDialog'
 const pluralize = require('pluralize')
 import AddEditDialog from '../components/contacts/dialog/AddEditDialog'
 import commonMixins from '../mixins/commonMixins'
 import { getUsers } from '../Config/data.js'
 export default {
   name: 'Contacts',
-  components: { AddEditDialog },
+  components: { DeleteDialog, AddEditDialog },
   mixins: [commonMixins],
   data () {
     return {
@@ -124,6 +129,8 @@ export default {
       openDialog: false,
       dialogTitle: '',
       editting: false,
+      confirmDelete: false,
+      deleteWarningDetails: [],
       pluralize: pluralize,
       selected: [],
       pagination: {
@@ -151,17 +158,6 @@ export default {
       this.loading = false
     }, 1500)
   },
-  watch: {
-    // this watches if dialog is closed, then resets the form an d error message if present
-    // openDialog: {
-    //   handler (dialog) {
-    //     if (dialog === false) {
-    //       this.userForm = {}
-    //       this.errorMessage = ''
-    //     }
-    //   }
-    // }
-  },
   methods: {
     addContact () {
       this.openDialog = true
@@ -178,6 +174,12 @@ export default {
       this.openDialog = false
     },
     deleteContact () {
+      this.confirmDelete = true
+      this.deleteWarningDetails[0] = 'Delete Contact?'
+      this.deleteWarningDetails[1] = "Are you sure you want to proceed. This can't be undone"
+    },
+    proceedDelete () {
+      this.confirmDelete = false
       const selectedCount = this.selected.length
       const contactNo = pluralize('Contact', selectedCount, true)
       this.selected.filter(item => {
@@ -186,9 +188,6 @@ export default {
       })
       this.selected = []
       return this.notify(`${contactNo} Deleted Success !`, 'red')
-    },
-    filterCompany (value) {
-      console.log(value)
     }
   }
 }

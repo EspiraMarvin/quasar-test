@@ -142,29 +142,28 @@ export default {
         }
       } else {
         // editting
-        if (this.hasWhiteSpacesOnly(this.userForm.name || this.userForm.companyName ||
-          this.userForm.role || this.userForm.forecast) === 'field is empty' &&
-          this.isValidEmail(this.userForm.email) !== 'Invalid email') {
-          // get the object with data to edit
-          const formItem = this.userForm
-          // find the index of this ID's object
-          const objIndex = this.records.findIndex(obj => obj.id === formItem.id)
-          this.records[objIndex].id = formItem.id
-          this.records[objIndex].name = formItem.name
-          this.records[objIndex].avatar = formItem.avatar
-          this.records[objIndex].email = formItem.email
-          this.records[objIndex].companyName = formItem.companyName
-          this.records[objIndex].role = formItem.role
-          this.records[objIndex].forecast = formItem.forecast
-          this.records[objIndex].recentAct = formItem.recentAct
-          // after edit clear form
-          this.userForm = {}
-          this.closeDialog()
-          this.notify('Contact Updated Success !', 'secondary')
-        } else {
+        if (!this.userForm.name && !this.userForm.companyName &&
+          !this.userForm.role && !this.userForm.forecast) {
           this.errorMessage = 'All Fields Are Required !'
-          this.errorMessage = 'Invalid email'
+        } else if (this.isValidEmail(this.userForm.email) === 'Invalid email') {
+          this.errorMessage = 'Invalid email !'
         }
+        // get the object with data to edit
+        const formItem = this.userForm
+        // find the index of this ID's object
+        const objIndex = this.records.findIndex(obj => obj.id === formItem.id)
+        this.records[objIndex].id = formItem.id
+        this.records[objIndex].name = formItem.name
+        this.records[objIndex].avatar = formItem.avatar
+        this.records[objIndex].email = formItem.email
+        this.records[objIndex].companyName = formItem.companyName
+        this.records[objIndex].role = formItem.role
+        this.records[objIndex].forecast = formItem.forecast
+        this.records[objIndex].recentAct = formItem.recentAct
+        // after edit clear form
+        this.userForm = {}
+        this.closeDialog()
+        this.notify('Contact Updated Success !', 'secondary')
       }
     }
   }

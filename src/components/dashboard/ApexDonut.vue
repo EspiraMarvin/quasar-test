@@ -1,6 +1,6 @@
 <template>
   <div>
-    <apexchart type="donut" height="211" style="" :options="chartOptions" :series="series" />
+    <apexchart type="donut" :options="chartOptions" :series="series" class="flex flex-center" height="206" />
   </div>
 </template>
 
@@ -11,6 +11,11 @@ export default {
     return {
       series: [41, 84, 15],
       chartOptions: {
+        chart: {
+          toolbar: {
+            show: true
+          }
+        },
         colors: ['#FEB019', '#00E396', '#FF3D24'],
         animations: {
           enabled: true,
@@ -29,16 +34,14 @@ export default {
             stops: [0, 100]
           }
         },
-        chart: {
-          toolbar: {
-            show: false
-          }
-        },
         title: {
-          text: 'Donut',
+          text: 'Percentage Tasks',
           align: 'center',
+          textAnchor: 'middle',
           style: {
-            color: '#FFF'
+            fontSize: '12px',
+            fontWeight: 'normal',
+            color: '#333333'
           }
         },
         labels: ['Active', 'Completed', 'Ended'],
@@ -54,11 +57,11 @@ export default {
           }
         }],
         legend: {
-          // position: 'top',
-          // horizontalAlign: 'left',
-          // offsetX: -10,
+          position: 'top',
+          horizontalAlign: 'left',
+          offsetX: -10,
           labels: {
-            colors: '#FFF'
+            colors: '#888888'
           }
         }
       }

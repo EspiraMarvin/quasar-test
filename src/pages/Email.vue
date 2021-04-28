@@ -3,7 +3,7 @@
     <h4 class="text-h6 text-center">Emails</h4>
     <p class="text-center" v-if="this.$route.params.id">Emails {{this.$route.params.id}}</p>
 
-    <q-list class="my-list q-mr-lg q-ml-lg">
+    <q-list class="my-list q-mr-md q-ml-md">
       <q-card
         v-for="email in emails"
         :key="email.id"

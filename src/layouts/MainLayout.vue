@@ -21,7 +21,7 @@
       show-if-above
       :mini="miniState"
       :width="250"
-      :breakpoint="500"
+      :breakpoint="768"
       side="left"
     >
       <template>
