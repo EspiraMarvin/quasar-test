@@ -1,5 +1,8 @@
 <template>
   <div class="q-mt-md">
+    <div class="flex flex-center text-h5 q-mt-xl text-primary" style="opacity: 0.5" v-if="!tasks.length">
+      No User Tasks
+    </div>
     <transition-group
       appear
       enter-active-class="animated fadeIn slower"

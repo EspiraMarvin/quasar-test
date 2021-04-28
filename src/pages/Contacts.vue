@@ -104,7 +104,7 @@
         />
         </q-dialog>
 
-        <q-dialog v-model="confirmDelete" transition-show="fadeIn" transition-hide="fadeOut">
+        <q-dialog v-model="confirmDelete" transition-show="fadeOut" transition-hide="fadeIn">
           <DeleteDialog :deleteWarningDetails="deleteWarningDetails" :proceedDelete="proceedDelete" />
         </q-dialog>
 
