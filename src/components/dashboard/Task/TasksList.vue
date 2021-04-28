@@ -59,7 +59,7 @@
       <TaskEditDialog :users="users" :tags="tags" :status="status" :tasks="tasks" :taskToEdit="taskToEdit" :closeDialog="closeDialog"/>
     </q-dialog>
 
-    <q-dialog persistent v-model="confirmDelete" transition-show="fadeIn" transition-hide="fadeOut">
+    <q-dialog v-model="confirmDelete" transition-show="fadeIn" transition-hide="fadeOut">
       <DeleteDialog :deleteWarningDetails="deleteWarningDetails" :proceedDelete="proceedDelete" />
     </q-dialog>
 
