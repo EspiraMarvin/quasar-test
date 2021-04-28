@@ -35,7 +35,7 @@
         >
 <!--          table loading data-->
           <template v-slot:loading>
-            <q-inner-loading  showing color="primary" />
+              <q-inner-loading showing color="primary" />
           </template>
 
 <!--          table top slot-->
@@ -114,9 +114,9 @@
 </template>
 
 <script>
-import DeleteDialog from '../components/globals/DeleteDialog'
+import DeleteDialog from '../components/globals/DeletePrompt'
 const pluralize = require('pluralize')
-import AddEditDialog from '../components/contacts/dialog/AddEditDialog'
+import AddEditDialog from '../components/contacts/AddEditDialog'
 import commonMixins from '../mixins/commonMixins'
 import { getUsers } from '../Config/data.js'
 export default {

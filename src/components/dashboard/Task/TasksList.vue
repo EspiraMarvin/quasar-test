@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import DeleteDialog from '../../globals/DeleteDialog'
+import DeleteDialog from '../../globals/DeletePrompt'
 const moment = require('moment')
 import TaskEditDialog from './TaskEditDialog'
 import commonMixins from '../../../mixins/commonMixins'

@@ -31,48 +31,17 @@ const commonMixins = {
       })
     },
 
-    alert () {
-      this.$q.dialog({
-        title: 'Alert',
-        message: 'Are you Sure you want to delete'
-      }).onOk(() => {
-        console.log('OK')
-      }).onCancel(() => {
-        // console.log('Cancel')
-      }).onDismiss(() => {
-        // console.log('I am triggered on both OK and Cancel')
-      })
-    },
-
     confirm () {
       this.$q.dialog({
         title: 'Confirm',
-        message: 'Would you like to turn on the wifi?',
+        message: "Are you sure you want to proceed. This can't be undone?",
         cancel: true,
         persistent: true
       }).onOk(() => {
-        // console.log('>>>> OK')
+        // delete item
+        this.proceedDelete()
       }).onOk(() => {
         // console.log('>>>> second OK catcher')
-      }).onCancel(() => {
-        // console.log('>>>> Cancel')
-      }).onDismiss(() => {
-        // console.log('I am triggered on both OK and Cancel')
-      })
-    },
-
-    prompt () {
-      this.$q.dialog({
-        title: 'Prompt',
-        message: 'What is your name?',
-        prompt: {
-          model: '',
-          type: 'text' // optional
-        },
-        cancel: true,
-        persistent: true
-      }).onOk(data => {
-        // console.log('>>>> OK, received', data)
       }).onCancel(() => {
         // console.log('>>>> Cancel')
       }).onDismiss(() => {

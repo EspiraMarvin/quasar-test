@@ -88,7 +88,7 @@
 
 <script>
 import Search from '../components/Search'
-import EssentialLinks from '../components/EssentialLinks'
+import EssentialLinks from '../components/navigations/EssentialLinks'
 export default {
   components: { EssentialLinks, Search },
   data () {

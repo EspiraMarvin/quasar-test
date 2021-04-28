@@ -76,8 +76,8 @@
 <script>
 const moment = require('moment')
 import { cloneDeep } from 'lodash'
-import ErrorMessage from '../../error/ErrorMessage'
-import commonMixins from '../../../mixins/commonMixins'
+import ErrorMessage from '../globals/ErrorMessage'
+import commonMixins from '../../mixins/commonMixins'
 export default {
   name: 'AddEditDialog',
   components: { ErrorMessage },

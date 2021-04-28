@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Cube from '../components/setting/Cube'
+import Cube from '../components/setting/FancyCubeAnimation'
 export default {
   name: 'Settings',
   components: { Cube }
