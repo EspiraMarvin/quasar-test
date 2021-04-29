@@ -19,9 +19,9 @@ yarn install
 quasar dev / yarn dev
 ```
 
-### It's served on port `8080`
+### It's served on port `8089`
 
-### Visit [localhost:8080](http://localhost:8080)
+### Visit [localhost:8089](http://localhost:8089)
 
 ### To run all tests
 ```bash
