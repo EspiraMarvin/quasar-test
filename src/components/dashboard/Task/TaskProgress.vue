@@ -1,5 +1,5 @@
 <template>
-      <q-linear-progress :value="progress" color="secondary" track-color="red" class="q-mt-sm" />
+      <q-linear-progress :value="progress" color="secondary" track-color="grey" class="q-mt-sm" />
 </template>
 
 <script>

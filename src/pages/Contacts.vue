@@ -1,9 +1,9 @@
 <template>
-  <q-page class="q-pa-sm">
+  <q-page class="q-pa-sm q-mt-sm">
     <template>
-      <div class="q-pa-sm q-pt-lg">
-        <div class="flex justify-between q-mb-sm">
-          <div class="float-left col-xs-4 col-sm-1">
+      <div class="q-pa-xs q-pt-lg">
+        <div class="flex justify-between items-center q-mb-sm">
+          <div class="col-xs-4 col-sm-1">
             <span>Company:
               <q-expansion-item dense dense-toggle class="top-table-expansion-item" label="All">
                 <q-item dense exact clickable><span class="text-caption">10</span></q-item>
@@ -14,24 +14,23 @@
           <q-space />
           <div class="float-right">
             <q-btn
-              label="Add contact"
-              color="primary"
-              class="q-mr-xs-auto text-white add-contact-button text-capitalize"
+              label="Add contact" color="primary" class="q-mr-xs-auto text-white add-contact-button text-capitalize"
               @click="addContact"
             />
           </div>
         </div>
         <q-table
-          title="Treats"
+          title="Contacts"
           :data="records"
           :columns="columns"
           row-key="name"
           selection="multiple"
-          binary-state-sort
           :selected.sync="selected"
-          hide-selected-banner
           :loading="loading"
           :pagination.sync="pagination"
+          hide-selected-banner
+          no-data-label="No Contacts Available"
+          style="max-height: 800px"
         >
 <!--          table loading data-->
           <template v-slot:loading>
@@ -41,13 +40,13 @@
 <!--          table top slot-->
           <template v-slot:top="props">
             <template v-if="selected.length">
-              <span class="action-buttons">
+              <div class="action-buttons">
                 <q-badge class="q-ml-sm" size="xs" v-model="props.selected" :label="selected.length" />
                 <span class="q-ml-sm">selected
                   <q-icon v-show="selected.length === 1" name="edit" class="q-ml-md" color="accent" size="20px" @click="editContact"/>
                   <q-icon name="delete" class="q-ml-md" color="accent" size="20px" @click="deleteContact"/>
                 </span>
-              </span>
+              </div>
             </template>
             <template v-else>
               <q-checkbox class="float-left" size="xs" color="white" v-model="props.selected"/>
@@ -55,16 +54,12 @@
           </template>
 
 <!--       custom table header -->
-          <template v-slot:header="props" :selected="selected">
+          <template v-slot:header="props">
               <q-tr :props="props">
                 <q-th>
                     <q-checkbox class="float-left" size="xs" v-model="props.selected"/>
                 </q-th>
-                  <q-th
-                    v-for="col in props.cols"
-                    :key="col.name"
-                    :props="props"
-                  >
+                  <q-th v-for="col in props.cols" :key="col.name" :props="props">
                     {{ col.label }}
                   </q-th>
               </q-tr>
@@ -175,19 +170,18 @@ export default {
     },
     deleteContact () {
       this.confirmDelete = true
-      this.deleteWarningDetails[0] = 'Delete Contact?'
+      const contactNos = pluralize('Contact', this.selected.length, true)
+      this.deleteWarningDetails[0] = `Delete ${contactNos}?`
       this.deleteWarningDetails[1] = "Are you sure you want to proceed. This can't be undone"
     },
     proceedDelete () {
       this.confirmDelete = false
-      const selectedCount = this.selected.length
-      const contactNo = pluralize('Contact', selectedCount, true)
+      const contactNos = pluralize('Contact', this.selected.length, true)
       this.selected.filter(item => {
         this.records.splice(this.records.indexOf(item), 1)
-        return item
       })
       this.selected = []
-      return this.notify(`${contactNo} Deleted Success !`, 'red')
+      return this.notify(`${contactNos} Deleted Success !`, 'red')
     }
   }
 }
@@ -202,7 +196,7 @@ export default {
   .add-contact-button{
     margin-top: -20px
   }
-  .action-buttons {
+  .action-buttons{
     margin-top: 9px;
-  }
+     }
 </style>

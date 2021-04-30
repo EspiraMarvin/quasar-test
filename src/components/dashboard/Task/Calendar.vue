@@ -1,20 +1,20 @@
 <template>
   <div>
     <div class="text-overline q-mt-sm q-mb-xs">{{ currentDate }}</div>
-    <div class="q-ma-sm">
-      <ul class="flex justify-between week-days">
+    <div class="q-mx-xs q-my-sm">
+      <ul class="flex justify-between week-days" >
         <li
-            v-for="day in customdays"
-            :key="day.id"
-            @click="active_id=day.id"
+          v-for="day in customdays"
+          :key="day.id"
+          @click="active_id=day.id"
         >
           <p
-            :style="day.class ? 'color: #109CF1; border-radius: 50%' : 'background-color-green'"
+            :style="day.class ? 'color: #109CF1' : ''"
           >
             {{day.day}}
           </p>
           <p
-            :style="day.class ? 'background-color: #109CF1; color: white; border-radius: 50%;' : ''"
+            :style="day.class ? 'background-color: #109CF1; color: white; text-align: center; border-radius: 50%; width: 20px; height: 20px' : ''"
           >
             {{day.date}}
           </p>
@@ -53,5 +53,4 @@ export default {
     margin: 0;
     list-style: none;
   }
-
 </style>

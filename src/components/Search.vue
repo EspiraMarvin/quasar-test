@@ -5,6 +5,7 @@
       class="q-ma-xs q-ml-xs-xs bg-white col-xs-9 col-sm-10 col-md-11"
       filled
       dense
+      v-model="filter"
     >
       <template v-slot:prepend>
         <q-icon name="search" />
@@ -21,7 +22,12 @@
 
 <script>
 export default {
-  name: 'Search'
+  name: 'Search',
+  data () {
+    return {
+      filter: ''
+    }
+  }
 }
 </script>
 

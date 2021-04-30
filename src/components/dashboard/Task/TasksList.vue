@@ -130,11 +130,6 @@ export default {
   computed: {
     limitTask () {
       return this.limit ? this.tasks.slice(0, this.limit) : this.tasks
-    },
-    tasksButtonClass () {
-      return {
-        Completed: this.tasks
-      }
     }
   }
 }

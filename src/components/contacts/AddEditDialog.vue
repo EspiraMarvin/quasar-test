@@ -143,12 +143,14 @@ export default {
         }
       } else {
         // editting
-        if (!this.userForm.name && !this.userForm.companyName &&
-          !this.userForm.role && !this.userForm.forecast) {
-          this.errorMessage = 'All Fields Are Required !'
-        } else if (this.isValidEmail(this.userForm.email) === 'Invalid email') {
+        console.log('editting')
+        if (this.hasWhiteSpacesOnly(this.userForm.name || this.userForm.companyName || this.userForm.role) === 'field is empty') return this.confirm()
+        console.log('1')
+        if (this.isValidEmail(this.userForm.email) === 'Invalid email') {
+          console.log('email error')
           this.errorMessage = 'Invalid email !'
         }
+        console.log('final to be editted')
         // get the object with data to edit
         const formItem = this.userForm
         // find the index of this ID's object

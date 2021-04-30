@@ -10,7 +10,7 @@
         <q-btn flat round icon="menu" color="grey-14" @click="drawer = !drawer" />
 
         <q-toolbar-title>
-          <Search />
+          <Search :filter="filter"/>
         </q-toolbar-title>
 
       </q-toolbar>
@@ -91,6 +91,14 @@ import Search from '../components/Search'
 import EssentialLinks from '../components/navigations/EssentialLinks'
 export default {
   components: { EssentialLinks, Search },
+  props: {
+    filter: {
+      type: String
+    }
+  },
+  mounted () {
+    console.log('search component filter on mainlayout', this.filter)
+  },
   data () {
     return {
       drawer: false,

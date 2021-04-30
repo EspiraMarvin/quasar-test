@@ -3,7 +3,7 @@
     <h4 class="text-h6 text-center">Deals</h4>
     <p class="text-center" v-if="this.$route.params.id">Deals {{this.$route.params.id}}</p>
 
-    <q-list class="my-list q-mr-lg q-ml-lg">
+    <q-list class="q-pa-sm q-mx-xs">
       <q-card
         v-for="deal in deals"
         :key="deal.id"
