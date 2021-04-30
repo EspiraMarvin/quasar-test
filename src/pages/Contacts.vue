@@ -59,7 +59,7 @@
                 <q-th>
                     <q-checkbox class="float-left" size="xs" v-model="props.selected"/>
                 </q-th>
-                  <q-th v-for="col in props.cols" :key="col.name" :props="props">
+                  <q-th  v-for="col in props.cols" :key="col.name" :props="props">
                     {{ col.label }}
                   </q-th>
               </q-tr>

@@ -3,11 +3,11 @@
     <div class="row col-xs-12 q-gutter-md" style="width: 100%">
 
       <!--      left panel with user tasks details -->
-        <TaskDetails class="col-xs-12 col-sm-7 col-md-7 q-pa-xs" />
+        <TaskDetails class="col-xs-12 col-sm-12 col-md-7  q-pa-xs" />
       <!--    end of left panel with user tasks details -->
 
       <!--      right panel with Closed deals and tasks -->
-      <div class="col-xs-12 col-sm-4 col-md-4 q-pa-xs">
+      <div class="col-xs-12 col-sm-12 col-md-4  q-pa-xs">
         <!--        Closed deals -->
         <q-card class="my-card q-mb-md">
           <q-card-section class="q-pa-sm">
