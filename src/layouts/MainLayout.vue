@@ -24,13 +24,14 @@
       :breakpoint="768"
       side="left"
     >
-      <template>
-        <p class="text-h6 text-center text-primary q-mt-sm sidebar-heading">SaaS Kit</p>
-      </template>
+      <div style="position: sticky; top: 0">
+        <template>
+          <p class="text-h6 text-center text-primary q-mt-sm sidebar-heading">SaaS Kit</p>
+        </template>
 
-      <q-separator />
-      <div>
-        <span class="flex justify-center items-center q-ma-md">
+        <q-separator />
+        <div>
+        <span class="flex justify-center items-center q-ma-sm">
           <q-avatar color="primary" class="" text-color="white">
             <img :src="user.avatar">
           </q-avatar>
@@ -40,31 +41,20 @@
         </div>
       </span>
       </div>
+      </div>
 
-      <EssentialLinks />
-
-      <q-list
-        class="large-screen-only"
+      <q-scroll-area
+        :thumb-style="this.thumbStyle"
+        style="height: calc(100% - 30%)"
       >
-        <q-item
-          @click="miniState = !miniState"
-          clickable
-          v-ripple
-          class="bottom-left-button"
-        >
-          <q-item-section avatar>
-            <q-icon name="eva-npm" color="accent" size="sm" />
-          </q-item-section>
+<!--        links component-->
+        <EssentialLinks />
+<!--        links component-->
 
-          <q-item-section class="text-subtitle1">Toggle sidebar</q-item-section>
-        </q-item>
-      </q-list>
-
-      <q-list
-        class="small-screen-only"
-      >
+      </q-scroll-area>
+      <q-list>
         <q-item
-          @click="drawer = !drawer"
+          @click="getClientWidth"
           clickable
           v-ripple
           class="bottom-left-button"
@@ -89,8 +79,10 @@
 <script>
 import Search from '../components/Search'
 import EssentialLinks from '../components/navigations/EssentialLinks'
+import commonMixins from '../mixins/commonMixins'
 export default {
   components: { EssentialLinks, Search },
+  mixins: [commonMixins],
   props: {
     filter: {
       type: String
@@ -111,6 +103,17 @@ export default {
         email: 's.ferguson@gmail.com'
       }
     }
+  },
+  methods: {
+    getClientWidth () {
+      // get widows/client width / viewport
+      const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+      if (width < 770) {
+        this.drawer = false
+      } else {
+        this.miniState = !this.miniState
+      }
+    }
   }
 }
 </script>
@@ -128,7 +131,7 @@ export default {
     margin-left: -12px
   }
   .profile-details{
-    /*overflow: hidden;*/
+    overflow: hidden;
   }
   .bottom-left-button {
     position: absolute;

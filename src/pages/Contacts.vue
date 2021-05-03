@@ -22,14 +22,16 @@
         <q-table
           title="Contacts"
           :data="records"
+          :filter="filterItem"
           :columns="columns"
           row-key="name"
           selection="multiple"
           :selected.sync="selected"
-          :loading="loading"
+          :loading="loadingContacts"
           :pagination.sync="pagination"
           hide-selected-banner
           no-data-label="No Contacts Available"
+          no-results-label="Sorry could not uncover any results"
           style="max-height: 800px"
         >
 <!--          table loading data-->
@@ -51,6 +53,15 @@
             <template v-else>
               <q-checkbox class="float-left" size="xs" color="white" v-model="props.selected"/>
             </template>
+          </template>
+
+<!--          custom no data template -->
+          <template v-slot:no-data="{ icon, message, filter }">
+            <div class="full-width row flex-center text-cyan q-gutter-sm">
+              <q-icon size="2em" name="sentiment_dissatisfied" />
+              <span> {{ message }} </span>
+              <q-icon size="2em" :name="filter ? 'filter_b_and_w' : icon" />
+            </div>
           </template>
 
 <!--       custom table header -->
@@ -113,14 +124,13 @@ import DeleteDialog from '../components/globals/DeletePrompt'
 const pluralize = require('pluralize')
 import AddEditDialog from '../components/contacts/AddEditDialog'
 import commonMixins from '../mixins/commonMixins'
-import { getUsers } from '../Config/data.js'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'Contacts',
   components: { DeleteDialog, AddEditDialog },
   mixins: [commonMixins],
   data () {
     return {
-      loading: false,
       openDialog: false,
       dialogTitle: '',
       editting: false,
@@ -142,18 +152,28 @@ export default {
         { name: 'role', align: 'left', label: 'Role', field: 'role' },
         { name: 'forecast', align: 'left', label: 'Forecast', field: 'forecast' },
         { name: 'recentAct', align: 'left', label: 'Recent Activity', field: 'recentAct' }
-      ],
-      records: []
+      ]
     }
   },
   mounted () {
-    this.loading = true
     setTimeout(() => {
-      this.records = getUsers
-      this.loading = false
+      this.requestData()
     }, 1500)
   },
+  computed: {
+    ...mapGetters({
+      loadingContacts: 'GET_FETCHING_CONTACTS',
+      records: 'GET_CONTACTS',
+      filterItem: 'GET_FILTER_ITEM'
+    })
+  },
   methods: {
+    ...mapActions({
+      deleteContactComplete: 'DELETE_CONTACT'
+    }),
+    requestData () {
+      this.$store.dispatch('FETCH_CONTACTS')
+    },
     addContact () {
       this.openDialog = true
       this.dialogTitle = 'Add Contact'
@@ -177,9 +197,7 @@ export default {
     proceedDelete () {
       this.confirmDelete = false
       const contactNos = pluralize('Contact', this.selected.length, true)
-      this.selected.filter(item => {
-        this.records.splice(this.records.indexOf(item), 1)
-      })
+      this.deleteContactComplete(this.selected)
       this.selected = []
       return this.notify(`${contactNos} Deleted Success !`, 'red')
     }

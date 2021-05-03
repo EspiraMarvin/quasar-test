@@ -1,160 +1,40 @@
 <template>
     <div>
       <q-list>
+        <div  v-for="link in links" :key="link.to">
+          <q-item
+            v-if="!link.expansionLinks"
+            :to="link.to"
+            clickable
+            v-ripple
+            exact
+          >
+            <div class="flex items-end">
+              <q-item-section avatar>
+                <q-icon :name="link.icon" size="sm" />
+              </q-item-section>
 
-        <q-item
-          to="/"
-          clickable
-          v-ripple
-          exact
-        >
-          <div class="flex items-end">
-            <q-item-section avatar>
-              <q-icon name="dashboard" size="sm" />
-            </q-item-section>
-
-            <q-item-section class="text-subtitle1">
-              <span>Dashboard</span>
-            </q-item-section>
-          </div>
-        </q-item>
-
-        <q-item
-          @click="task"
-          to="/tasks"
-          clickable
-          v-ripple
-        >
-          <q-item-section avatar>
-            <q-icon name="splitscreen" size="sm" />
-          </q-item-section>
-
-          <q-item-section class="text-subtitle1">Tasks</q-item-section>
-        </q-item>
-        <q-tabs
-          v-if="isTask"
-          vertical
-          class="tab-spacing"
-        >
-          <q-item class="dropdown-list" to="/tasks/Active" exact clickable>
-              <q-icon class="q-mr-xs" style="" keep-color size="xs" name="radio_button_unchecked" val="orange" color="orange" />
-            <span class="text-black">Active</span>
+              <q-item-section class="text-subtitle1">
+                <span>{{ link.name }}</span>
+              </q-item-section>
+            </div>
           </q-item>
-          <q-item class="dropdown-list" to="/tasks/Completed" exact clickable>
-            <q-icon class="q-mr-xs" keep-color size="xs" name="radio_button_unchecked" val="green" color="green" />
-            <span class="text-black">Completed</span>
-          </q-item>
-          <q-item class="dropdown-list" to="/tasks/Ended" exact clickable>
-            <q-icon class="q-mr-xs" keep-color size="xs" name="radio_button_unchecked" val="red" color="red" />
-            <span class="text-black">Ended</span>
-          </q-item>
-        </q-tabs>
 
-        <q-item
-          @click="email"
-          to="/email"
-          clickable
-          v-ripple
-        >
-          <q-item-section avatar>
-            <q-icon name="mail_outline" size="sm" />
-          </q-item-section>
-
-          <q-item-section class="text-subtitle1">Email</q-item-section>
-        </q-item>
-        <q-tabs
-          v-if="isEmail"
-          vertical
-          no-caps
-          class="tab-spacing"
-        >
-          <q-item class="dropdown-list" to="/email/Draft" exact clickable>
-            <q-icon class="q-mr-xs" keep-color size="xs" name="radio_button_unchecked" val="orange" color="orange" />
-            <span class="text-black">Draft</span>
-          </q-item>
-          <q-item class="dropdown-list" to="/email/Scheduled" exact clickable>
-            <q-icon class="q-mr-xs" keep-color size="xs" name="radio_button_unchecked" val="green" color="indigo" />
-            <span class="text-black">Scheduled</span>
-          </q-item>
-          <q-item class="dropdown-list" to="/email/Sent" exact clickable>
-            <q-icon class="q-mr-xs" keep-color size="xs" name="radio_button_unchecked" val="red" color="green" />
-            <span class="text-black">&nbsp;Sent</span>
-          </q-item>
-          <q-item class="dropdown-list" to="/email/Archived" exact clickable>
-            <q-icon class="q-mr-xs" keep-color size="xs" name="radio_button_unchecked" val="red" color="red" />
-            <span class="text-black" style="margin-right: -10px"> Archived</span>
-          </q-item>
-        </q-tabs>
-
-        <q-item
-          to="/contacts"
-          clickable
-          v-ripple
-        >
-          <q-item-section avatar>
-            <q-icon name="perm_identity" size="sm" />
-          </q-item-section>
-
-          <q-item-section class="text-subtitle1">Contacts</q-item-section>
-        </q-item>
-
-        <q-item
-          to="/chat"
-          clickable
-          v-ripple
-        >
-          <q-item-section avatar>
-            <q-icon name="chat_bubble_outline" size="sm" />
-          </q-item-section>
-
-          <q-item-section class="text-subtitle1">Chat</q-item-section>
-        </q-item>
-
-        <q-item
-          @click="deals"
-          to="/deals"
-          clickable
-          v-ripple
-        >
-          <q-item-section avatar>
-            <q-icon name="view_week" size="sm" />
-          </q-item-section>
-
-          <q-item-section class="text-subtitle1">Deals</q-item-section>
-        </q-item>
-        <q-tabs
-          v-if="isDeal"
-          vertical
-          class="tab-spacing"
-        >
-          <q-item class="dropdown-list" to="/deals/Low" exact clickable>
-            <q-icon class="q-mr-xs" keep-color size="xs" name="radio_button_unchecked" val="orange" color="orange" />
-            <span class="text-black">Low</span>
-          </q-item>
-          <q-item class="dropdown-list" to="/deals/High" exact clickable>
-            <q-icon class="q-mr-xs" keep-color size="xs" name="radio_button_unchecked" val="green" color="green" />
-            <span class="text-black">High</span>
-          </q-item>
-          <q-item class="dropdown-list" to="/deals/Urgent" exact clickable>
-            <q-icon class="q-mr-xs" keep-color size="xs" name="radio_button_unchecked" val="red" color="red" />
-            <span class="text-black">Urgent</span>
-          </q-item>
-        </q-tabs>
-
-        <q-separator />
-
-        <q-item
-          to="/settings"
-          clickable
-          v-ripple
-        >
-          <q-item-section avatar>
-            <q-icon name="more_horiz" size="sm" />
-          </q-item-section>
-
-          <q-item-section class="text-subtitle1">Settings</q-item-section>
-        </q-item>
-
+          <q-expansion-item
+            v-else
+            :icon="link.icon"
+            :label="link.name"
+            :to="link.to"
+            :header-style="{ fontSize: '16px' }"
+          >
+            <div v-for="link in link.expansionLinks" :key="link.index">
+              <q-item class="dropdown-list" :to="link.itemTo" exact clickable>
+                <q-icon class="q-mr-xs" keep-color size="xs" name="radio_button_unchecked" val="orange" :color="link.color" />
+                <span class="text-black">{{ link.item }}</span>
+              </q-item>
+            </div>
+          </q-expansion-item>
+        </div>
       </q-list>
 
     </div>
@@ -165,35 +45,43 @@ export default {
   name: 'EssentialLinks',
   data () {
     return {
-      drawer: false,
-      miniState: true,
-      isTask: false,
-      isEmail: false,
-      isDeal: false,
       links: [
-        {
-          to: '/',
-          name: 'Dashboard',
-          icon: ''
-        },
+        { to: '/', name: 'Dashboard', icon: 'dashboard' },
         {
           to: '/tasks',
           name: 'Tasks',
-          icon: ''
-
-        }
+          icon: 'splitscreen',
+          expansionLinks: [
+            { itemTo: '/tasks/Active', item: 'Active', color: 'orange' },
+            { itemTo: '/tasks/Completed', item: 'Completed', color: 'green' },
+            { itemTo: '/tasks/Ended', item: 'Ended', color: 'red' }
+          ]
+        },
+        {
+          to: '/email',
+          name: 'Emails',
+          icon: 'mail_outline',
+          expansionLinks: [
+            { itemTo: '/email/Draft', item: 'Draft', color: 'orange' },
+            { itemTo: '/email/Scheduled', item: 'Scheduled', color: 'indigo' },
+            { itemTo: '/email/Sent', item: 'Sent', color: 'green' },
+            { itemTo: '/email/Archived', item: 'Archived', color: 'red' }
+          ]
+        },
+        { to: '/contacts', name: 'Contacts', icon: 'perm_identity' },
+        { to: '/chat', name: 'Chat', icon: 'chat_bubble_outline' },
+        {
+          to: '/deals',
+          name: 'Deals',
+          icon: 'view_week',
+          expansionLinks: [
+            { itemTo: '/deals/Low', item: 'Low', color: 'orange' },
+            { itemTo: '/deals/High', item: 'Scheduled', color: 'green' },
+            { itemTo: '/deals/Urgent', item: 'Archived', color: 'red' }
+          ]
+        },
+        { to: '/settings', name: 'Settings', icon: 'more_horiz' }
       ]
-    }
-  },
-  methods: {
-    task () {
-      this.isTask = !this.isTask
-    },
-    email () {
-      this.isEmail = !this.isEmail
-    },
-    deals () {
-      this.isDeal = !this.isDeal
     }
   }
 }
@@ -204,10 +92,7 @@ export default {
     align-items: center;
     justify-content: start;
     margin-left: 50px;
-    margin-top: -1px;
-  }
-  .tab-spacing{
-    margin-top: -10px;
-    margin-bottom: -10px;
+    margin-top: -10px !important;
+    margin-bottom: -10px !important;
   }
 </style>

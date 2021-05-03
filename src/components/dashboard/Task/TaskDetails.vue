@@ -12,7 +12,7 @@
     <q-separator />
       <q-scroll-area
         style="height: 490px"
-        :thumb-style="thumbStyle"
+        :thumb-style="this.thumbStyle"
       >
         <q-card-section class="q-pa-xs">
             <TasksList />
@@ -29,17 +29,13 @@ import TaxSummary from './TaxSummary'
 import TaskProgress from './TaskProgress'
 import Calendar from './Calendar'
 import TasksList from './TasksList'
+import commonMixins from '../../../mixins/commonMixins'
 export default {
   name: 'TaskDetails',
+  mixins: [commonMixins],
   components: { TasksList, Calendar, TaskProgress, TaxSummary },
   data () {
     return {
-      thumbStyle: {
-        right: '1px',
-        backgroundColor: 'grey',
-        width: '2.8px',
-        opacity: 0.3
-      }
     }
   },
   methods: {}

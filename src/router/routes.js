@@ -4,55 +4,42 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Dashboard.vue') }
+      {
+        path: '',
+        component: () => import('pages/Dashboard.vue'),
+        name: 'Dashboard'
+      },
+      {
+        path: '/tasks',
+        component: () => import('pages/Tasks.vue'),
+        name: 'Tasks'
+      },
+      {
+        path: '/tasks/:id', component: () => import('pages/Tasks.vue')
+      },
+      {
+        path: '/email', component: () => import('pages/Email.vue'), name: 'Emails'
+      },
+      {
+        path: '/email/:id', component: () => import('pages/Email.vue')
+      },
+      {
+        path: '/contacts', component: () => import('pages/Contacts.vue'), name: 'Contacts'
+      },
+      {
+        path: '/chat', component: () => import('pages/Chat.vue'), name: 'Chat'
+      },
+      {
+        path: '/deals', component: () => import('pages/Deals.vue'), name: 'Deals'
+      },
+      {
+        path: '/deals/:id', component: () => import('pages/Deals.vue')
+      },
+      {
+        path: '/settings', component: () => import('pages/Settings.vue'), name: 'Settings'
+      }
     ]
   },
-  {
-    path: '/tasks',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [
-      { path: '', component: () => import('pages/Tasks.vue') },
-      { path: '/tasks/:id', component: () => import('pages/Tasks.vue') }
-    ]
-  },
-  {
-    path: '/email',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [
-      { path: '', component: () => import('pages/Email.vue') },
-      { path: '/email/:id', component: () => import('pages/Email.vue') }
-    ]
-  },
-  {
-    path: '/contacts',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [
-      { path: '', component: () => import('pages/Contacts.vue') }
-    ]
-  },
-  {
-    path: '/chat',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [
-      { path: '', component: () => import('pages/Chat.vue') }
-    ]
-  },
-  {
-    path: '/deals',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [
-      { path: '', component: () => import('pages/Deals.vue') },
-      { path: '/deals/:id', component: () => import('pages/Deals.vue') }
-    ]
-  },
-  {
-    path: '/settings',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [
-      { path: '', component: () => import('pages/Settings.vue') }
-    ]
-  },
-
   // Always leave this as last one,
   // but you can also remove it
   {

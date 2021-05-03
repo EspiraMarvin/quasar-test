@@ -79,6 +79,7 @@ const moment = require('moment')
 import { cloneDeep } from 'lodash'
 import ErrorMessage from '../globals/ErrorMessage'
 import commonMixins from '../../mixins/commonMixins'
+import { mapActions } from 'vuex'
 export default {
   name: 'AddEditDialog',
   components: { ErrorMessage },
@@ -88,13 +89,13 @@ export default {
       type: String,
       required: true
     },
-    closeDialog: {
-      type: Function,
-      required: false
-    },
     records: {
       type: Array,
       required: true
+    },
+    closeDialog: {
+      type: Function,
+      required: false
     },
     editting: {
       type: Boolean,
@@ -125,6 +126,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      addContact: 'ADD_CONTACT',
+      editContact: 'EDIT_CONTACT'
+    }),
     btnSave () {
       if (!this.editting) {
         if (this.hasWhiteSpacesOnly(this.userForm.name && this.userForm.companyName &&
@@ -134,9 +139,8 @@ export default {
         } else if (this.isValidEmail(this.userForm.email) === 'Invalid email') {
           this.errorMessage = 'Invalid email'
         } else if (this.userForm.name && this.userForm && this.userForm.companyName && this.userForm.role && this.userForm.forecast) {
-          // add records to array (front)
           this.userForm.recentAct = moment(this.randomDate(new Date(2020, 5, 1), new Date())).startOf('hour').fromNow() // gets relative time
-          this.records.unshift(this.userForm)
+          this.addContact(this.userForm) // add to store
           this.userForm = {} // clear form
           this.closeDialog()
           return this.notify('Contact Added Success !', 'secondary')
@@ -153,17 +157,7 @@ export default {
         console.log('final to be editted')
         // get the object with data to edit
         const formItem = this.userForm
-        // find the index of this ID's object
-        const objIndex = this.records.findIndex(obj => obj.id === formItem.id)
-        this.records[objIndex].id = formItem.id
-        this.records[objIndex].name = formItem.name
-        this.records[objIndex].avatar = formItem.avatar
-        this.records[objIndex].email = formItem.email
-        this.records[objIndex].companyName = formItem.companyName
-        this.records[objIndex].role = formItem.role
-        this.records[objIndex].forecast = formItem.forecast
-        this.records[objIndex].recentAct = formItem.recentAct
-        // after edit clear form
+        this.editContact(formItem)
         this.userForm = {}
         this.closeDialog()
         this.notify('Contact Updated Success !', 'secondary')
