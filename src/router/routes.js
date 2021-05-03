@@ -12,16 +12,22 @@ const routes = [
       {
         path: '/tasks',
         component: () => import('pages/Tasks.vue'),
-        name: 'Tasks'
+        name: 'Tasks',
+        children: [
+          {
+            path: '/tasks/:id', component: () => import('pages/Tasks.vue')
+          }
+        ]
       },
       {
-        path: '/tasks/:id', component: () => import('pages/Tasks.vue')
-      },
-      {
-        path: '/email', component: () => import('pages/Email.vue'), name: 'Emails'
-      },
-      {
-        path: '/email/:id', component: () => import('pages/Email.vue')
+        path: '/email',
+        component: () => import('pages/Email.vue'),
+        name: 'Emails',
+        children: [
+          {
+            path: '/email/:id', component: () => import('pages/Email.vue')
+          }
+        ]
       },
       {
         path: '/contacts', component: () => import('pages/Contacts.vue'), name: 'Contacts'
@@ -30,10 +36,14 @@ const routes = [
         path: '/chat', component: () => import('pages/Chat.vue'), name: 'Chat'
       },
       {
-        path: '/deals', component: () => import('pages/Deals.vue'), name: 'Deals'
-      },
-      {
-        path: '/deals/:id', component: () => import('pages/Deals.vue')
+        path: '/deals',
+        component: () => import('pages/Deals.vue'),
+        name: 'Deals',
+        children: [
+          {
+            path: '/deals/:id', component: () => import('pages/Deals.vue')
+          }
+        ]
       },
       {
         path: '/settings', component: () => import('pages/Settings.vue'), name: 'Settings'
