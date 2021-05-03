@@ -88,9 +88,6 @@ export default {
       type: String
     }
   },
-  mounted () {
-    console.log('search component filter on mainlayout', this.filter)
-  },
   data () {
     return {
       drawer: false,

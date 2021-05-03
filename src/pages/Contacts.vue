@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-pa-sm q-mt-sm">
+  <q-page class="q-pa-sm q-mt-xs">
     <template>
       <div class="q-pa-xs q-pt-lg">
         <div class="flex justify-between items-center q-mb-sm">

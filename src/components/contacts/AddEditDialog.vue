@@ -147,14 +147,13 @@ export default {
         }
       } else {
         // editting
-        console.log('editting')
-        if (this.hasWhiteSpacesOnly(this.userForm.name || this.userForm.companyName || this.userForm.role) === 'field is empty') return this.confirm()
-        console.log('1')
-        if (this.isValidEmail(this.userForm.email) === 'Invalid email') {
-          console.log('email error')
+        if (!this.userForm.name || !this.userForm.companyName || !this.userForm.role || !this.userForm.forecast) {
+          this.errorMessage = 'All fields Are Required !'
+          return this.errorMessage
+        } else if (this.isValidEmail(this.userForm.email) === 'Invalid email') {
           this.errorMessage = 'Invalid email !'
+          return this.errorMessage
         }
-        console.log('final to be editted')
         // get the object with data to edit
         const formItem = this.userForm
         this.editContact(formItem)
