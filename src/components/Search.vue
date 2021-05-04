@@ -30,10 +30,10 @@ export default {
     }
   },
   watch: {
-    // watch input value of a search and mutate it to the store whenever it changes
+    // watch input value of a search, dispatch search action to mutate input value to the store whenever it changes
     filterItem (filterItem) {
       if (this.$route.name === 'Contacts') {
-        this.$store.commit('SET_FILTER_ITEM', filterItem)
+        this.$store.dispatch('FILTER_CONTACTS', filterItem)
       }
     }
   },
