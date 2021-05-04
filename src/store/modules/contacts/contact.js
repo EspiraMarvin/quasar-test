@@ -3,7 +3,7 @@ import { getUsers } from 'src/Config/data'
 const state = () => ({
   records: [],
   fetchingContacts: true,
-  filterItem: null
+  filterItem: ''
 
 })
 
@@ -24,7 +24,7 @@ const mutations = {
     state.records.unshift(data)
   },
   SET_EDIT_CONTACT (state, formItem) {
-    // find the index of this ID's object
+    // find the index of this ID's object and edit the object
     const objIndex = state.records.findIndex(obj => obj.id === formItem.id)
     state.records[objIndex].id = formItem.id
     state.records[objIndex].name = formItem.name
@@ -59,6 +59,9 @@ const actions = {
   },
   DELETE_CONTACT (context, selected) {
     context.commit('SET_DELETE_CONTACT', selected)
+  },
+  FILTER_CONTACTS (context, filterItem) {
+    context.commit('SET_FILTER_ITEM', filterItem)
   }
 }
 
