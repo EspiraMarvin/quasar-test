@@ -100,7 +100,8 @@ module.exports = function (/* ctx */) {
       // Quasar plugins
       plugins: [
         'Notify',
-        'Dialog'
+        'Dialog',
+        'LoadingBar'
       ]
     },
 
@@ -124,7 +125,7 @@ module.exports = function (/* ctx */) {
         short_name: 'Quasar App',
         description: 'A Quasar Framework app',
         display: 'standalone',
-        orientation: 'portrait',
+        orientation: 'landscape',
         background_color: '#ffffff',
         theme_color: '#027be3',
         icons: [
