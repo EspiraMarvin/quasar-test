@@ -32,9 +32,10 @@ const commonMixins = {
     notify (message, type) {
       this.$q.notify({
         message: message,
-        position: 'top',
+        position: 'bottom',
         color: type,
-        icon: 'announcement'
+        icon: 'announcement',
+        timeout: '1500'
       })
     },
 
