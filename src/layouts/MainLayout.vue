@@ -24,7 +24,7 @@
       :breakpoint="768"
       side="left"
     >
-      <div style="position: sticky; top: 0">
+      <div>
         <template>
           <p class="text-h6 text-center text-primary q-mt-sm sidebar-heading">SaaS Kit</p>
         </template>
@@ -57,7 +57,7 @@
           @click="getClientWidth"
           clickable
           v-ripple
-          class="bottom-left-button"
+          class="absolute-bottom-left full-width"
         >
           <q-item-section avatar>
             <q-icon name="eva-npm" color="accent" size="sm" />
@@ -129,11 +129,5 @@ export default {
   }
   .profile-details{
     overflow: hidden;
-  }
-  .bottom-left-button {
-    position: absolute;
-    left:    0;
-    bottom:  0;
-    width: 100%;
   }
 </style>
