@@ -15,7 +15,7 @@
 
     <q-space />
 
-    <q-icon name="eva-bell-outline" class="q-pa-sm " size="md" color="black" />
+    <q-icon name="eva-bell-outline" class="q-pa-sm q-mr-xs" size="md" color="black" />
 
   </div>
 

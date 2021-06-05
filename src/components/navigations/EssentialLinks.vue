@@ -93,6 +93,5 @@ export default {
     justify-content: start;
     margin-left: 50px;
     margin-top: -10px !important;
-    margin-bottom: -10px !important;
   }
 </style>

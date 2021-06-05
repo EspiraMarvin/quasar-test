@@ -150,7 +150,7 @@ export default {
         { name: 'email', align: 'left', label: 'Email', field: 'email', sortable: true },
         { name: 'companyName', align: 'left', label: 'Company Name', field: 'companyName', sortable: true },
         { name: 'role', align: 'left', label: 'Role', field: 'role' },
-        { name: 'forecast', align: 'left', label: 'Forecast', field: 'forecast' },
+        { name: 'forecast', align: 'left', label: 'Forecast (%)', field: 'forecast' },
         { name: 'recentAct', align: 'left', label: 'Recent Activity', field: 'recentAct' }
       ]
     }
