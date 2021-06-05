@@ -92,6 +92,5 @@ export default {
     align-items: center;
     justify-content: start;
     margin-left: 50px;
-    margin-top: -10px !important;
   }
 </style>
