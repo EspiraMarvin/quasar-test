@@ -26,9 +26,10 @@
             :label="link.name"
             :to="link.to"
             :header-style="{ fontSize: '16px' }"
+            :content-inset-level="0.9"
           >
             <div v-for="link in link.expansionLinks" :key="link.index">
-              <q-item class="dropdown-list" :to="link.itemTo" exact clickable>
+              <q-item :to="link.itemTo" exact clickable>
                 <q-icon class="q-mr-xs" keep-color size="xs" name="radio_button_unchecked" val="orange" :color="link.color" />
                 <span class="text-black">{{ link.item }}</span>
               </q-item>
@@ -88,9 +89,5 @@ export default {
 </script>
 
 <style scoped>
-  .dropdown-list{
-    align-items: center;
-    justify-content: start;
-    margin-left: 50px;
-  }
+
 </style>
