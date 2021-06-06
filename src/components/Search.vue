@@ -2,7 +2,7 @@
   <div class="row">
     <q-input
       :placeholder="currentRouteName"
-      class="q-ma-xs q-ml-xs-xs bg-white col-xs-9 col-sm-10 col-md-11"
+      class="q-ma-xs q-ml-xs-xs bg-white col-xs-9 col-sm-10 col-md-10 col-lg-11"
       filled
       dense
       debounce="300"
@@ -15,8 +15,17 @@
 
     <q-space />
 
-    <q-icon name="eva-bell-outline" class="q-pa-sm q-mr-xs" size="md" color="black" />
+    <div v-if="$q.screen.lt.sm">
+      <q-icon name="eva-bell-outline" class="q-pa-sm q-mr-xs" size="md" color="black">
+        <q-badge rounded class="absolute-top-right" floating color="red" />
+      </q-icon>
+    </div>
 
+    <div v-else>
+      <q-icon name="eva-bell-outline" class="q-pa-sm q-mr-xl" size="md" color="black">
+        <q-badge rounded class="absolute-top-right" floating color="red" />
+      </q-icon>
+    </div>
   </div>
 
 </template>
