@@ -15,14 +15,14 @@
 
     <q-space />
 
-    <div v-if="$q.screen.lt.sm">
+    <div v-if="$q.screen.lt.md">
       <q-icon name="eva-bell-outline" class="q-pa-sm q-mr-xs" size="md" color="black">
         <q-badge rounded class="absolute-top-right" floating color="red" />
       </q-icon>
     </div>
 
     <div v-else>
-      <q-icon name="eva-bell-outline" class="q-pa-sm q-mr-xl" size="md" color="black">
+      <q-icon name="eva-bell-outline" class="q-pa-sm q-mr-lg" size="md" color="black">
         <q-badge rounded class="absolute-top-right" floating color="red" />
       </q-icon>
     </div>
