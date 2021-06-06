@@ -9,7 +9,7 @@
             v-ripple
             exact
           >
-            <div class="flex items-end">
+            <div class="flex items-center justify-center">
               <q-item-section avatar>
                 <q-icon :name="link.icon" size="sm" />
               </q-item-section>
@@ -29,9 +29,11 @@
             :content-inset-level="0.9"
           >
             <div v-for="link in link.expansionLinks" :key="link.index">
-              <q-item :to="link.itemTo" exact clickable>
-                <q-icon class="q-mr-xs" keep-color size="xs" name="radio_button_unchecked" val="orange" :color="link.color" />
-                <span class="text-black">{{ link.item }}</span>
+              <q-item :to="link.itemTo" exact clickable dense>
+                <div class="flex items-center justify-center">
+                  <q-icon class="q-mr-xs q-my-sm" keep-color size="xs" name="radio_button_unchecked" val="orange" :color="link.color" />
+                  <span class="text-black">{{ link.item }}</span>
+                </div>
               </q-item>
             </div>
           </q-expansion-item>
