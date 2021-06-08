@@ -1,14 +1,14 @@
 <template>
   <q-page class="q-pa-sm q-mt-xs">
     <template>
-      <div class="q-pa-xs q-pt-lg">
+      <div class="q-pa-xs q-pt-md">
         <div class="flex justify-between items-center q-mb-sm">
           <div class="col-xs-4 col-sm-1">
             <span>Company:
-              <q-btn-dropdown flat dense dense-toggle no-caps  class="top-table-expansion-item" label="All">
+              <q-expansion-item flat dense dense-toggle no-caps  class="top-table-expansion-item" label="All">
                   <q-item dense exact clickable><span class="text-caption">10</span></q-item>
                   <q-item dense exact clickable><span class="text-caption">50</span></q-item>
-              </q-btn-dropdown>
+              </q-expansion-item>
             </span>
           </div>
           <q-space />
@@ -207,8 +207,8 @@ export default {
 
 <style scoped>
   .top-table-expansion-item{
-    margin-left: 4px;
-    margin-top: 2px;
+    margin-left: 60px;
+    margin-top: -25px;
     color: #109CF1
   }
   .add-contact-button{
