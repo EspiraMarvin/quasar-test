@@ -5,10 +5,10 @@
         <div class="flex justify-between items-center q-mb-sm">
           <div class="col-xs-4 col-sm-1">
             <span>Company:
-              <q-expansion-item dense dense-toggle class="top-table-expansion-item" label="All">
-                <q-item dense exact clickable><span class="text-caption">10</span></q-item>
-                <q-item dense exact clickable><span class="text-caption">50</span></q-item>
-              </q-expansion-item>
+              <q-btn-dropdown flat dense dense-toggle no-caps  class="top-table-expansion-item" label="All">
+                  <q-item dense exact clickable><span class="text-caption">10</span></q-item>
+                  <q-item dense exact clickable><span class="text-caption">50</span></q-item>
+              </q-btn-dropdown>
             </span>
           </div>
           <q-space />
@@ -207,8 +207,8 @@ export default {
 
 <style scoped>
   .top-table-expansion-item{
-    margin-left: 60px;
-    margin-top: -25px;
+    margin-left: 4px;
+    margin-top: 2px;
     color: #109CF1
   }
   .add-contact-button{
